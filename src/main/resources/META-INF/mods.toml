@@ -10,6 +10,7 @@ credits="Cammie"
 description='''
 a not very original port of a mod
 '''
+iconFile="vikare.png"
 [[dependencies.Vikare]]
    modId="forge"
    mandatory=true
