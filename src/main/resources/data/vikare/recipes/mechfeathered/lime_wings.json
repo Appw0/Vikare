@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients":
+  [
+    {
+      "tag": "vikare:mechanical_feathered_wings"
+    },
+    {
+      "tag": "forge:dyes/lime"
+    }
+  ],
+  "result":
+  {
+    "item": "vikare:lime_mechanical_feathered_wings"
+  }
+}

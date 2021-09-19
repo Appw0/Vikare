@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients":
+  [
+    {
+      "tag": "vikare:light_wings"
+    },
+    {
+      "tag": "forge:dyes/orange"
+    }
+  ],
+  "result":
+  {
+    "item": "vikare:orange_light_wings"
+  }
+}

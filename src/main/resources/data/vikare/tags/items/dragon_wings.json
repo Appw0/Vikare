@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values":
+  [
+    "vikare:white_dragon_wings",
+    "vikare:orange_dragon_wings",
+    "vikare:magenta_dragon_wings",
+    "vikare:light_blue_dragon_wings",
+    "vikare:yellow_dragon_wings",
+    "vikare:lime_dragon_wings",
+    "vikare:pink_dragon_wings",
+    "vikare:grey_dragon_wings",
+    "vikare:light_grey_dragon_wings",
+    "vikare:cyan_dragon_wings",
+    "vikare:purple_dragon_wings",
+    "vikare:blue_dragon_wings",
+    "vikare:brown_dragon_wings",
+    "vikare:green_dragon_wings",
+    "vikare:red_dragon_wings",
+    "vikare:black_dragon_wings"
+  ]
+}

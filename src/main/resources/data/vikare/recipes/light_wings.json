@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "WWW",
+    "FEF",
+    "F F"
+  ],
+  "key":
+  {
+    "E":
+    {
+      "item": "minecraft:elytra"
+    },
+    "F":
+    {
+      "tag": "forge:dusts/glowstone"
+    },
+    "W":
+    {
+      "item": "minecraft:honeycomb"
+    }
+  },
+  "result":
+  {
+    "item": "vikare:yellow_light_wings"
+  }
+}
+

@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values":
+  [
+    "vikare:white_feathered_wings",
+    "vikare:orange_feathered_wings",
+    "vikare:magenta_feathered_wings",
+    "vikare:light_blue_feathered_wings",
+    "vikare:yellow_feathered_wings",
+    "vikare:lime_feathered_wings",
+    "vikare:pink_feathered_wings",
+    "vikare:grey_feathered_wings",
+    "vikare:light_grey_feathered_wings",
+    "vikare:cyan_feathered_wings",
+    "vikare:purple_feathered_wings",
+    "vikare:blue_feathered_wings",
+    "vikare:brown_feathered_wings",
+    "vikare:green_feathered_wings",
+    "vikare:red_feathered_wings",
+    "vikare:black_feathered_wings"
+  ]
+}

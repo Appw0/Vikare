@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values":
+  [
+    "vikare:white_light_wings",
+    "vikare:orange_light_wings",
+    "vikare:magenta_light_wings",
+    "vikare:light_blue_light_wings",
+    "vikare:yellow_light_wings",
+    "vikare:lime_light_wings",
+    "vikare:pink_light_wings",
+    "vikare:grey_light_wings",
+    "vikare:light_grey_light_wings",
+    "vikare:cyan_light_wings",
+    "vikare:purple_light_wings",
+    "vikare:blue_light_wings",
+    "vikare:brown_light_wings",
+    "vikare:green_light_wings",
+    "vikare:red_light_wings",
+    "vikare:black_light_wings"
+  ]
+}

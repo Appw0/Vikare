@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients":
+  [
+    {
+      "tag": "vikare:feathered_wings"
+    },
+    {
+      "tag": "forge:dyes/blue"
+    }
+  ],
+  "result":
+  {
+    "item": "vikare:blue_feathered_wings"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures":
+  {
+    "layer0": "vikare:item/mechanical_leather_wings",
+    "layer1": "vikare:item/mechanical_leather_wings_2"
+  }
+}

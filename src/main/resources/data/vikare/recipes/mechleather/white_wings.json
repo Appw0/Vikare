@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients":
+  [
+    {
+      "tag": "vikare:mechanical_leather_wings"
+    },
+    {
+      "tag": "forge:dyes/white"
+    }
+  ],
+  "result":
+  {
+    "item": "vikare:white_mechanical_leather_wings"
+  }
+}

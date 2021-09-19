@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures":
-  {
-    "layer0": "icarus:item/mechanical_leather_wings",
-    "layer1": "icarus:item/mechanical_leather_wings_2"
-  }
-}

@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "WWW",
+    "NEN",
+    "F F"
+  ],
+  "key":
+  {
+    "E":
+    {
+      "item": "minecraft:elytra"
+    },
+    "F":
+    {
+      "tag": "forge:dusts/glowstone"
+    },
+    "N":
+    {
+      "tag": "forge:nether_stars"
+    },
+    "W":
+    {
+      "item": "minecraft:honeycomb"
+    }
+  },
+  "result":
+  {
+    "item": "vikare:zanzas_wings"
+  }
+}
+

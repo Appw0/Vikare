@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "WWW",
+    "IEI",
+    "F F"
+  ],
+  "key":
+  {
+    "E":
+    {
+      "item": "minecraft:elytra"
+    },
+    "F":
+    {
+      "tag": "forge:feathers"
+    },
+    "I":
+    {
+      "tag": "forge:ingots/iron"
+    },
+    "W":
+    {
+      "item": "minecraft:honeycomb"
+    }
+  },
+  "result":
+  {
+    "item": "vikare:white_mechanical_feathered_wings"
+  }
+}
+

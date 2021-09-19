@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients":
+  [
+    {
+      "tag": "vikare:dragon_wings"
+    },
+    {
+      "tag": "forge:dyes/cyan"
+    }
+  ],
+  "result":
+  {
+    "item": "vikare:cyan_dragon_wings"
+  }
+}

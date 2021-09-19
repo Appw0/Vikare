@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients":
+  [
+    {
+      "tag": "vikare:light_wings"
+    },
+    {
+      "tag": "forge:dyes/yellow"
+    }
+  ],
+  "result":
+  {
+    "item": "vikare:yellow_light_wings"
+  }
+}
