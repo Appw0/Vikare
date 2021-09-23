@@ -1,9 +1,13 @@
 package me.appw.vikare.client;
 
 import me.appw.vikare.Vikare;
+import me.appw.vikare.client.models.*;
 import me.appw.vikare.common.items.WingItem;
 import me.appw.vikare.core.registry.Items;
+import me.appw.vikare.core.registry.WingTypes;
+import me.appw.vikare.core.registry.WingTypes.WingType;
 import me.appw.vikare.core.util.ColorHelper;
+import net.minecraft.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -11,13 +15,25 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import static me.appw.vikare.core.registry.Items.*;
 
 @Mod.EventBusSubscriber(modid = Vikare.MODID, value = Dist.CLIENT, bus = Bus.MOD)
 public class VikareClient {
+    public static final Map<WingType, Class<?>> MODELS = new LinkedHashMap<>();
 
     @SubscribeEvent
     public static void setupClient(FMLClientSetupEvent evt) {
+        MODELS.put(WingTypes.FEATHERED, FeatheredWingsModel.class);
+        MODELS.put(WingTypes.MECHANICAL_FEATHERED, FeatheredWingsModel.class);
+        MODELS.put(WingTypes.DRAGON, LeatherWingsModel.class);
+        MODELS.put(WingTypes.MECHANICAL_LEATHER, LeatherWingsModel.class);
+        MODELS.put(WingTypes.LIGHT, LightWingsModel.class);
+        MODELS.put(WingTypes.FLANDRES, FlandresWingsModel.class);
+        MODELS.put(WingTypes.DISCORDS, DiscordsWingsModel.class);
+        MODELS.put(WingTypes.ZANZAS, ZanzasWingsModel.class);
     }
 
     @SubscribeEvent

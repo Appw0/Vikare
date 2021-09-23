@@ -4,6 +4,7 @@ import me.appw.vikare.common.items.WingItem;
 import me.appw.vikare.core.config.VikareConfig;
 import me.appw.vikare.core.network.NetworkHandler;
 import me.appw.vikare.core.registry.Items;
+import me.appw.vikare.core.registry.Sounds;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -56,6 +57,7 @@ public class Vikare {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, VikareConfig.COMMON_SPEC);
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+        Sounds.register();
         Items.register();
     }
 
