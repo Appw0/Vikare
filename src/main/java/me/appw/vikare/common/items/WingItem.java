@@ -1,5 +1,6 @@
 package me.appw.vikare.common.items;
 
+import com.google.common.collect.Lists;
 import me.appw.vikare.Vikare;
 import me.appw.vikare.core.capability.WingItemCapability;
 import me.appw.vikare.core.config.VikareConfig;
@@ -8,6 +9,7 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.ITag.INamedTag;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagCollectionManager;
 import net.minecraft.util.*;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -17,6 +19,9 @@ import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WingItem extends Item { //, IDyeableArmorItem {
     private final DyeColor primaryColor; // TODO: maybe one day this could be NBT values?
@@ -67,9 +72,19 @@ public class WingItem extends Item { //, IDyeableArmorItem {
         };
     }
 
+    @ParametersAreNonnullByDefault
     @Override
     public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-        return repair.getItem() == Items.PHANTOM_MEMBRANE; // wait what about feathers?? membrane for feathered wings only makes sense balance wise
+//        return repair.getItem() == Items.PHANTOM_MEMBRANE; // wait what about feathers?? membrane for feathered wings only makes sense balance wise
+        return wingType.repairItemsTag.contains(repair.getItem());
+    }
+
+    public List<ItemStack> getRepairItemStacks() {
+        List<ItemStack> itemStacks = new ArrayList<>();
+        wingType.repairItemsTag.getAllElements().forEach(item -> {
+            itemStacks.add(new ItemStack(item));
+        });
+        return itemStacks;
     }
 
     public DyeColor getPrimaryColor() {
