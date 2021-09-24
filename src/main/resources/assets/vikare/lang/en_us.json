@@ -90,5 +90,22 @@
 
   "item.vikare.flandres_wings": "Flandre's Wings",
   "item.vikare.discords_wings": "Discord's Wings",
-  "item.vikare.zanzas_wings": "Zanza's Wings"
+  "item.vikare.zanzas_wings": "Zanza's Wings",
+
+  "subtitles.item.feathered_wings.flap": "Wings flap",
+  "subtitles.item.feathered_wings.equip": "Wings rustle",
+  "subtitles.item.mechanical_feathered_wings.flap": "Wings flap",
+  "subtitles.item.mechanical_feathered_wings.equip": "Wings rustle",
+  "subtitles.item.dragon_wings.flap": "Wings flap",
+  "subtitles.item.dragon_wings.equip": "Wings rustle",
+  "subtitles.item.mechanical_leather_wings.flap": "Wings flap",
+  "subtitles.item.mechanical_leather_wings.equip": "Wings rustle",
+  "subtitles.item.light_wings.flap": "Wings flap",
+  "subtitles.item.light_wings.equip": "Wings rustle",
+  "subtitles.item.flandres_wings.flap": "Wings flap",
+  "subtitles.item.flandres_wings.equip": "Wings rustle",
+  "subtitles.item.discords_wings.flap": "Chaos noises",
+  "subtitles.item.discords_wings.equip": "Wings rustle",
+  "subtitles.item.zanzas_wings.flap": "Wings flap",
+  "subtitles.item.zanzas_wings.equip": "Wings rustle"
 }
