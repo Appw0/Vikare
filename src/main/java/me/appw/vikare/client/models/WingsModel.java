@@ -78,10 +78,8 @@ public class WingsModel<T extends LivingEntity> extends EntityModel<T> {
                 flap_distance = 1.0F;
             }
             if (movement > this.last_movement && this.last_movement == 0.0) {
-//                Vikare.LOGGER.debug("move flap?");
                 flapState = FlapState.FLAP;
             }
-//            Vikare.LOGGER.debug(this.last_movement);
             this.last_movement = movement;
         } else if (entity.isSneaking()) {
             state = State.CROUCHING;
@@ -100,7 +98,6 @@ public class WingsModel<T extends LivingEntity> extends EntityModel<T> {
             if (normalized_flap > 0 && flapState == FlapState.DONE) {
                 flapState = FlapState.IDLE;
             } else if (normalized_flap < 0 && flapState == FlapState.IDLE) {
-//                Vikare.LOGGER.debug("anim flap");
                 flapState = FlapState.FLAP;
             }
         }
@@ -122,12 +119,6 @@ public class WingsModel<T extends LivingEntity> extends EntityModel<T> {
             this.rightWing.rotateAngleY = (this.rightWing.rotateAngleY + (wing_yaw - this.rightWing.rotateAngleY) * 0.1F);
             this.rightWing.rotateAngleZ = (this.rightWing.rotateAngleZ + (wing_roll - this.rightWing.rotateAngleZ) * 0.1F);
         }
-
-//        this.leftWing.rotationPointX = -this.rightWing.rotationPointX;
-//        this.leftWing.rotateAngleY = -this.rightWing.rotateAngleY;
-//        this.leftWing.rotationPointY = this.rightWing.rotationPointY;
-//        this.leftWing.rotateAngleX = this.rightWing.rotateAngleX;
-//        this.leftWing.rotateAngleZ = -this.rightWing.rotationPointZ;
 
         this.leftWing.rotationPointX = -this.rightWing.rotationPointX;
         this.leftWing.rotateAngleY = -this.rightWing.rotateAngleY;
