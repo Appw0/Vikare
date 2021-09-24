@@ -4,7 +4,10 @@ import me.appw.vikare.Vikare;
 import me.appw.vikare.client.models.*;
 import me.appw.vikare.common.items.WingItem;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
+import net.minecraft.tags.ITag;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.RegistryObject;
@@ -26,6 +29,7 @@ public class WingTypes {
         public final ResourceLocation layer2;
         public final RegistryObject<SoundEvent> equipSound;
         public final RegistryObject<SoundEvent> flapSound;
+        public final ITag.INamedTag<Item> repairItemsTag;
 
         WingType(String name, RegistryObject<SoundEvent> equipSound, RegistryObject<SoundEvent> flapSound) {
             this.name = name;
@@ -34,6 +38,7 @@ public class WingTypes {
             this.flapSound = flapSound;
             this.layer1 = new ResourceLocation(Vikare.MODID, "textures/entity/" + name + "_wings.png");
             this.layer2 = new ResourceLocation(Vikare.MODID, "textures/entity/" + name + "_wings_2.png");
+            this.repairItemsTag = ItemTags.makeWrapperTag(Vikare.MODID + ":" + name + "_wings_repair_items");
         }
 
         WingType (String name, RegistryObject<SoundEvent> equipSound, RegistryObject<SoundEvent> flapSound, Rarity rarity) {
@@ -43,6 +48,7 @@ public class WingTypes {
             this.flapSound = flapSound;
             this.layer1 = new ResourceLocation(Vikare.MODID, "textures/entity/" + name + "_wings.png");
             this.layer2 = new ResourceLocation(Vikare.MODID, "textures/entity/" + name + "_wings_2.png");
+            this.repairItemsTag = ItemTags.makeWrapperTag(Vikare.MODID + ":" + name + "_wings_repair_items");
         }
     }
 }
