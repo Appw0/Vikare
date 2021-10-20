@@ -75,7 +75,6 @@ public class WingItem extends Item { //, IDyeableArmorItem {
     @ParametersAreNonnullByDefault
     @Override
     public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-//        return repair.getItem() == Items.PHANTOM_MEMBRANE; // wait what about feathers?? membrane for feathered wings only makes sense balance wise
         return wingType.repairItemsTag.contains(repair.getItem());
     }
 
@@ -85,6 +84,10 @@ public class WingItem extends Item { //, IDyeableArmorItem {
             itemStacks.add(new ItemStack(item));
         });
         return itemStacks;
+    }
+
+    public boolean isUsable(ItemStack stack) {
+        return stack.getDamage() < stack.getMaxDamage() - 1;
     }
 
     public DyeColor getPrimaryColor() {

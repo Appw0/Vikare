@@ -20,6 +20,7 @@ import net.minecraft.client.settings.PointOfView;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -66,8 +67,7 @@ public class WingItemCapability implements ICurio {
 
             if (player.isElytraFlying()) {
                 if (player.moveForward > 0) {
-                    applySpeed(player);
-
+                    if (wings.isUsable(stack)) applySpeed(player);
                     CPlayerFlappingPacket.send(last_movement == 0 ? FlappingState.STARTED : FlappingState.NONE);
                 } else if (last_movement > 0) {
                     CPlayerFlappingPacket.send(FlappingState.ENDED);
@@ -80,14 +80,22 @@ public class WingItemCapability implements ICurio {
                 if (player.getPosY() > player.world.getHeight() + 64 && player.ticksExisted % 20 == 0 && WingItem.MELTS.contains(wings)) {
                     stack.damageItem(1, player, p -> CuriosApi.getCuriosHelper().onBrokenCurio(identifier, index, p));
                 }
+
+                if (!wings.isUsable(stack)) {
+                    wingsModel.setBroken();
+                    ModifiableAttributeInstance gravity = player.getAttribute(net.minecraftforge.common.ForgeMod.ENTITY_GRAVITY.get());
+                    double adjustedLift = gravity.getValue() * -MathHelper.cos(player.rotationPitch * ((float)Math.PI / 180F));;
+                    Vector3d velocity = player.getMotion().add(0.0D, adjustedLift, 0.0D);
+                    player.setMotion(velocity.x, velocity.y, velocity.z);
+                }
             } else {
                 if (player.isOnGround() || player.isInWater()) {
                     shouldSlowFall = false;
                 }
                 if (shouldSlowFall) {
                     if (wingsModel != null) wingsModel.setSlowFall();
-                    player.fallDistance = 0F;
-                    player.setMotion(player.getMotion().x, -0.4, player.getMotion().z);
+                        player.fallDistance = wings.isUsable(stack) ? 0F : Math.min(player.fallDistance, 10F);
+                        player.setMotion(player.getMotion().x, wings.isUsable(stack) ? -0.4 : -1, player.getMotion().z);
                 }
             }
             if (player.world.isRemote) {

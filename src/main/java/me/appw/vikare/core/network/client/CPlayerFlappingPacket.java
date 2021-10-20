@@ -49,7 +49,9 @@ public class CPlayerFlappingPacket {
             if (sender != null) {
                 Optional<ImmutableTriple<String, Integer, ItemStack>> equippedCurio = CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof WingItem, sender);
                 if (equippedCurio.isPresent()) {
-                    if (!sender.isCreative() && !WingItem.FREE_FLIGHT.contains(equippedCurio.get().right.getItem())) {
+                    ImmutableTriple<String, Integer, ItemStack> equippedWings = equippedCurio.get();
+                    WingItem wingItem = (WingItem) equippedWings.right.getItem();
+                    if (!sender.isCreative() && !WingItem.FREE_FLIGHT.contains(wingItem)) {
                         sender.addExhaustion(VikareConfig.COMMON.exhaustionAmount.get());
                     }
 
@@ -57,9 +59,8 @@ public class CPlayerFlappingPacket {
                         SPlayerFlappingPacket.send(sender, message.state);
                     }
 
-                    Optional<ImmutableTriple<String, Integer, ItemStack>> equippedWings = CuriosApi.getCuriosHelper().findEquippedCurio(stack -> WingItem.MELTS.contains(stack.getItem()), sender);
-                    if (equippedWings.isPresent() && VikareConfig.COMMON.wingsDurability.get() > 0 && sender.ticksExisted % 20 == 0) {
-                        equippedWings.get().right.damageItem(1, sender, p -> CuriosApi.getCuriosHelper().onBrokenCurio(equippedWings.get().left, equippedWings.get().middle, p));
+                    if (WingItem.MELTS.contains(wingItem) && VikareConfig.COMMON.wingsDurability.get() > 0 && sender.ticksExisted % 20 == 0 && wingItem.isUsable(equippedWings.right)) {
+                        equippedWings.right.damageItem(1, sender, p -> CuriosApi.getCuriosHelper().onBrokenCurio(equippedWings.left, equippedWings.middle, p));
                     }
                 }
             }

@@ -22,6 +22,7 @@ public class WingsModel<T extends LivingEntity> extends EntityModel<T> {
     public FlapState flapState = FlapState.IDLE;
 
     private boolean slowfall = false;
+    private boolean broken = false;
     private float last_movement = -1;
     private float movement_override = -10.0F;
 
@@ -77,6 +78,12 @@ public class WingsModel<T extends LivingEntity> extends EntityModel<T> {
                 flap_speed = 0.4F;
                 flap_distance = 1.0F;
             }
+            if (broken) {
+                state = State.BROKEN;
+                broken = false;
+                flap_speed = 1.0F;
+                flap_distance = 3.0F;
+            }
             if (movement > this.last_movement && this.last_movement == 0.0) {
                 flapState = FlapState.FLAP;
             }
@@ -94,7 +101,7 @@ public class WingsModel<T extends LivingEntity> extends EntityModel<T> {
         }
 
         float normalized_flap = MathHelper.sin(ageInTicks * flap_speed);
-        if (state == State.SLOWFALL || (state == State.FLYING && movement > 0)) {
+        if (state == State.SLOWFALL || state == State.BROKEN || (state == State.FLYING && movement > 0)) {
             if (normalized_flap > 0 && flapState == FlapState.DONE) {
                 flapState = FlapState.IDLE;
             } else if (normalized_flap < 0 && flapState == FlapState.IDLE) {
@@ -146,8 +153,10 @@ public class WingsModel<T extends LivingEntity> extends EntityModel<T> {
         slowfall = true;
     }
 
+    public void setBroken() { broken = true; }
+
     public enum State {
-        IDLE, CROUCHING, FLYING, SLOWFALL
+        IDLE, CROUCHING, FLYING, SLOWFALL, BROKEN
     }
 
     public enum FlapState {
