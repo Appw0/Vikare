@@ -66,7 +66,7 @@ public class VikareClient {
             ClientPlayerEntity player = Minecraft.getInstance().player;
             Optional<ImmutableTriple<String, Integer, ItemStack>> equippedCurio = CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof WingItem, player);
             if (player.isElytraFlying() && equippedCurio.isPresent()) {
-                double strafingRollOffset = player.getLookVec().rotateYaw(90).dotProduct(player.getMotion()) * 15.0D;
+                double strafingRollOffset = player.getLookVec().rotateYaw((float)Math.PI / 2F).dotProduct(player.getMotion()) * 15.0D;
                 prevRollOffset = strafingRollOffset = MathHelper.lerp(event.getRenderPartialTicks(), prevRollOffset, strafingRollOffset);
                 event.setRoll((float) strafingRollOffset * VikareConfig.COMMON.rollAmount.get());
             }
