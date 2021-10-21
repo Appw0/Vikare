@@ -149,9 +149,9 @@ jar {
         attributes([
                 "Specification-Title"     : "vikare",
                 "Specification-Vendor"    : "appw",
-                "Specification-Version"   : "${project.version}",
+                "Specification-Version"   : "1",
                 "Implementation-Title"    : project.name,
-                "Implementation-Version"  : "${project.version}",
+                "Implementation-Version"  : project.version,
                 "Implementation-Vendor"   : "appw",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
