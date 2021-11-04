@@ -2,7 +2,7 @@
   "item.feathered_wings.flap": {
     "sounds": [
       {
-        "name": "minecraft:block.comparator.click",
+        "name": "minecraft:mob/phantom/flap1",
         "volume": 0.9,
         "pitch": 1.2
       },
