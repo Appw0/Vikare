@@ -22,6 +22,7 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class WingItem extends Item { //, IDyeableArmorItem {
     private final DyeColor primaryColor; // TODO: maybe one day this could be NBT values?
@@ -84,6 +85,18 @@ public class WingItem extends Item { //, IDyeableArmorItem {
             itemStacks.add(new ItemStack(item));
         });
         return itemStacks;
+    }
+
+    @Override
+    public boolean hasEffect(ItemStack stack) {
+        Optional<ICurio> curio = stack.getCapability(CuriosCapability.ITEM).resolve();
+        if (curio.isPresent()) {
+            return super.hasEffect(stack) && ((WingItemCapability) curio.get()).isShiny();
+            // NOTE: If some dumb mod calls this function directly on the wrong item, it will probably scream with errors
+            // hmmm
+        } else {
+            return super.hasEffect(stack);
+        }
     }
 
     public boolean isUsable(ItemStack stack) {

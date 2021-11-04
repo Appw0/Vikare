@@ -22,6 +22,7 @@ import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -163,6 +164,10 @@ public class WingItemCapability implements ICurio {
 
         vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, wingsModel.getRenderType(layer1), false, stack.hasEffect());
         wingsModel.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, primaryColor[0], primaryColor[1], primaryColor[2], 1.0F);
+    }
+
+    public boolean isShiny() {
+        return !stack.getOrCreateTag().getBoolean("Dull");
     }
 
     public void stopFlying(PlayerEntity player) {
