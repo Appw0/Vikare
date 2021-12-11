@@ -1,7 +1,7 @@
 **Vikare**
 
-unapproved and unsupported port.
+my atttempt at a 1.12.2 port because i hate myself
 
-don't complain if something doesn't work.
+AAAAAAAAAAAAA
 
-probably not going to compile this or put it on CurseForge.
+it is all broken!
