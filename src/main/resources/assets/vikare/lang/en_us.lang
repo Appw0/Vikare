@@ -1,0 +1,110 @@
+
+# Creative Tabs
+itemGroup.vikare.general=Vikare
+
+# Items
+item.vikare.white_feathered_wings.name=White Feathered Wings
+item.vikare.orange_feathered_wings.name=Orange Feathered Wings
+item.vikare.magenta_feathered_wings.name=Magenta Feathered Wings
+item.vikare.light_blue_feathered_wings.name=Light Blue Feathered Wings
+item.vikare.yellow_feathered_wings.name=Yellow Feathered Wings
+item.vikare.lime_feathered_wings.name=Lime Feathered Wings
+item.vikare.pink_feathered_wings.name=Pink Feathered Wings
+item.vikare.grey_feathered_wings.name=Grey Feathered Wings
+item.vikare.light_grey_feathered_wings.name=Light Grey Feathered Wings
+item.vikare.cyan_feathered_wings.name=Cyan Feathered Wings
+item.vikare.purple_feathered_wings.name=Purple Feathered Wings
+item.vikare.blue_feathered_wings.name=Blue Feathered Wings
+item.vikare.brown_feathered_wings.name=Brown Feathered Wings
+item.vikare.green_feathered_wings.name=Green Feathered Wings
+item.vikare.red_feathered_wings.name=Red Feathered Wings
+item.vikare.black_feathered_wings.name=Black Feathered Wings
+
+item.vikare.white_dragon_wings.name=White Dragon Wings
+item.vikare.orange_dragon_wings.name=Orange Dragon Wings
+item.vikare.magenta_dragon_wings.name=Magenta Dragon Wings
+item.vikare.light_blue_dragon_wings.name=Light Blue Dragon Wings
+item.vikare.yellow_dragon_wings.name=Yellow Dragon Wings
+item.vikare.lime_dragon_wings.name=Lime Dragon Wings
+item.vikare.pink_dragon_wings.name=Pink Dragon Wings
+item.vikare.grey_dragon_wings.name=Grey Dragon Wings
+item.vikare.light_grey_dragon_wings.name=Light Grey Dragon Wings
+item.vikare.cyan_dragon_wings.name=Cyan Dragon Wings
+item.vikare.purple_dragon_wings.name=Purple Dragon Wings
+item.vikare.blue_dragon_wings.name=Blue Dragon Wings
+item.vikare.brown_dragon_wings.name=Brown Dragon Wings
+item.vikare.green_dragon_wings.name=Green Dragon Wings
+item.vikare.red_dragon_wings.name=Red Dragon Wings
+item.vikare.black_dragon_wings.name=Black Dragon Wings
+
+item.vikare.white_mechanical_feathered_wings.name=White Mechanical Feathered Wings
+item.vikare.orange_mechanical_feathered_wings.name=Orange Mechanical Feathered Wings
+item.vikare.magenta_mechanical_feathered_wings.name=Magenta Mechanical Feathered Wings
+item.vikare.light_blue_mechanical_feathered_wings.name=Light Blue Mechanical Feathered Wings
+item.vikare.yellow_mechanical_feathered_wings.name=Yellow Mechanical Feathered Wings
+item.vikare.lime_mechanical_feathered_wings.name=Lime Mechanical Feathered Wings
+item.vikare.pink_mechanical_feathered_wings.name=Pink Mechanical Feathered Wings
+item.vikare.grey_mechanical_feathered_wings.name=Grey Mechanical Feathered Wings
+item.vikare.light_grey_mechanical_feathered_wings.name=Light Grey Mechanical Feathered Wings
+item.vikare.cyan_mechanical_feathered_wings.name=Cyan Mechanical Feathered Wings
+item.vikare.purple_mechanical_feathered_wings.name=Purple Mechanical Feathered Wings
+item.vikare.blue_mechanical_feathered_wings.name=Blue Mechanical Feathered Wings
+item.vikare.brown_mechanical_feathered_wings.name=Brown Mechanical Feathered Wings
+item.vikare.green_mechanical_feathered_wings.name=Green Mechanical Feathered Wings
+item.vikare.red_mechanical_feathered_wings.name=Red Mechanical Feathered Wings
+item.vikare.black_mechanical_feathered_wings.name=Black Mechanical Feathered Wings
+
+item.vikare.white_mechanical_leather_wings.name=White Mechanical Leather Wings
+item.vikare.orange_mechanical_leather_wings.name=Orange Mechanical Leather Wings
+item.vikare.magenta_mechanical_leather_wings.name=Magenta Mechanical Leather Wings
+item.vikare.light_blue_mechanical_leather_wings.name=Light Blue Mechanical Leather Wings
+item.vikare.yellow_mechanical_leather_wings.name=Yellow Mechanical Leather Wings
+item.vikare.lime_mechanical_leather_wings.name=Lime Mechanical Leather Wings
+item.vikare.pink_mechanical_leather_wings.name=Pink Mechanical Leather Wings
+item.vikare.grey_mechanical_leather_wings.name=Grey Mechanical Leather Wings
+item.vikare.light_grey_mechanical_leather_wings.name=Light Grey Mechanical Leather Wings
+item.vikare.cyan_mechanical_leather_wings.name=Cyan Mechanical Leather Wings
+item.vikare.purple_mechanical_leather_wings.name=Purple Mechanical Leather Wings
+item.vikare.blue_mechanical_leather_wings.name=Blue Mechanical Leather Wings
+item.vikare.brown_mechanical_leather_wings.name=Brown Mechanical Leather Wings
+item.vikare.green_mechanical_leather_wings.name=Green Mechanical Leather Wings
+item.vikare.red_mechanical_leather_wings.name=Red Mechanical Leather Wings
+item.vikare.black_mechanical_leather_wings.name=Black Mechanical Leather Wings
+
+item.vikare.white_light_wings.name=White Light Wings
+item.vikare.orange_light_wings.name=Orange Light Wings
+item.vikare.magenta_light_wings.name=Magenta Light Wings
+item.vikare.light_blue_light_wings.name=Light Blue Light Wings
+item.vikare.yellow_light_wings.name=Yellow Light Wings
+item.vikare.lime_light_wings.name=Lime Light Wings
+item.vikare.pink_light_wings.name=Pink Light Wings
+item.vikare.grey_light_wings.name=Grey Light Wings
+item.vikare.light_grey_light_wings.name=Light Grey Light Wings
+item.vikare.cyan_light_wings.name=Cyan Light Wings
+item.vikare.purple_light_wings.name=Purple Light Wings
+item.vikare.blue_light_wings.name=Blue Light Wings
+item.vikare.brown_light_wings.name=Brown Light Wings
+item.vikare.green_light_wings.name=Green Light Wings
+item.vikare.red_light_wings.name=Red Light Wings
+item.vikare.black_light_wings.name=Black Light Wings
+
+item.vikare.flandres_wings.name=Flandre's Wings
+item.vikare.discords_wings.name=Discord's Wings
+item.vikare.zanzas_wings.name=Zanza's Wings
+
+subtitles.item.feathered_wings.flap=Wings flap
+subtitles.item.feathered_wings.equip=Wings rustle
+subtitles.item.mechanical_feathered_wings.flap=Wings flap
+subtitles.item.mechanical_feathered_wings.equip=Wings rustle
+subtitles.item.dragon_wings.flap=Wings flap
+subtitles.item.dragon_wings.equip=Wings rustle
+subtitles.item.mechanical_leather_wings.flap=Wings flap
+subtitles.item.mechanical_leather_wings.equip=Wings rustle
+subtitles.item.light_wings.flap=Wings flap
+subtitles.item.light_wings.equip=Wings rustle
+subtitles.item.flandres_wings.flap=Wings flap
+subtitles.item.flandres_wings.equip=Wings rustle
+subtitles.item.discords_wings.flap=Chaos noises
+subtitles.item.discords_wings.equip=Wings rustle
+subtitles.item.zanzas_wings.flap=Wings flap
+subtitles.item.zanzas_wings.equip=Wings rustle

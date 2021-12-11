@@ -1,0 +1,14 @@
+[
+   {
+      "modid": "vikare",
+      "name": "Vikare",
+      "description": "a not very original port of a mod",
+      "version": "${version}",
+      "mcversion": "${mcversion}",
+      "authorList": ["appw"],
+      "credits": "Cammie",
+      "logoFile": "vikare.png",
+      "screenshots": [],
+      "dependencies": ["baubles"]
+   }
+]

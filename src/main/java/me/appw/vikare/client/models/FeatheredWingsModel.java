@@ -1,11 +1,13 @@
 package me.appw.vikare.client.models;
 
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.LivingEntity;
+
+
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
 
 import javax.annotation.Nonnull;
 
-public class FeatheredWingsModel<T extends LivingEntity> extends WingsModel<T> {
+public class FeatheredWingsModel extends WingsModel {
     private final ModelRenderer leftWing01;
     private final ModelRenderer leftWing02;
     private final ModelRenderer leftWing03;
@@ -32,31 +34,32 @@ public class FeatheredWingsModel<T extends LivingEntity> extends WingsModel<T> {
         leftWing01 = new ModelRenderer(this);
         leftWing01.setRotationPoint(-6.0F, 0.0F, 0.0F);
         setRotationAngle(leftWing01, 0.0F, 1.5708F, 0.436332F);
-        leftWing01.setTextureOffset(0,0).addBox(-1.0F, -2.0F, -1.0F, 2.0F, 4.0F, 6.0F, 0.0F, false);
+        leftWing01.setTextureOffset(0,0).addBox(-1.0F, -2.0F, -1.0F, 2, 4, 6, false);
         rightWing.addChild(leftWing01);
 
         leftWing02 = new ModelRenderer(this);
         leftWing02.setRotationPoint(-0.5F, 0.0F, 3.5F);
         leftWing01.addChild(leftWing02);
         setRotationAngle(leftWing02, 0.1309F, 0.3054F, 0.0F);
-        leftWing02.setTextureOffset(0, 47).addBox(-0.5F, -1.5F, 0.5F, 1.0F, 2.0F, 8.0F, 0.0F, false);
+        leftWing02.setTextureOffset(0, 47).addBox(-0.5F, -1.5F, 0.5F, 1, 2, 8, false);
 
         leftWing03 = new ModelRenderer(this);
         leftWing03.setRotationPoint(0.0F, -1.0F, 8.5F);
         leftWing02.addChild(leftWing03);
         setRotationAngle(leftWing03, -0.5672F, 0.3054F, 0.0F);
-        leftWing03.setTextureOffset(39, 0).addBox(-0.5F, -0.1F, -0.5F, 1.0F, 2.0F, 8.0F, 0.0F, false);
+        leftWing03.setTextureOffset(39, 0).addBox(-0.5F, -0.1F, -0.5F, 1, 2, 8, false);
 
         leftWing04 = new ModelRenderer(this);
         leftWing04.setRotationPoint(0.0F, 0.5F, 7.2F);
         leftWing03.addChild(leftWing04);
         setRotationAngle(leftWing04, 1.0908F, 0.0F, 0.0F);
-        leftWing04.setTextureOffset(33, 25).addBox(-0.7F, -0.2F, -0.5F, 1.0F, 14.0F, 1.0F, 0.0F, true);
+        leftWing04.setTextureOffset(33, 25).addBox(-0.7F, -0.2F, -0.5F, 1, 14, 1, true);
 
         leftWing05 = new ModelRenderer(this);
         leftWing05.setRotationPoint(-0.5F, 4.8F, -0.2F);
         leftWing04.addChild(leftWing05);
-        leftWing05.setTextureOffset(0, 13).addBox(0.4F, -4.0F, -12.3F, 0.001F, 20.0F, 13.0F, 0.0F, true);
+//        leftWing05.setTextureOffset(0, 13).addBox(0.4F, -4.0F, -12.3F, 0.001F, 20.0F, 13.0F, 0.0F, true);
+        leftWing05.setTextureOffset(0, 13).addBox(0.4F, -4.0F, -12.3F, 0, 20, 13, true);
 
         lFeathers02 = new ModelRenderer(this);
         lFeathers02.setRotationPoint(0.0F, -3.5F, -3.2F);
@@ -67,7 +70,7 @@ public class FeatheredWingsModel<T extends LivingEntity> extends WingsModel<T> {
         Box_r1.setRotationPoint(0.0F, 0.0F, 0.0F);
         lFeathers02.addChild(Box_r1);
         setRotationAngle(Box_r1, 0.48F, 0.0F, 0.0F);
-        Box_r1.setTextureOffset(26, 26).addBox(0.0F, -6.6F, -13.8F, 1.0F, 14.0F, 14.0F, 0.0F, true);
+        Box_r1.setTextureOffset(26, 26).addBox(0.0F, -6.6F, -13.8F, 1, 14, 14, true);
 
         lFeathers01 = new ModelRenderer(this);
         lFeathers01.setRotationPoint(0.6F, 1.3F, 1.5F);
@@ -78,36 +81,37 @@ public class FeatheredWingsModel<T extends LivingEntity> extends WingsModel<T> {
         Box_r2.setRotationPoint(0.0F, 0.0F, 0.0F);
         lFeathers01.addChild(Box_r2);
         setRotationAngle(Box_r2, 0.1745F, 0.0F, 0.0F);
-        Box_r2.setTextureOffset(0, 0).addBox(-0.5F, -0.8F, -8.1F, 1.0F, 10.0F, 16.0F, 0.0F, true);
+        Box_r2.setTextureOffset(0, 0).addBox(-0.5F, -0.8F, -8.1F, 1, 10, 16, true);
 
         rightWing01 = new ModelRenderer(this);
         rightWing01.setRotationPoint(6.0F, 0.0F, 0.0F);
         setRotationAngle(rightWing01, 0.0F, -1.5708F, -0.436332F);
-        rightWing01.setTextureOffset(0, 0).addBox(-1.0F, -2.0F, -1.0F, 2.0F, 4.0F, 6.0F, 0.0F, true);
+        rightWing01.setTextureOffset(0, 0).addBox(-1.0F, -2.0F, -1.0F, 2, 4, 6, true);
         leftWing.addChild(rightWing01);
 
         rightWing02 = new ModelRenderer(this);
         rightWing02.setRotationPoint(0.5F, 0.0F, 3.5F);
         rightWing01.addChild(rightWing02);
         setRotationAngle(rightWing02, 0.1309F, -0.3054F, 0.0F);
-        rightWing02.setTextureOffset(0, 47).addBox(-0.5F, -1.5F, 0.5F, 1.0F, 2.0F, 8.0F, 0.0F, true);
+        rightWing02.setTextureOffset(0, 47).addBox(-0.5F, -1.5F, 0.5F, 1, 2, 8, true);
 
         rightWing03 = new ModelRenderer(this);
         rightWing03.setRotationPoint(0.0F, -1.0F, 8.5F);
         rightWing02.addChild(rightWing03);
         setRotationAngle(rightWing03, -0.5672F, -0.3054F, 0.0F);
-        rightWing03.setTextureOffset(39, 0).addBox(-0.5F, -0.1F, -0.5F, 1.0F, 2.0F, 8.0F, 0.0F, true);
+        rightWing03.setTextureOffset(39, 0).addBox(-0.5F, -0.1F, -0.5F, 1, 2, 8, true);
 
         rightWing04 = new ModelRenderer(this);
         rightWing04.setRotationPoint(0.0F, 0.5F, 7.2F);
         rightWing03.addChild(rightWing04);
         setRotationAngle(rightWing04, 1.0908F, 0.0F, 0.0F);
-        rightWing04.setTextureOffset(33, 25).addBox(-0.3F, -0.2F, -0.5F, 1.0F, 14.0F, 1.0F, 0.0F, false);
+        rightWing04.setTextureOffset(33, 25).addBox(-0.3F, -0.2F, -0.5F, 1, 14, 1, false);
 
         rightWing05 = new ModelRenderer(this);
         rightWing05.setRotationPoint(0.5F, 4.8F, -0.2F);
         rightWing04.addChild(rightWing05);
-        rightWing05.setTextureOffset(0, 13).addBox(-0.4F, -4.0F, -12.3F, 0.001F, 20.0F, 13.0F, 0.0F, false);
+//        rightWing05.setTextureOffset(0, 13).addBox(-0.4F, -4.0F, -12.3F, 0.001F, 20.0F, 13.0F, 0.0F, false);
+        rightWing05.setTextureOffset(0, 13).addBox(-0.4F, -4.0F, -12.3F, 0, 20, 13, false);
 
         rFeathers02 = new ModelRenderer(this);
         rFeathers02.setRotationPoint(0.0F, -3.5F, -3.2F);
@@ -118,7 +122,7 @@ public class FeatheredWingsModel<T extends LivingEntity> extends WingsModel<T> {
         Box_r3.setRotationPoint(0.0F, 0.0F, 0.0F);
         rFeathers02.addChild(Box_r3);
         setRotationAngle(Box_r3, 0.48F, 0.0F, 0.0F);
-        Box_r3.setTextureOffset(26, 26).addBox(-1.0F, -6.6F, -13.8F, 1.0F, 14.0F, 14.0F, 0.0F, false);
+        Box_r3.setTextureOffset(26, 26).addBox(-1.0F, -6.6F, -13.8F, 1, 14, 14, false);
 
         rFeathers01 = new ModelRenderer(this);
         rFeathers01.setRotationPoint(-0.6F, 1.3F, 1.5F);
@@ -129,13 +133,12 @@ public class FeatheredWingsModel<T extends LivingEntity> extends WingsModel<T> {
         Box_r4.setRotationPoint(0.0F, 0.0F, 0.0F);
         rFeathers01.addChild(Box_r4);
         setRotationAngle(Box_r4, 0.1745F, 0.0F, 0.0F);
-        Box_r4.setTextureOffset(0, 0).addBox(-0.5F, -0.8F, -8.1F, 1.0F, 10.0F, 16.0F, 0.0F, false);
+        Box_r4.setTextureOffset(0, 0).addBox(-0.5F, -0.8F, -8.1F, 1, 10, 16, false);
     }
 
     @Override
-    public void setRotationAngles(@Nonnull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float netHeadPitch) {
-        super.setRotationAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, netHeadPitch);
-
+    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entity) {
+        super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entity);
         if (state == State.IDLE || state == State.CROUCHING) {
             leftWing03.rotateAngleX = (float) Math.toRadians(-60);
         }

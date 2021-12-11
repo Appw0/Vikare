@@ -1,20 +1,19 @@
 package me.appw.vikare.client.models;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.sun.javafx.geom.Vec3d;
-import me.appw.vikare.Vikare;
-import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.client.entity.AbstractClientPlayer;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
 
 import javax.annotation.Nonnull;
+import javax.vecmath.Vector3d;
 
-public class WingsModel<T extends LivingEntity> extends EntityModel<T> {
+public class WingsModel extends ModelBase {
 
     public final ModelRenderer rightWing;
     public final ModelRenderer leftWing;
@@ -38,18 +37,23 @@ public class WingsModel<T extends LivingEntity> extends EntityModel<T> {
     }
 
 
-    public void setRotationAngles(@Nonnull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float netHeadPitch, boolean forceFlapping) {
+    public void setRotationAngles(EntityPlayer player, boolean forceFlapping) {
         movement_override = forceFlapping ? 1.0F : 0.0F;
-        this.setRotationAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, netHeadPitch);
+        this.setRotationAngles(player.limbSwing, player.limbSwingAmount, player.ticksExisted, player.rotationYawHead, player.rotationPitch, 1, player);
     }
 
-    public void setRotationAngles(@Nonnull T entity) {
+    public void setRotationAngles(EntityPlayer player) {
         movement_override = -10.0F;
-        this.setRotationAngles(entity, entity.limbSwing, entity.limbSwingAmount, entity.ticksExisted, entity.rotationYawHead, entity.rotationPitch);
+        this.setRotationAngles(player.limbSwing, player.limbSwingAmount, player.ticksExisted, player.rotationYawHead, player.rotationPitch, 1, player);
     }
 
     @Override
-    public void setRotationAngles(@Nonnull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float netHeadPitch) {
+    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entity) {
+        if (!(entity instanceof EntityLivingBase)) {
+            return;
+        }
+        EntityLivingBase livingEntity = (EntityLivingBase) entity;
+
         state = State.IDLE;
         float flap_speed = 0.125F;
         float flap_distance = 0.1F;
@@ -57,17 +61,18 @@ public class WingsModel<T extends LivingEntity> extends EntityModel<T> {
         float wing_roll = -0.7F;
         float yaw_pivot = -1.0F;
         float wing_yaw = 0.0F;
-        float movement = entity.moveForward;
+        float movement = livingEntity.moveForward;
 
         if (movement_override != -10.0F) { movement = movement_override; }
 
-        if (entity.isElytraFlying()) {
+        if (livingEntity.isElytraFlying()) {
             state = State.FLYING;
             float dive_tuck = 1.0F;
-            Vector3d motionVec = entity.getMotion();
+            Vector3d motionVec = new Vector3d(livingEntity.motionX, livingEntity.motionY, livingEntity.motionZ);
 
             if (motionVec.y < 0.0D) {
-                Vector3d motionVecNorm = motionVec.normalize();
+                Vector3d motionVecNorm = new Vector3d();
+                motionVecNorm.normalize(motionVec);
                 dive_tuck = 1.0F - (float) Math.pow(-motionVecNorm.y, 1.5D);
             }
 
@@ -113,8 +118,8 @@ public class WingsModel<T extends LivingEntity> extends EntityModel<T> {
         this.rightWing.rotationPointX = 7.0F;
         this.rightWing.rotationPointY = yaw_pivot;
 
-        if (entity instanceof ClientPlayerEntity) {
-            AbstractClientPlayerEntity player = (AbstractClientPlayerEntity) entity;
+        if (entity instanceof AbstractClientPlayer) {
+            AbstractClientPlayer player = (AbstractClientPlayer) entity;
             player.rotateElytraX = (player.rotateElytraX + (wing_pitch - player.rotateElytraX) * 0.1F);
             player.rotateElytraY = (player.rotateElytraY + (wing_yaw - player.rotateElytraY) * 0.1F);
             player.rotateElytraZ = (player.rotateElytraZ + (wing_roll - player.rotateElytraZ) * 0.1F);
@@ -134,10 +139,16 @@ public class WingsModel<T extends LivingEntity> extends EntityModel<T> {
         this.leftWing.rotateAngleZ = -this.rightWing.rotateAngleZ;
     }
 
+    public void render(EntityPlayer player) {
+        render(player, player.limbSwing, player.limbSwingAmount, player.ticksExisted, player.rotationYawHead, player.rotationPitch, 0.0625F);
+    }
     @Override
-    public void render(@Nonnull MatrixStack matrixStack, @Nonnull IVertexBuilder vertexBuilder, int light, int overlay, float red, float green, float blue, float alpha) {
-        this.rightWing.render(matrixStack, vertexBuilder, light, overlay, red, green, blue, alpha);
-        this.leftWing.render(matrixStack, vertexBuilder, light, overlay, red, green, blue, alpha);
+    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
+    {
+        GlStateManager.disableRescaleNormal();
+        GlStateManager.disableCull();
+        this.rightWing.render(scale);
+        this.leftWing.render(scale);
     }
 
     public boolean didFlap() {
