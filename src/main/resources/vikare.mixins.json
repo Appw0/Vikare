@@ -1,0 +1,13 @@
+{
+  "compatibilityLevel": "JAVA_8",
+  "package": "me.appw.vikare.mixin",
+  "mixins": [
+    "EntityLivingBaseMixin",
+    "NetHandlerPlayServerMixin"
+  ],
+  "client": [
+    "EntityPlayerSPMixin"
+  ],
+  "server": [],
+  "minVersion": "0.8"
+}

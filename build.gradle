@@ -1,98 +1,51 @@
 buildscript {
     repositories {
-        // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
-        maven { url = 'https://maven.minecraftforge.net' }
+        maven { url = 'https://files.minecraftforge.net/maven' }
+        maven { url = "https://repo.spongepowered.org/maven" }
+        jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
 
 apply plugin: 'net.minecraftforge.gradle'
+// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+apply plugin: 'org.spongepowered.mixin'
 
-group = 'me.appw'
-version = "${mc_version}-${mod_version}"
+version = minecraft_version+'-'+mod_version
+group = mod_group
+archivesBaseName = mod_id
 
-java {
-    archivesBaseName = 'vikare'
-    toolchain.languageVersion = JavaLanguageVersion.of(8)
-}
+//sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
 minecraft {
-    // The mappings can be changed at any time and must be in the following format.
-    // Channel:   Version:
-    // snapshot   YYYYMMDD   Snapshot are built nightly.
-    // stable     #          Stables are built at the discretion of the MCP team.
-    // official   MCVersion  Official field/method names from Mojang mapping files
-    //
-    // You must be aware of the Mojang license when using the 'official' mappings.
-    // See more information here: https://github.com/MinecraftForge/MCPConfig/blob/master/Mojang.md
-    //
-    // Use non-default mappings at your own risk. They may not always work.
-    // Simply re-run your setup task after changing the mappings to update your workspace.
-    mappings channel: 'stable', version: '39-1.12'
-//    replace '${version}', project.version
-
+    mappings channel: mappings_channel, version: mappings_version
+    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
-    // Default run configurations.
-    // These can be tweaked, removed, or duplicated as needed.
     runs {
         client {
             workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
-            // The markers can be added/removed as needed separated by commas.
-            // "SCAN": For mods scan.
-            // "REGISTRIES": For firing of registry events.
-            // "REGISTRYDUMP": For getting the contents of all registries.
-            property 'forge.logging.markers', 'REGISTRIES'
-
-            // Recommended logging level for the console
-            // You can set various levels here.
-            // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
-
-            mods {
-                temp {
-                    source sourceSets.main
-                }
-            }
+            property 'fml.coreMods.load', mod_core_plugin.replace('${mod_group}', mod_group).replace('${mod_id}', mod_id)
         }
 
         server {
-            workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
-            // The markers can be added/removed as needed separated by commas.
-            // "SCAN": For mods scan.
-            // "REGISTRIES": For firing of registry events.
-            // "REGISTRYDUMP": For getting the contents of all registries.
-            property 'forge.logging.markers', 'REGISTRIES'
-
-            // Recommended logging level for the console
-            // You can set various levels here.
-            // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
+            property 'fml.coreMods.load', mod_core_plugin.replace('${mod_group}', mod_group).replace('${mod_id}', mod_id)
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
-
-            mods {
-                temp {
-                    source sourceSets.main
-                }
-            }
         }
     }
 }
 
 repositories {
-    repositories {
-        maven {
-            url "https://cursemaven.com"
-        }
-    }
+    maven { url = 'https://repo.spongepowered.org/maven' }
     maven {
-        url = "https://maven.theillusivec4.top/"
+        url "https://cursemaven.com"
     }
     maven {
         // location of the maven that hosts JEI files
@@ -106,57 +59,61 @@ repositories {
     }
 }
 
+configurations {
+    embed
+    compile.extendsFrom(embed)
+}
+
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2855'
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    embed('org.spongepowered:mixin:0.8.3-SNAPSHOT') {
+        exclude module: 'guava'
+        exclude module: 'commons-io'
+        exclude module: 'gson'
+    }
+
+    compileOnly fg.deobf("mezz.jei:jei_${minecraft_version}:${jei_version}:api")
 
     compileOnly fg.deobf("curse.maven:baubles-227083:2518667")
     runtimeOnly fg.deobf("curse.maven:baubles-227083:2518667")
-
-    compileOnly fg.deobf("mezz.jei:jei_${mc_version}:${jei_version}:api")
-//    runtimeOnly fg.deobf("mezz.jei:jei_${mc_version}:${jei_version}")
-}
-
-// Example for how to get properties into the manifest for reading at runtime.
-jar {
-    manifest {
-        attributes([
-                "Specification-Title"     : "vikare",
-                "Specification-Vendor"    : "appw",
-                "Specification-Version"   : "1",
-                "Implementation-Title"    : project.name,
-                "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : "appw",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-        ])
-    }
 }
 
 processResources {
-    // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
-    inputs.property "mcversion", mc_version
+    inputs.property "mcversion", minecraft_version
 
-    // replace stuff in mcmod.info, nothing else
-    filesMatching("mcmod.info") {
-        expand "version" : project.version, "mcversion": mc_version
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+
+        expand 'mod_id': mod_id, 'mod_name': mod_name, 'version': project.version,
+                'mcversion': minecraft_version
     }
-//    from(sourceSets.main.resources.srcDirs) {
-//        include "mcmod.info"
-//
-//        // replace version and mcversion
-//        expand "version": project.version, "mcversion": mc_version
-//    }
-//
-//    // copy everything else, thats not the mcmod.info
-//    from(sourceSets.main.resources.srcDirs) {
-//        exclude "mcmod.info"
-//    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
 }
 
-//sourceSets {
-//    main {
-//        output.resourcesDir = output.classesDir
-//    }
-//}
+mixin {
+    add sourceSets.main, 'vikare.refmap.json'
+}
+
+jar {
+    from {
+        configurations.embed.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude "LICENSE.txt", "META-INF/MANIFSET.MF", "META-INF/maven/**", "META-INF/*.RSA", "META-INF/*.SF"
+    }
+
+    manifest {
+        attributes "FMLCorePlugin": mod_core_plugin.replace('${mod_group}', mod_group).replace('${mod_id}', mod_id)
+        attributes "FMLCorePluginContainsFMLMod": "false"
+        attributes "ForceLoadAsMod": "true"
+        attributes "TweakClass": "org.spongepowered.asm.launch.MixinTweaker"
+        attributes "TweakOrder": "0"
+        attributes "MixinConfigs": mod_mixin_configs.replace('${mod_id}', mod_id)
+    }
+}
 
 jar.finalizedBy('reobfJar')

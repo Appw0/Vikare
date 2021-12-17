@@ -1,7 +1,7 @@
 [
    {
-      "modid": "vikare",
-      "name": "Vikare",
+      "modid": "${mod_id}",
+      "name": "${mod_name}",
       "description": "a not very original port of a mod",
       "version": "${version}",
       "mcversion": "${mcversion}",
