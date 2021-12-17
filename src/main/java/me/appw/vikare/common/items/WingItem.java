@@ -1,17 +1,21 @@
 package me.appw.vikare.common.items;
 
 import baubles.api.BaubleType;
+import baubles.api.BaublesApi;
 import baubles.api.IBauble;
+import baubles.api.cap.IBaublesItemHandler;
 import baubles.api.render.IRenderBauble;
 import me.appw.vikare.Vikare;
 import me.appw.vikare.core.capability.WingItemCapability;
 import me.appw.vikare.core.config.VikareConfig;
+import me.appw.vikare.core.registry.Sounds;
 import me.appw.vikare.core.registry.WingTypes.WingType;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
+import net.minecraft.world.World;
 import net.minecraftforge.common.IRarity;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -87,20 +91,30 @@ public class WingItem extends Item implements IBauble, IRenderBauble { //, IDyea
 //        return itemStacks;
 //    }
 
-//    @Override
-//    public boolean hasEffect(ItemStack stack) {
-//        Optional<ICurio> curio = stack.getCapability(CuriosCapability.ITEM).resolve();
-//        if (curio.isPresent()) {
-//            return super.hasEffect(stack) && ((WingItemCapability) curio.get()).isShiny();
-//            // NOTE: If some dumb mod calls this function directly on the wrong item, it will probably scream with errors
-//            // hmmm
-//        } else {
-//            return super.hasEffect(stack);
-//        }
-//    }
+    @Override
+    public boolean hasEffect(ItemStack stack) {
+        if (stack.hasTagCompound()) {
+            return super.hasEffect(stack) && !stack.getTagCompound().getBoolean("Dull");
+        } else {
+            return super.hasEffect(stack);
+        }
+    }
 
-    public boolean isUsable(ItemStack stack) {
+    public static boolean isUsable(ItemStack stack) {
         return stack.getItemDamage() < stack.getMaxDamage() - 1;
+    }
+
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack handItem = player.getHeldItem(hand);
+        IBaublesItemHandler handler = BaublesApi.getBaublesHandler(player);
+        if (handler.getStackInSlot(BaubleType.BODY.getValidSlots()[0]).isEmpty()) {
+            player.setHeldItem(hand, ItemStack.EMPTY);
+            handler.setStackInSlot(BaubleType.BODY.getValidSlots()[0], handItem);
+            player.playSound(wingType.equipSound, 1.0F, 1.0F);
+            return new ActionResult<>(EnumActionResult.SUCCESS, handItem);
+        } else {
+            return new ActionResult<>(EnumActionResult.FAIL, handItem);
+        }
     }
 
     public EnumDyeColor getPrimaryColor() {
