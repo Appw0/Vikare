@@ -16,10 +16,15 @@ import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.layers.LayerArmorBase;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemElytra;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
@@ -52,79 +57,62 @@ public class WingItemCapability implements ICapabilityProvider {
         }
     }
 
-//    @Override
-//    public void curioTick(String identifier, int index, LivingEntity entity) {
-//        if (entity instanceof PlayerEntity) {
-//            PlayerEntity player = (PlayerEntity) entity;
-//            if (player.getFoodStats().getFoodLevel() <= 6) { return; }
-//
-//            if (player.isElytraFlying()) {
-//                if (player.moveForward > 0) {
-//                    if (wings.isUsable(stack)) applySpeed(player);
+    public void tick(EntityLivingBase entity) {
+        if (entity instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) entity;
+            if (player.getFoodStats().getFoodLevel() <= 6) { return; }
+
+            if (player.isElytraFlying()) {
+                if (player.moveForward > 0) {
+                    if (WingItem.isUsable(stack)) applySpeed(player);
 //                    CPlayerFlappingPacket.send(last_movement == 0 ? FlappingState.STARTED : FlappingState.NONE);
-//                } else if (last_movement > 0) {
+                } else if (last_movement > 0) {
 //                    CPlayerFlappingPacket.send(FlappingState.ENDED);
-//                }
-//                last_movement = player.moveForward;
-//
-//                if (player.isSneaking()) {
-//                    stopFlying(player);
-//                }
-//                if (player.getPosY() > player.world.getHeight() + 64 && player.ticksExisted % 20 == 0 && WingItem.MELTS.contains(wings)) {
+                }
+                last_movement = player.moveForward;
+
+                if (player.isSneaking()) {
+                    stopFlying(player);
+                }
+//                if (player.posY > player.world.getHeight() + 64 && player.ticksExisted % 20 == 0 && WingItem.MELTS.contains(wings)) {
 //                    stack.damageItem(1, player, p -> CuriosApi.getCuriosHelper().onBrokenCurio(identifier, index, p));
 //                }
-//
-//                if (!wings.isUsable(stack)) {
+
+//                if (!WingItem.isUsable(stack)) {
 //                    wingsModel.setBroken();
 //                    ModifiableAttributeInstance gravity = player.getAttribute(net.minecraftforge.common.ForgeMod.ENTITY_GRAVITY.get());
 //                    double adjustedLift = gravity.getValue() * -MathHelper.cos(player.rotationPitch * ((float)Math.PI / 180F));;
 //                    Vector3d velocity = player.getMotion().add(0.0D, adjustedLift, 0.0D);
 //                    player.setMotion(velocity.x, velocity.y, velocity.z);
 //                }
-//            } else {
-//                if (player.isOnGround() || player.isInWater()) {
-//                    shouldSlowFall = false;
-//                }
-//                if (shouldSlowFall) {
-//                    if (wingsModel != null) wingsModel.setSlowFall();
-//                        player.fallDistance = wings.isUsable(stack) ? 0F : Math.min(player.fallDistance, 10F);
-//                        player.setMotion(player.getMotion().x, wings.isUsable(stack) ? -0.4 : -1, player.getMotion().z);
-//                }
-//            }
-//            if (player.world.isRemote) {
-//                Minecraft minecraft = Minecraft.getInstance();
-//                if (minecraft.player == player && minecraft.gameSettings.getPointOfView() == PointOfView.FIRST_PERSON ) {
-//                    // these interesting shenanigans here are to continue to simulate wing-flapping while in first person
-//                    // even though the model is not rendered, to allow the wing-flap sound to still be played
-//                    wingsModel.setRotationAngles(player);
-//                }
-//                if (wingsModel.didFlap()) {
-//                    float vol = 10.0F;
-//                    if (Minecraft.getInstance().player == player) {
-//                        vol = 100.0F;
-//                    }
-//                    player.world.playSound(player.getPosX(), player.getPosY(), player.getPosZ(), wingType.flapSound.get(), SoundCategory.PLAYERS, vol, 0.9F + player.world.rand.nextFloat() * 0.2F, false);
-//                }
-//            }
-//        }
-//    }
-//
-//    @Override
-//    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid) {
-//        Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
-//        atts.put(CaelusApi.ELYTRA_FLIGHT.get(), new AttributeModifier(uuid, "Flight modifier", 1.0f, AttributeModifier.Operation.ADDITION));
-//        return atts;
-//    }
-//
-//    @Nonnull
-//    @Override
-//    public ICurio.SoundInfo getEquipSound(SlotContext slotContext) {
-//        return new ICurio.SoundInfo(wingType.equipSound.get(), 1.0f, 1.0f);
-//    }
-//
-//    @Override
-//    public boolean canEquipFromUse(SlotContext slotContext) { return true; }
-//
+            } else {
+                if (player.onGround || player.isInWater()) {
+                    shouldSlowFall = false;
+                }
+                if (shouldSlowFall) {
+                    if (wingsModel != null) wingsModel.setSlowFall();
+                        player.fallDistance = WingItem.isUsable(stack) ? 0F : Math.min(player.fallDistance, 10F);
+                        player.motionY = WingItem.isUsable(stack) ? -0.4 : -1;
+                }
+            }
+            if (player.world.isRemote) {
+                Minecraft minecraft = Minecraft.getMinecraft();
+                if (minecraft.player == player && minecraft.gameSettings.thirdPersonView == 0) {
+                    // these interesting shenanigans here are to continue to simulate wing-flapping while in first person
+                    // even though the model is not rendered, to allow the wing-flap sound to still be played
+                    wingsModel.setRotationAngles(player);
+                }
+                if (wingsModel.didFlap()) {
+                    float vol = 10.0F;
+                    if (Minecraft.getMinecraft().player == player) {
+                        vol = 100.0F;
+                    }
+                    player.world.playSound(player.posX, player.posY, player.posZ, wingType.flapSound, SoundCategory.PLAYERS, vol, 0.9F + player.world.rand.nextFloat() * 0.2F, false);
+                }
+            }
+        }
+    }
+
     public void render(EntityPlayer player, float partialTicks) {
         Render<EntityPlayer> renderPlayer = Minecraft.getMinecraft().getRenderManager().getEntityRenderObject(player);
         if (renderPlayer == null) { return; }
@@ -169,25 +157,26 @@ public class WingItemCapability implements ICapabilityProvider {
         GlStateManager.disableBlend();
         GlStateManager.popMatrix();
     }
-//
-//    public boolean isShiny() {
-//        return !stack.getOrCreateTag().getBoolean("Dull");
-//    }
-//
-//    public void stopFlying(PlayerEntity player) {
-//        shouldSlowFall = true;
-//        player.stopFallFlying();
-//    }
-//
-//    public void applySpeed(PlayerEntity player) {
-//        shouldSlowFall = false;
-//        Vector3d rotation = player.getLookVec();
-//        Vector3d velocity = player.getMotion();
+
+    public void stopFlying(EntityPlayer player) {
+        shouldSlowFall = true;
+        if (player instanceof EntityPlayerMP) {
+            ((EntityPlayerMP) player).clearElytraFlying();
+        }
+    }
+
+    public void applySpeed(EntityPlayer player) {
+        shouldSlowFall = false;
+        Vec3d rotation = player.getLookVec();
+        Vec3d velocity = new Vec3d(player.motionX, player.motionY, player.motionZ);
 //        float modifier = VikareConfig.COMMON.armorSlows.get() ? MathHelper.clamp(player.getTotalArmorValue() / 10F, 1F, VikareConfig.COMMON.maxSlowedMultiplier.get()) : 1F;
-//
-//        velocity = velocity.add(rotation.x * (wings.speed / modifier) + (rotation.x * 1.5D - velocity.x) * wings.acceleration, rotation.y * (wings.speed / modifier) + (rotation.y * 1.5D - velocity.y) * wings.acceleration, rotation.z * (wings.speed / modifier) + (rotation.z * 1.5D - velocity.z) * wings.acceleration);
-//        player.setMotion(velocity.x, velocity.y, velocity.z);
-//    }
+        float modifier = 1.0F;
+
+        velocity = velocity.add(rotation.x * (wings.speed / modifier) + (rotation.x * 1.5D - velocity.x) * wings.acceleration, rotation.y * (wings.speed / modifier) + (rotation.y * 1.5D - velocity.y) * wings.acceleration, rotation.z * (wings.speed / modifier) + (rotation.z * 1.5D - velocity.z) * wings.acceleration);
+        player.motionX = velocity.x;
+        player.motionY = velocity.y;
+        player.motionZ = velocity.z;
+    }
 //
     public void setForcedFlap(boolean forcedFlap) {
         this.forcedFlap = forcedFlap;

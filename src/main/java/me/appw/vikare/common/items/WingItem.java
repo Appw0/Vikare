@@ -77,6 +77,14 @@ public class WingItem extends Item implements IBauble, IRenderBauble { //, IDyea
         }
     }
 
+    @Override
+    public void onWornTick(ItemStack stack, EntityLivingBase entity) {
+        WingItemCapability cap = stack.getCapability(WING_ITEM_CAPABILITY, null);
+        if (cap != null) {
+            cap.tick(entity);
+        }
+    }
+
 //    @ParametersAreNonnullByDefault
 //    @Override
 //    public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
