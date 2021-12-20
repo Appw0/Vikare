@@ -45,6 +45,7 @@ public class WingTypes {
         public final SoundEvent equipSound;
         public final SoundEvent flapSound;
         public final String repairItemsOreDictKey;
+        public final String oreDictKey;
 
         WingType(String name, SoundEvent equipSound, SoundEvent flapSound) {
             this(name, equipSound, flapSound, EnumRarity.RARE);
@@ -58,7 +59,9 @@ public class WingTypes {
             this.layer1 = new ResourceLocation(Vikare.MODID, "textures/entity/" + name + "_wings.png");
             this.layer2 = new ResourceLocation(Vikare.MODID, "textures/entity/" + name + "_wings_2.png");
             String[] pieces = name.split("_");
-            this.repairItemsOreDictKey = "itemRepair"+StringUtils.capitalize(pieces[0])+StringUtils.capitalize(pieces.length > 1 ? pieces[1] : "")+"Wings";
+            String oreBase = StringUtils.capitalize(pieces.length > 1 ? pieces[1] : "")+StringUtils.capitalize(pieces[0]);
+            this.repairItemsOreDictKey = "itemRepairWings"+oreBase;
+            this.oreDictKey = "wings"+oreBase;
         }
 
         public boolean doesMelt() {

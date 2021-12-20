@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "WWW",
+    "NEN",
+    "L F"
+  ],
+  "key":
+  {
+    "E":
+    {
+      "item": "minecraft:elytra"
+    },
+    "F":
+    {
+      "type": "forge:ore_dict",
+      "ore": "feather"
+    },
+    "L":
+    {
+      "type": "forge:ore_dict",
+      "ore": "leather"
+    },
+    "N":
+    {
+      "type": "forge:ore_dict",
+      "ore": "netherStar"
+    },
+    "W":
+    {
+      "type": "forge:ore_dict",
+      "ore": "slimeball"
+    }
+  },
+  "result":
+  {
+    "item": "vikare:discords_wings"
+  }
+}
+

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "WWW",
+    "FEF",
+    "F F"
+  ],
+  "key":
+  {
+    "E":
+    {
+      "item": "minecraft:elytra"
+    },
+    "F":
+    {
+      "item": "minecraft:dragon_breath"
+    },
+    "W":
+    {
+      "type": "forge:ore_dict",
+      "ore": "slimeball"
+    }
+  },
+  "result":
+  {
+    "item": "vikare:black_dragon_wings"
+  }
+}
+

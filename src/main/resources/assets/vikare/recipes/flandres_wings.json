@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "WWW",
+    "NEN",
+    "F G"
+  ],
+  "key":
+  {
+    "E":
+    {
+      "item": "minecraft:elytra"
+    },
+    "F":
+    {
+      "type": "forge:ore_dict",
+      "ore": "gemDiamond"
+    },
+    "G":
+    {
+      "type": "forge:ore_dict",
+      "ore": "gemEmerald"
+    },
+    "N":
+    {
+      "type": "forge:ore_dict",
+      "ore": "netherStar"
+    },
+    "W":
+    {
+      "type": "forge:ore_dict",
+      "ore": "slimeball"
+    }
+  },
+  "result":
+  {
+    "item": "vikare:flandres_wings"
+  }
+}
+

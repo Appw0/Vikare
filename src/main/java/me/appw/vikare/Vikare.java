@@ -78,6 +78,7 @@ public class Vikare {
     @EventHandler
     public void init(FMLInitializationEvent event) {
         WingTypes.registerOreDictEntries();
+        Items.registerOreDictEntries();
     }
 
     @EventHandler

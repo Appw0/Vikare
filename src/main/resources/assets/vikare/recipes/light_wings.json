@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "WWW",
+    "FEF",
+    "F F"
+  ],
+  "key":
+  {
+    "E":
+    {
+      "item": "minecraft:elytra"
+    },
+    "F":
+    {
+      "type": "forge:ore_dict",
+      "ore": "dustGlowstone"
+    },
+    "W":
+    {
+      "type": "forge:ore_dict",
+      "ore": "slimeball"
+    }
+  },
+  "result":
+  {
+    "item": "vikare:yellow_light_wings"
+  }
+}
+

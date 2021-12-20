@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "WWW",
+    "FEF",
+    "F F"
+  ],
+  "key":
+  {
+    "E":
+    {
+      "item": "minecraft:elytra"
+    },
+    "F":
+    {
+      "type": "forge:ore_dict",
+      "ore": "feather"
+    },
+    "W":
+    {
+      "type": "forge:ore_dict",
+      "ore": "slimeball"
+    }
+  },
+  "result":
+  {
+    "item": "vikare:white_feathered_wings"
+  }
+}
+

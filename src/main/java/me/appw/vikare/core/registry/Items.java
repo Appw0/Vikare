@@ -7,6 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -110,6 +111,12 @@ public class Items {
     public static void registerItems(RegistryEvent.Register<Item> event) {
         for (WingItem item : WINGS) {
             event.getRegistry().register(item);
+        }
+    }
+
+    public static void registerOreDictEntries() {
+        for (WingItem item : WINGS) {
+            OreDictionary.registerOre(item.getWingType().oreDictKey, item);
         }
     }
 
