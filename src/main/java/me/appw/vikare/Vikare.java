@@ -3,6 +3,7 @@ package me.appw.vikare;
 import me.appw.vikare.client.VikareClient;
 import me.appw.vikare.common.VikareCommon;
 import me.appw.vikare.core.capability.WingItemCapability;
+import me.appw.vikare.core.crafting.ShinyWingsRecipe;
 import me.appw.vikare.core.network.NetworkWrapper;
 import me.appw.vikare.core.registry.Items;
 import me.appw.vikare.core.registry.WingTypes;
@@ -12,6 +13,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -68,6 +70,7 @@ public class Vikare {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        MinecraftForge.EVENT_BUS.register(this);
         proxy.preinit();
     }
 
@@ -86,6 +89,10 @@ public class Vikare {
         LOGGER.info("winga dinga");
     }
 
+    @SubscribeEvent
+    public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+        event.getRegistry().register(new ShinyWingsRecipe().setRegistryName(new ResourceLocation(MODID, "shiny_wings")));
+    }
 //    private void setup(final FMLCommonSetupEvent event) {
 //        LOGGER.info("winga dinga");
 //        NetworkHandler.register();
