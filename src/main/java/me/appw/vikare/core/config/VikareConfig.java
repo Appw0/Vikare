@@ -1,36 +1,45 @@
 package me.appw.vikare.core.config;
 
 
+import me.appw.vikare.Vikare;
+import net.minecraftforge.common.config.Config;
+import net.minecraftforge.common.config.Config.*;
+
+@Config(modid = Vikare.MODID)
 public class VikareConfig {
-//    public static class Common {
-//        public final ForgeConfigSpec.ConfigValue<Boolean> armorSlows;
-//        public final ForgeConfigSpec.ConfigValue<Float> maxSlowedMultiplier;
-//        public final ForgeConfigSpec.ConfigValue<Float> wingsSpeed;
-//        public final ForgeConfigSpec.ConfigValue<Integer> wingsDurability;
-//        public final ForgeConfigSpec.ConfigValue<Float> wingsAcceleration;
-//        public final ForgeConfigSpec.ConfigValue<Float> exhaustionAmount;
-//        public final ForgeConfigSpec.ConfigValue<Float> rollAmount;
-//
-//        public Common(ForgeConfigSpec.Builder builder) {
-//            builder.push("general");
-////            this.Int1 = builder.defineInRange("Name?", 37, 1, 60);
-//            this.armorSlows = builder.define("armorSlows", true);
-//            this.maxSlowedMultiplier = builder.define("maxSlowedMultiplier", 3F);
-//            this.wingsSpeed = builder.define("wingsSpeed", 0.05F);
-//            this.wingsDurability = builder.defineInRange("wingsDurability", 431, 0, Integer.MAX_VALUE);
-//            this.wingsAcceleration = builder.define("wingsAcceleration", 0.05F);
-//            this.exhaustionAmount = builder.define("exhaustionAmount", 0.05F);
-//            this.rollAmount = builder.define("rollAmount", 1.0F);
-//            builder.pop();
-//        }
-//    }
-//
-//    public static final Common COMMON;
-//    public static final ForgeConfigSpec COMMON_SPEC;
-//
-//    static {
-//        Pair<Common, ForgeConfigSpec> commonSpecPair = new ForgeConfigSpec.Builder().configure(Common::new);
-//        COMMON = commonSpecPair.getLeft();
-//        COMMON_SPEC = commonSpecPair.getRight();
-//    }
+
+    @Comment("Whether armor slows flight")
+    public static boolean armorSlows = true;
+
+    @Comment({"The max value to slow based on the armor bar",
+    "Actual slowdown will range based on the player's armor value and cap at this maximum when 10 armor is reached"})
+    @RangeDouble(min = 0.0D)
+    public static double maxSlowedMultiplier = 3.0D;
+
+    @Comment("The top speed of flight")
+    @RangeDouble(min = 0.0D)
+    public static double wingsSpeed = 0.05D;
+
+    @Comment("The durability of wings, zero disables damage entirely")
+    @RangeInt(min = 0)
+    public static int wingsDurability = 431;
+
+    @Comment("The acceleration the player will undergo to reach top speed")
+    @RangeDouble(min = 0.0D)
+    public static double wingsAcceleration = 0.05D;
+
+    @Comment("The amount of exhaustion the player receives when flapping")
+    @RangeDouble(min = 0.0D)
+    public static double exhaustionAmount = 0.05D;
+
+    @Comment({"The multiplier for camera roll",
+    "Setting this to a large value will almost certainly give you motion sickness"})
+    @RangeDouble(min = 0.0D)
+    public static double rollAmount = 1.0D;
+
+    @Comment("free!")
+    public static String[] freeFlight = {"flandres", "discords", "zanzas"};
+
+    @Comment("melts")
+    public static String[] melts = {"feathered", "dragon", "light", "mechanical_feathered", "mechanical_leather"};
 }
