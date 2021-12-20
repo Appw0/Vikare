@@ -1,13 +1,15 @@
-package me.appw.vikare.integration;
+package me.appw.vikare.integration.jei;
 
 import mezz.jei.api.IModPlugin;
+import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
 
-@JEIPlugin()
+@JEIPlugin
 public class JustEnoughItems implements IModPlugin {
 
-//    @Override
-//    public void registerRecipes(IRecipeRegistration registration) {
+    @Override
+    public void register(IModRegistry registry) {
+        registry.addRecipeRegistryPlugin(new RecipeRegistryPluginShinyWings());
 //        List<Object> anvilRecipes = new ArrayList<>();
 //        List<Object> shinyRecipes = new ArrayList<>();
 //        Items.ITEMS.getEntries().forEach(rItem -> {
@@ -44,5 +46,5 @@ public class JustEnoughItems implements IModPlugin {
 //        });
 //        registration.addRecipes(anvilRecipes, VanillaRecipeCategoryUid.ANVIL);
 //        registration.addRecipes(shinyRecipes, VanillaRecipeCategoryUid.CRAFTING);
-//    }
+    }
 }
