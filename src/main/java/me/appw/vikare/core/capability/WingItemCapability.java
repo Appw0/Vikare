@@ -7,6 +7,9 @@ import me.appw.vikare.Vikare;
 import me.appw.vikare.client.VikareClient;
 import me.appw.vikare.client.models.WingsModel;
 import me.appw.vikare.common.items.WingItem;
+import me.appw.vikare.core.config.VikareConfig;
+import me.appw.vikare.core.network.client.CPlayerFlappingPacket;
+import me.appw.vikare.core.network.client.CPlayerFlappingPacket.FlappingState;
 import me.appw.vikare.core.registry.Items;
 import me.appw.vikare.core.registry.WingTypes.WingType;
 import net.minecraft.client.Minecraft;
@@ -24,6 +27,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -53,7 +57,7 @@ public class WingItemCapability implements ICapabilityProvider {
             wingsModel = (WingsModel) VikareClient.MODELS.get(wingType).newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             Vikare.LOGGER.error(e);
-        } catch (NullPointerException ignored) {
+        } catch (NoClassDefFoundError ignored) {
         }
     }
 
@@ -65,9 +69,9 @@ public class WingItemCapability implements ICapabilityProvider {
             if (player.isElytraFlying()) {
                 if (player.moveForward > 0) {
                     if (WingItem.isUsable(stack)) applySpeed(player);
-//                    CPlayerFlappingPacket.send(last_movement == 0 ? FlappingState.STARTED : FlappingState.NONE);
+                    CPlayerFlappingPacket.send(last_movement == 0 ? FlappingState.STARTED : FlappingState.NONE);
                 } else if (last_movement > 0) {
-//                    CPlayerFlappingPacket.send(FlappingState.ENDED);
+                    CPlayerFlappingPacket.send(FlappingState.ENDED);
                 }
                 last_movement = player.moveForward;
 

@@ -1,51 +1,78 @@
 package me.appw.vikare.core.network.client;
 
 
-public class CPlayerFlappingPacket {
+import io.netty.buffer.ByteBuf;
+import me.appw.vikare.common.items.WingItem;
+import me.appw.vikare.core.ViCore;
+import me.appw.vikare.core.config.VikareConfig;
+import me.appw.vikare.core.network.NetworkWrapper;
+import me.appw.vikare.core.network.server.SPlayerFlappingPacket;
+import me.appw.vikare.core.registry.WingTypes;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.Packet;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.PacketThreadUtil;
+import net.minecraft.network.play.INetHandlerPlayServer;
+import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-//    private FlappingState state;
-//
-//    public CPlayerFlappingPacket(FlappingState state) {
-//        this.state = state;
-//    }
-//
-//    public static void encode(CPlayerFlappingPacket packet, PacketBuffer buffer) {
-//        buffer.writeEnumValue(packet.state);
-//    }
-//
-//    public static CPlayerFlappingPacket decode(PacketBuffer buffer) { return new CPlayerFlappingPacket(buffer.readEnumValue(FlappingState.class)); }
-//
-//    public static void send(FlappingState state) {
-//        NetworkHandler.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CPlayerFlappingPacket(state));
-//    }
-//
-//    public static void handle(CPlayerFlappingPacket message, Supplier<NetworkEvent.Context> ctx) {
-//        ctx.get().enqueueWork(() -> {
-//            ServerPlayerEntity sender = ctx.get().getSender();
-//
-//            if (sender != null) {
-//                Optional<ImmutableTriple<String, Integer, ItemStack>> equippedCurio = CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof WingItem, sender);
-//                if (equippedCurio.isPresent()) {
-//                    ImmutableTriple<String, Integer, ItemStack> equippedWings = equippedCurio.get();
-//                    WingItem wingItem = (WingItem) equippedWings.right.getItem();
-//                    if (!sender.isCreative() && !WingItem.FREE_FLIGHT.contains(wingItem)) {
-//                        sender.addExhaustion(VikareConfig.COMMON.exhaustionAmount.get());
-//                    }
-//
-//                    if (message.state != FlappingState.NONE) {
-//                        SPlayerFlappingPacket.send(sender, message.state);
-//                    }
-//
-//                    if (WingItem.MELTS.contains(wingItem) && VikareConfig.COMMON.wingsDurability.get() > 0 && sender.ticksExisted % 20 == 0 && wingItem.isUsable(equippedWings.right)) {
-//                        equippedWings.right.damageItem(1, sender, p -> CuriosApi.getCuriosHelper().onBrokenCurio(equippedWings.left, equippedWings.middle, p));
-//                    }
-//                }
-//            }
-//        });
-//        ctx.get().setPacketHandled(true);
-//    }
+import java.util.Arrays;
 
-    public enum FlappingState {
+public class CPlayerFlappingPacket implements IMessage {
+
+    public FlappingState state;
+
+    public CPlayerFlappingPacket() {}
+
+    public CPlayerFlappingPacket(FlappingState state) {
+        this.state = state;
+    }
+
+    @Override
+    public void toBytes(ByteBuf buffer) {
+        buffer.writeInt(state.ordinal());
+    }
+
+    @Override
+    public void fromBytes(ByteBuf buffer) {
+        this.state = FlappingState.values()[buffer.readInt()];
+    }
+
+    public static void send(FlappingState state) {
+        NetworkWrapper.INSTANCE.sendToServer(new CPlayerFlappingPacket(state));
+    }
+
+    public static class CPlayerFlappingPacketHandler implements IMessageHandler<CPlayerFlappingPacket, IMessage> {
+        @Override
+        public IMessage onMessage(CPlayerFlappingPacket message, MessageContext ctx) {
+
+            ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
+                EntityPlayerMP player = ctx.getServerHandler().player;
+                ItemStack wings = ViCore.getWings(player);
+                WingTypes.WingType wingType = ((WingItem) wings.getItem()).getWingType();
+                if (!wings.isEmpty()) {
+                    if (!player.isCreative() && wingType.hasFreeFlight()) {
+                        player.addExhaustion((float) VikareConfig.exhaustionAmount);
+                    }
+                }
+
+                if (message.state != FlappingState.NONE) {
+                    SPlayerFlappingPacket.send(player, message.state == FlappingState.STARTED);
+                }
+
+                if (wingType.doesMelt() && VikareConfig.wingsDurability > 0 && player.ticksExisted % 20 == 0 && WingItem.isUsable(wings)) {
+                    wings.damageItem(1, player);
+                }
+            });
+
+            return null;
+        }
+    }
+
+     public enum FlappingState {
         NONE, STARTED, ENDED
     }
 }

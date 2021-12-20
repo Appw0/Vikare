@@ -3,6 +3,7 @@ package me.appw.vikare;
 import me.appw.vikare.client.VikareClient;
 import me.appw.vikare.common.VikareCommon;
 import me.appw.vikare.core.capability.WingItemCapability;
+import me.appw.vikare.core.network.NetworkWrapper;
 import me.appw.vikare.core.registry.Items;
 import me.appw.vikare.core.registry.WingTypes;
 import net.minecraft.creativetab.CreativeTabs;
@@ -71,6 +72,7 @@ public class Vikare {
 
         proxy.preinit();
 
+        NetworkWrapper.register();
     }
 
     @EventHandler
