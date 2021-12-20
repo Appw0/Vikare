@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static me.appw.vikare.Vikare.MODID;
-import static me.appw.vikare.core.registry.Items.ITEMS;
+import static me.appw.vikare.core.registry.Items.WINGS;
 
 //@Mod.EventBusSubscriber(modid = Vikare.MODID, value = Dist.CLIENT, bus = Bus.MOD)
 @Mod.EventBusSubscriber(modid = MODID, value = Side.CLIENT)
@@ -36,7 +36,7 @@ public class VikareClient extends VikareCommon {
 
     @SubscribeEvent
     public static void registerModels(ModelRegistryEvent event) {
-        for  (Item item : ITEMS) {
+        for  (WingItem item : WINGS) {
             ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
         }
     }
@@ -60,7 +60,7 @@ public class VikareClient extends VikareCommon {
             public int colorMultiplier(ItemStack stack, int tintIndex) {
                 return tintIndex == 0 ? ColorHelper.dyeToDecimal(((WingItem)stack.getItem()).getPrimaryColor()) : ColorHelper.dyeToDecimal(((WingItem)stack.getItem()).getSecondaryColor());
             }
-        }, ITEMS.toArray(new Item[0]));
+        }, WINGS.toArray(new Item[0]));
     }
 
     public static void entityViewRender(EntityViewRenderEvent.CameraSetup event) {

@@ -15,7 +15,7 @@ import static me.appw.vikare.Vikare.MODID;
 
 @Mod.EventBusSubscriber(modid = MODID)
 public class Items {
-    public static final Set<Item> ITEMS = new HashSet<>();
+    public static final Set<WingItem> WINGS = new HashSet<>();
 
     public static final Item WHITE_FEATHERED_WINGS = create("white_feathered_wings", new WingItem(EnumDyeColor.WHITE, EnumDyeColor.WHITE, WingTypes.FEATHERED));
     public static final Item ORANGE_FEATHERED_WINGS = create("orange_feathered_wings", new WingItem(EnumDyeColor.ORANGE, EnumDyeColor.ORANGE, WingTypes.FEATHERED));
@@ -108,7 +108,7 @@ public class Items {
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
-        for (Item item : ITEMS) {
+        for (WingItem item : WINGS) {
             event.getRegistry().register(item);
         }
     }
@@ -116,7 +116,7 @@ public class Items {
     private static Item create(String name, WingItem item) {
         item.setRegistryName(new ResourceLocation(MODID, name));
         item.setTranslationKey(MODID + "." + name);
-        ITEMS.add(item);
+        WINGS.add(item);
         return item;
     }
 }
