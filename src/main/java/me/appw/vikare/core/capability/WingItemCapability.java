@@ -74,17 +74,16 @@ public class WingItemCapability implements ICapabilityProvider {
                 if (player.isSneaking()) {
                     stopFlying(player);
                 }
-//                if (player.posY > player.world.getHeight() + 64 && player.ticksExisted % 20 == 0 && WingItem.MELTS.contains(wings)) {
-//                    stack.damageItem(1, player, p -> CuriosApi.getCuriosHelper().onBrokenCurio(identifier, index, p));
-//                }
 
-//                if (!WingItem.isUsable(stack)) {
-//                    wingsModel.setBroken();
-//                    ModifiableAttributeInstance gravity = player.getAttribute(net.minecraftforge.common.ForgeMod.ENTITY_GRAVITY.get());
-//                    double adjustedLift = gravity.getValue() * -MathHelper.cos(player.rotationPitch * ((float)Math.PI / 180F));;
-//                    Vector3d velocity = player.getMotion().add(0.0D, adjustedLift, 0.0D);
-//                    player.setMotion(velocity.x, velocity.y, velocity.z);
-//                }
+                if (player.posY > player.world.getHeight() + 64 && player.ticksExisted % 20 == 0 && wingType.doesMelt()) {
+                    stack.damageItem(1, player);
+                }
+
+                if (!WingItem.isUsable(stack)) {
+                    wingsModel.setBroken();
+                    double adjustedLift = 0.08D * -MathHelper.cos(player.rotationPitch * ((float)Math.PI / 180F));;
+                    player.motionY += adjustedLift; // any mods that change gravity with their own code will totally cause bugs here
+                }
             } else {
                 if (player.onGround || player.isInWater()) {
                     shouldSlowFall = false;
@@ -92,7 +91,7 @@ public class WingItemCapability implements ICapabilityProvider {
                 if (shouldSlowFall) {
                     if (wingsModel != null) wingsModel.setSlowFall();
                         player.fallDistance = WingItem.isUsable(stack) ? 0F : Math.min(player.fallDistance, 10F);
-                        player.motionY = WingItem.isUsable(stack) ? -0.4 : -1;
+                        player.motionY = WingItem.isUsable(stack) ? -0.4D : -1D;
                 }
             }
             if (player.world.isRemote) {
@@ -169,15 +168,14 @@ public class WingItemCapability implements ICapabilityProvider {
         shouldSlowFall = false;
         Vec3d rotation = player.getLookVec();
         Vec3d velocity = new Vec3d(player.motionX, player.motionY, player.motionZ);
-//        float modifier = VikareConfig.COMMON.armorSlows.get() ? MathHelper.clamp(player.getTotalArmorValue() / 10F, 1F, VikareConfig.COMMON.maxSlowedMultiplier.get()) : 1F;
-        float modifier = 1.0F;
+        double modifier = VikareConfig.armorSlows ? MathHelper.clamp(player.getTotalArmorValue() / 10D, 1D, VikareConfig.maxSlowedMultiplier) : 1D;
 
         velocity = velocity.add(rotation.x * (wings.speed / modifier) + (rotation.x * 1.5D - velocity.x) * wings.acceleration, rotation.y * (wings.speed / modifier) + (rotation.y * 1.5D - velocity.y) * wings.acceleration, rotation.z * (wings.speed / modifier) + (rotation.z * 1.5D - velocity.z) * wings.acceleration);
         player.motionX = velocity.x;
         player.motionY = velocity.y;
         player.motionZ = velocity.z;
     }
-//
+
     public void setForcedFlap(boolean forcedFlap) {
         this.forcedFlap = forcedFlap;
     }

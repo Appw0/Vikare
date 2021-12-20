@@ -1,9 +1,18 @@
 package me.appw.vikare.core.registry;
 
 import me.appw.vikare.Vikare;
+import me.appw.vikare.core.config.VikareConfig;
+import net.minecraft.init.Items;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class WingTypes {
     public static final WingType FEATHERED = new WingType("feathered", Sounds.ITEM_FEATHERED_WINGS_EQUIP, Sounds.ITEM_FEATHERED_WINGS_FLAP);
@@ -15,6 +24,19 @@ public class WingTypes {
     public static final WingType DISCORDS = new WingType("discords", Sounds.ITEM_DISCORDS_WINGS_EQUIP, Sounds.ITEM_DISCORDS_WINGS_FLAP, EnumRarity.EPIC);
     public static final WingType ZANZAS = new WingType("zanzas", Sounds.ITEM_ZANZAS_WINGS_EQUIP, Sounds.ITEM_ZANZAS_WINGS_FLAP, EnumRarity.EPIC);
 
+    public static void registerOreDictEntries() {
+        OreDictionary.registerOre(FEATHERED.repairItemsOreDictKey, Items.FEATHER);
+        OreDictionary.registerOre(MECHANICAL_FEATHERED.repairItemsOreDictKey, Items.FEATHER);
+        OreDictionary.registerOre(DRAGON.repairItemsOreDictKey, Items.LEATHER);
+        OreDictionary.registerOre(MECHANICAL_LEATHER.repairItemsOreDictKey, Items.LEATHER);
+        OreDictionary.registerOre(LIGHT.repairItemsOreDictKey, Items.GLOWSTONE_DUST);
+        OreDictionary.registerOre(FLANDRES.repairItemsOreDictKey, Items.DIAMOND);
+        OreDictionary.registerOre(FLANDRES.repairItemsOreDictKey, Items.EMERALD);
+        OreDictionary.registerOre(DISCORDS.repairItemsOreDictKey, Items.FEATHER);
+        OreDictionary.registerOre(DISCORDS.repairItemsOreDictKey, Items.LEATHER);
+        OreDictionary.registerOre(ZANZAS.repairItemsOreDictKey, Items.GLOWSTONE_DUST);
+    }
+
     public static class WingType {
         public final String name;
         public final EnumRarity rarity;
@@ -22,16 +44,10 @@ public class WingTypes {
         public final ResourceLocation layer2;
         public final SoundEvent equipSound;
         public final SoundEvent flapSound;
-//        public final ITag.INamedTag<Item> repairItemsTag;
+        public final String repairItemsOreDictKey;
 
         WingType(String name, SoundEvent equipSound, SoundEvent flapSound) {
-            this.name = name;
-            this.rarity = EnumRarity.RARE;
-            this.equipSound = equipSound;
-            this.flapSound = flapSound;
-            this.layer1 = new ResourceLocation(Vikare.MODID, "textures/entity/" + name + "_wings.png");
-            this.layer2 = new ResourceLocation(Vikare.MODID, "textures/entity/" + name + "_wings_2.png");
-//            this.repairItemsTag = ItemTags.makeWrapperTag(Vikare.MODID + ":" + name + "_wings_repair_items");
+            this(name, equipSound, flapSound, EnumRarity.RARE);
         }
 
         WingType (String name, SoundEvent equipSound, SoundEvent flapSound, EnumRarity rarity) {
@@ -41,7 +57,26 @@ public class WingTypes {
             this.flapSound = flapSound;
             this.layer1 = new ResourceLocation(Vikare.MODID, "textures/entity/" + name + "_wings.png");
             this.layer2 = new ResourceLocation(Vikare.MODID, "textures/entity/" + name + "_wings_2.png");
-//            this.repairItemsTag = ItemTags.makeWrapperTag(Vikare.MODID + ":" + name + "_wings_repair_items");
+            String[] pieces = name.split("_");
+            this.repairItemsOreDictKey = "itemRepair"+StringUtils.capitalize(pieces[0])+StringUtils.capitalize(pieces.length > 1 ? pieces[1] : "")+"Wings";
+        }
+
+        public boolean doesMelt() {
+            for (String type : VikareConfig.melts) {
+                if (name.equals(type)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public boolean hasFreeFlight() {
+            for (String type : VikareConfig.freeFlight) {
+                if (name.equals(type)) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

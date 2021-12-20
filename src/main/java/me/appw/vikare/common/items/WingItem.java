@@ -19,6 +19,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IRarity;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -29,25 +30,15 @@ public class WingItem extends Item implements IBauble, IRenderBauble { //, IDyea
     private final EnumDyeColor primaryColor; // TODO: maybe one day this could be NBT values?
     private final EnumDyeColor secondaryColor;
     private final WingType wingType;
-//    public static final INamedTag<Item> FREE_FLIGHT = ItemTags.makeWrapperTag(Vikare.MODID + ":free_flight");
-//    public static final INamedTag<Item> MELTS = ItemTags.makeWrapperTag(Vikare.MODID + ":melts");
     public final double speed;
     public final double acceleration;
 
     public WingItem(EnumDyeColor primaryColor, EnumDyeColor secondaryColor, WingType wingType) {
         this.setMaxStackSize(1);
-        this.setMaxDamage(255);
+        this.setMaxDamage(VikareConfig.wingsDurability);
         this.setCreativeTab(Vikare.TAB);
-//        super(new Item.Properties()
-//                .maxStackSize(1)
-//                .maxDamage(VikareConfig.COMMON.wingsDurability.get())
-//                .group(Vikare.ITEM_GROUP)
-//                .rarity(wingType.rarity)
-//        );
-        this.speed = 1;
-        this.acceleration = 1;
-//        this.speed = VikareConfig.COMMON.wingsSpeed.get();
-//        this.acceleration = VikareConfig.COMMON.wingsAcceleration.get();
+        this.speed = VikareConfig.wingsSpeed;
+        this.acceleration = VikareConfig.wingsAcceleration;
         this.primaryColor = primaryColor;
         this.secondaryColor = secondaryColor;
         this.wingType = wingType;
@@ -85,11 +76,10 @@ public class WingItem extends Item implements IBauble, IRenderBauble { //, IDyea
         }
     }
 
-//    @ParametersAreNonnullByDefault
-//    @Override
-//    public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-//        return wingType.repairItemsTag.contains(repair.getItem());
-//    }
+    @Override
+    public boolean getIsRepairable(@Nonnull  ItemStack toRepair, ItemStack repair) {
+        return OreDictionary.containsMatch(true, OreDictionary.getOres(wingType.repairItemsOreDictKey), repair);
+    }
 
 //    public List<ItemStack> getRepairItemStacks() {
 //        List<ItemStack> itemStacks = new ArrayList<>();
