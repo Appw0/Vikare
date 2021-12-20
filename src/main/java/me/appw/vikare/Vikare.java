@@ -8,17 +8,23 @@ import me.appw.vikare.core.registry.Items;
 import me.appw.vikare.core.registry.WingTypes;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.logging.log4j.LogManager;
@@ -62,17 +68,11 @@ public class Vikare {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        CapabilityManager.INSTANCE.register(WingItemCapability.class, new Capability.IStorage<WingItemCapability>() {
-            @Nullable
-            @Override
-            public NBTBase writeNBT(Capability<WingItemCapability> capability, WingItemCapability instance, EnumFacing side) {return null;}
-            @Override
-            public void readNBT(Capability<WingItemCapability> capability, WingItemCapability instance, EnumFacing side, NBTBase nbt) {}
-        }, WingItemCapability::new);
-
         proxy.preinit();
+    }
 
-        NetworkWrapper.register();
+    @EventHandler public void postInit(FMLPostInitializationEvent event) {
+        proxy.postInit();
     }
 
     @EventHandler

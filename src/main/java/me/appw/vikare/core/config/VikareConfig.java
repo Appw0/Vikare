@@ -37,9 +37,15 @@ public class VikareConfig {
     @RangeDouble(min = 0.0D)
     public static double rollAmount = 1.0D;
 
-    @Comment("free!")
+    @Comment("The wing types that are exempt from hunger exhaustion")
     public static String[] freeFlight = {"flandres", "discords", "zanzas"};
 
-    @Comment("melts")
+    @Comment("The wing types that take damage when flapping and when flying above y320")
     public static String[] melts = {"feathered", "dragon", "light", "mechanical_feathered", "mechanical_leather"};
+
+    @Comment("The oredict entries that will be copied into the waxWing entry used to craft wings")
+    public static String[] waxWingOreDict = {"beeComb", "materialHoneycomb"};
+
+    @Comment("The vanilla oredict entry to fall back upon if there is nothing in the default oredict entries")
+    public static String waxWingOreDictFallback = "slimeball";
 }

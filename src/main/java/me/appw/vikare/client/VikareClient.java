@@ -43,6 +43,7 @@ public class VikareClient extends VikareCommon {
 
     @Override
     public void preinit() {
+        super.preinit();
         MODELS.put(WingTypes.FEATHERED, FeatheredWingsModel.class);
         MODELS.put(WingTypes.MECHANICAL_FEATHERED, FeatheredWingsModel.class);
         MODELS.put(WingTypes.DRAGON, LeatherWingsModel.class);
