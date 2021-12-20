@@ -46,4 +46,24 @@ public class ViCore implements IFMLLoadingPlugin {
     public String getAccessTransformerClass() {
         return null;
     }
+
+    public static ItemStack getWings(EntityLivingBase entity) {
+        if (entity instanceof EntityPlayer) {
+            IBaublesItemHandler handler = BaublesApi.getBaublesHandler((EntityPlayer) entity);
+            for(int i = 0; i < handler.getSlots(); i++) {
+                if (!handler.getStackInSlot(i).isEmpty() && handler.getStackInSlot(i).getItem() instanceof WingItem) {
+                    return handler.getStackInSlot(i);
+                }
+            }
+        }
+        return ItemStack.EMPTY;
+    }
+
+    public static boolean hasWorkingWings(EntityLivingBase entity) {
+        ItemStack wings = getWings(entity);
+        if (!wings.isEmpty()) {
+            return WingItem.isUsable(wings);
+        }
+        return false;
+    }
 }

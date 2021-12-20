@@ -51,7 +51,7 @@ public class CPlayerFlappingPacket implements IMessage {
 
             ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
                 EntityPlayerMP player = ctx.getServerHandler().player;
-                ItemStack wings = WingItem.getWings(player);
+                ItemStack wings = ViCore.getWings(player);
                 WingTypes.WingType wingType = ((WingItem) wings.getItem()).getWingType();
                 if (!wings.isEmpty()) {
                     if (!player.isCreative() && wingType.hasFreeFlight()) {
