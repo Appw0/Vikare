@@ -1,5 +1,6 @@
 package me.appw.vikare.mixin;
 
+import me.appw.vikare.common.items.WingItem;
 import me.appw.vikare.core.ViCore;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -22,6 +23,6 @@ public abstract class EntityLivingBaseMixin extends Entity {
             name = "flag",
             at = @At(value = "STORE", ordinal = 2))
     private boolean updateElytra_flag(boolean flag) {
-        return ViCore.hasWorkingWings((EntityLivingBase)(Object)this); // hehe funni cast
+        return WingItem.hasWorkingWings((EntityLivingBase)(Object)this); // hehe funni cast
     }
 }

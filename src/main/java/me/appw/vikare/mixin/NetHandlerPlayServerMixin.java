@@ -1,5 +1,6 @@
 package me.appw.vikare.mixin;
 
+import me.appw.vikare.common.items.WingItem;
 import me.appw.vikare.core.ViCore;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.NetHandlerPlayServer;
@@ -17,7 +18,7 @@ public abstract class NetHandlerPlayServerMixin {
                 target = "Lnet/minecraft/entity/player/EntityPlayerMP;getItemStackFromSlot(Lnet/minecraft/inventory/EntityEquipmentSlot;)Lnet/minecraft/item/ItemStack;"),
             method = "processEntityAction")
     private void processEntityAction_getItemStackFromSlot(CallbackInfo ci) {
-        if (ViCore.hasWorkingWings(this.player)) {
+        if (WingItem.hasWorkingWings(this.player)) {
             this.player.setElytraFlying();
         }
     }

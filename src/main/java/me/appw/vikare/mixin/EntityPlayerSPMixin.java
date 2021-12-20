@@ -2,6 +2,7 @@ package me.appw.vikare.mixin;
 
 import com.mojang.authlib.GameProfile;
 import me.appw.vikare.Vikare;
+import me.appw.vikare.common.items.WingItem;
 import me.appw.vikare.core.ViCore;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.network.NetHandlerPlayClient;
@@ -35,7 +36,7 @@ public abstract class EntityPlayerSPMixin extends EntityPlayer {
             method = "onLivingUpdate")
     private void onLivingUpdate_getItemStackFromSlot(CallbackInfo ci) {
         ItemStack chestStack = this.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-        if (!(chestStack.getItem() == Items.ELYTRA && ItemElytra.isUsable(chestStack)) && ViCore.hasWorkingWings(this)) {
+        if (!(chestStack.getItem() == Items.ELYTRA && ItemElytra.isUsable(chestStack)) && WingItem.hasWorkingWings(this)) {
             this.connection.sendPacket(new CPacketEntityAction(this, CPacketEntityAction.Action.START_FALL_FLYING));
         }
     }

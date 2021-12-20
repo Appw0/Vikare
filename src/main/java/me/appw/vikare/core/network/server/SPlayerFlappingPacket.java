@@ -3,6 +3,7 @@ package me.appw.vikare.core.network.server;
 
 import io.netty.buffer.ByteBuf;
 import me.appw.vikare.Vikare;
+import me.appw.vikare.common.items.WingItem;
 import me.appw.vikare.core.ViCore;
 import me.appw.vikare.core.capability.WingItemCapability;
 import me.appw.vikare.core.network.NetworkWrapper;
@@ -53,7 +54,7 @@ public class SPlayerFlappingPacket implements IMessage {
                 if (world != null) {
                     Entity entity = world.getEntityByID(message.entityId);
                     if (entity instanceof EntityPlayer && entity != Minecraft.getMinecraft().player) {
-                        ItemStack wings = ViCore.getWings((EntityPlayer) entity);
+                        ItemStack wings = WingItem.getWings((EntityPlayer) entity);
                         if (!wings.isEmpty()) {
                             WingItemCapability wingCap = wings.getCapability(Vikare.WING_ITEM_CAPABILITY, null);
                             if (wingCap != null) {
