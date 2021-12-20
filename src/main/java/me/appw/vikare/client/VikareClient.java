@@ -2,6 +2,7 @@ package me.appw.vikare.client;
 
 import me.appw.vikare.Vikare;
 import me.appw.vikare.client.models.*;
+import me.appw.vikare.common.VikareCommon;
 import me.appw.vikare.common.items.WingItem;
 import me.appw.vikare.core.registry.WingTypes;
 import me.appw.vikare.core.registry.WingTypes.WingType;
@@ -29,7 +30,7 @@ import static me.appw.vikare.core.registry.Items.ITEMS;
 
 //@Mod.EventBusSubscriber(modid = Vikare.MODID, value = Dist.CLIENT, bus = Bus.MOD)
 @Mod.EventBusSubscriber(modid = MODID, value = Side.CLIENT)
-public class VikareClient {
+public class VikareClient extends VikareCommon {
     public static final Map<WingType, Class<?>> MODELS = new LinkedHashMap<>();
     private static double prevRollOffset;
 
@@ -40,7 +41,8 @@ public class VikareClient {
         }
     }
 
-    public static void preinit(FMLPreInitializationEvent event) {
+    @Override
+    public void preinit() {
         MODELS.put(WingTypes.FEATHERED, FeatheredWingsModel.class);
         MODELS.put(WingTypes.MECHANICAL_FEATHERED, FeatheredWingsModel.class);
         MODELS.put(WingTypes.DRAGON, LeatherWingsModel.class);

@@ -1,8 +1,10 @@
 package me.appw.vikare;
 
 import me.appw.vikare.client.VikareClient;
+import me.appw.vikare.common.VikareCommon;
 import me.appw.vikare.core.capability.WingItemCapability;
 import me.appw.vikare.core.registry.Items;
+import me.appw.vikare.core.registry.WingTypes;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
@@ -13,6 +15,7 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -36,8 +39,8 @@ public class Vikare {
     public static final String NAME = "Vikare";
     public static final String VERSION = "${version}";
 
-    @SidedProxy(clientSide = "me.appw.vikare.client.VikareClient")
-    public static VikareClient clientProxy;
+    @SidedProxy(clientSide = "me.appw.vikare.client.VikareClient", serverSide = "me.appw.vikare.common.VikareCommon")
+    public static VikareCommon proxy;
 
     public static final CreativeTabs TAB = (new CreativeTabs("vikare.general") {
         @SideOnly(Side.CLIENT)
@@ -53,21 +56,7 @@ public class Vikare {
     public static Capability<WingItemCapability> WING_ITEM_CAPABILITY = null;
 
     public Vikare() {
-//        // Register the setup method for modloading
-//        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-//        // Register the enqueueIMC method for modloading
-//        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
-//        // Register the processIMC method for modloading
-////        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
-//        // Register the doClientStuff method for modloading
-////        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
-//
-//        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, VikareConfig.COMMON_SPEC);
-//        // Register ourselves for server and other game events we are interested in
-//        MinecraftForge.EVENT_BUS.register(this);
-//        Sounds.register();
-//        Items.register();
-//        RecipeSerializers.register();
+
     }
 
     @EventHandler
@@ -80,9 +69,13 @@ public class Vikare {
             public void readNBT(Capability<WingItemCapability> capability, WingItemCapability instance, EnumFacing side, NBTBase nbt) {}
         }, WingItemCapability::new);
 
-        if (clientProxy != null) {
-            VikareClient.preinit(event);
-        }
+        proxy.preinit();
+
+    }
+
+    @EventHandler
+    public void init(FMLInitializationEvent event) {
+        WingTypes.registerOreDictEntries();
     }
 
     @EventHandler
