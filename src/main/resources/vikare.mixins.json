@@ -1,6 +1,7 @@
 {
   "compatibilityLevel": "JAVA_8",
   "package": "me.appw.vikare.mixin",
+  "refmap": "vikare.refmap.json",
   "mixins": [
     "EntityLivingBaseMixin",
     "NetHandlerPlayServerMixin"
@@ -9,5 +10,8 @@
     "EntityPlayerSPMixin"
   ],
   "server": [],
-  "minVersion": "0.8"
+  "minVersion": "0.8",
+  "injectors": {
+    "defaultRequire": 1
+  }
 }
