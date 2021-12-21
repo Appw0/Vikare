@@ -4,13 +4,19 @@ import me.appw.vikare.Vikare;
 import me.appw.vikare.client.models.*;
 import me.appw.vikare.common.VikareCommon;
 import me.appw.vikare.common.items.WingItem;
+import me.appw.vikare.core.ViCore;
+import me.appw.vikare.core.config.VikareConfig;
 import me.appw.vikare.core.registry.WingTypes;
 import me.appw.vikare.core.registry.WingTypes.WingType;
 import me.appw.vikare.core.util.ColorHelper;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -64,21 +70,17 @@ public class VikareClient extends VikareCommon {
         }, WINGS.toArray(new Item[0]));
     }
 
+    @SubscribeEvent
     public static void entityViewRender(EntityViewRenderEvent.CameraSetup event) {
         // camera stuff
+        Entity entity = event.getEntity();
+        if (entity instanceof EntityLivingBase) {
+            EntityLivingBase living = (EntityLivingBase) entity;
+            if (ViCore.hasWorkingWings(living) && living.isElytraFlying()) {
+                double strafingRollOffset = living.getLookVec().rotateYaw((float)(Math.PI / 2D)).dotProduct(new Vec3d(living.motionX, living.motionY, living.motionZ)) * 15.0D;
+                prevRollOffset = strafingRollOffset = MathHelper.clampedLerp(prevRollOffset, strafingRollOffset, event.getRenderPartialTicks());
+                event.setRoll((float)(strafingRollOffset * VikareConfig.rollAmount));
+            }
+        }
     }
-//
-//    @Mod.EventBusSubscriber(modid = Vikare.MODID, value = Dist.CLIENT, bus = Bus.FORGE)
-//    public static class CameraEventHandler {
-//        @SubscribeEvent
-//        public static void entityViewRender(EntityViewRenderEvent.CameraSetup event) {
-//            ClientPlayerEntity player = Minecraft.getInstance().player;
-//            Optional<ImmutableTriple<String, Integer, ItemStack>> equippedCurio = CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof WingItem, player);
-//            if (player.isElytraFlying() && equippedCurio.isPresent()) {
-//                double strafingRollOffset = player.getLookVec().rotateYaw((float)Math.PI / 2F).dotProduct(player.getMotion()) * 15.0D;
-//                prevRollOffset = strafingRollOffset = MathHelper.lerp(event.getRenderPartialTicks(), prevRollOffset, strafingRollOffset);
-//                event.setRoll((float) strafingRollOffset * VikareConfig.COMMON.rollAmount.get());
-//            }
-//        }
-//    }
 }
