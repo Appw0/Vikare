@@ -74,7 +74,7 @@ dependencies {
         exclude module: 'gson'
     }
 
-    compileOnly fg.deobf("mezz.jei:jei_${minecraft_version}:${jei_version}:api")
+    compileOnly fg.deobf("mezz.jei:jei_${minecraft_version}:${jei_version}")
 
     compileOnly fg.deobf("curse.maven:baubles-227083:2518667")
     runtimeOnly fg.deobf("curse.maven:baubles-227083:2518667")

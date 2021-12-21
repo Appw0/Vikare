@@ -48,4 +48,7 @@ public class VikareConfig {
 
     @Comment("The vanilla oredict entry to fall back upon if there is nothing in the default oredict entries")
     public static String waxWingOreDictFallback = "slimeball";
+
+    @Comment("The oredict entry to use for shining or unshining wings")
+    public static String shineItemOreDict = "dustGlowstone";
 }

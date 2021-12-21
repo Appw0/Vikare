@@ -1,7 +1,9 @@
 package me.appw.vikare.integration.jei;
 
+import me.appw.vikare.core.crafting.ShinyWingsRecipe;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
+import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.wrapper.ICraftingRecipeWrapper;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Enchantments;
@@ -9,29 +11,35 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagByte;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RecipeWrapperShinyWings implements ICraftingRecipeWrapper {
     private final ItemStack wings;
     private final ItemStack outWings;
 
-    public RecipeWrapperShinyWings(ItemStack wings) {
-        this.wings = wings;
-        this.wings.addEnchantment(Enchantments.MENDING, 0);
-        this.outWings = wings.copy();
-        outWings.setTagInfo("Dull", new NBTTagByte((byte) 1));
+    public RecipeWrapperShinyWings(ItemStack wings, IFocus.Mode mode) {
+        this.wings = wings.copy();
+        outWings = wings.copy();
+        ItemStack invertDull = mode == IFocus.Mode.OUTPUT ? this.wings : this.outWings;
+        NBTTagCompound nbt = invertDull.getTagCompound();
+        if (nbt == null) nbt = new NBTTagCompound();
+        nbt.setBoolean("Dull", !nbt.getBoolean("Dull"));
+        invertDull.setTagCompound(nbt);
     }
 
     @Override
     public void getIngredients(IIngredients ingredients) {
-        List<ItemStack> inputs = new ArrayList<>();
+        List<List<ItemStack>> inputLists = new ArrayList<>();
 
-        inputs.add(wings);
-        inputs.add(new ItemStack(Items.GLOWSTONE_DUST));
+        inputLists.add(Collections.singletonList(wings));
+        inputLists.add(ShinyWingsRecipe.shinyOre);
 
-        ingredients.setInputs(VanillaTypes.ITEM, inputs);
+        ingredients.setInputLists(VanillaTypes.ITEM, inputLists);
         ingredients.setOutput(VanillaTypes.ITEM, outWings);
     }
 }

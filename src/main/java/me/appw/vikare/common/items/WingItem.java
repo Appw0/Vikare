@@ -81,14 +81,6 @@ public class WingItem extends Item implements IBauble, IRenderBauble { //, IDyea
         return OreDictionary.containsMatch(true, OreDictionary.getOres(wingType.repairItemsOreDictKey), repair);
     }
 
-//    public List<ItemStack> getRepairItemStacks() {
-//        List<ItemStack> itemStacks = new ArrayList<>();
-//        wingType.repairItemsTag.getAllElements().forEach(item -> {
-//            itemStacks.add(new ItemStack(item));
-//        });
-//        return itemStacks;
-//    }
-
     @Override
     public boolean hasEffect(ItemStack stack) {
         if (stack.hasTagCompound()) {
