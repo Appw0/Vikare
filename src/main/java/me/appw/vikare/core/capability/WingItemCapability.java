@@ -57,7 +57,7 @@ public class WingItemCapability implements ICapabilityProvider {
             wingsModel = (WingsModel) VikareClient.MODELS.get(wingType).newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             Vikare.LOGGER.error(e);
-        } catch (NoClassDefFoundError ignored) {
+        } catch (NoClassDefFoundError | NullPointerException ignored) {
         }
     }
 
