@@ -58,8 +58,8 @@ public class FeatheredWingsModel extends WingsModel {
         leftWing05 = new ModelRenderer(this);
         leftWing05.setRotationPoint(-0.5F, 4.8F, -0.2F);
         leftWing04.addChild(leftWing05);
-//        leftWing05.setTextureOffset(0, 13).addBox(0.4F, -4.0F, -12.3F, 0.001F, 20.0F, 13.0F, 0.0F, true);
-        leftWing05.setTextureOffset(0, 13).addBox(0.4F, -4.0F, -12.3F, 0, 20, 13, true);
+        leftWing05.setTextureOffset(0, 13);
+        leftWing05.cubeList.add(new ModelBoxPatched(leftWing05, 0, 13, 0.4F, -4.0F, -12.3F, 0.001F, 20, 13, 0, true));
 
         lFeathers02 = new ModelRenderer(this);
         lFeathers02.setRotationPoint(0.0F, -3.5F, -3.2F);
@@ -110,8 +110,8 @@ public class FeatheredWingsModel extends WingsModel {
         rightWing05 = new ModelRenderer(this);
         rightWing05.setRotationPoint(0.5F, 4.8F, -0.2F);
         rightWing04.addChild(rightWing05);
-//        rightWing05.setTextureOffset(0, 13).addBox(-0.4F, -4.0F, -12.3F, 0.001F, 20.0F, 13.0F, 0.0F, false);
-        rightWing05.setTextureOffset(0, 13).addBox(-0.4F, -4.0F, -12.3F, 0, 20, 13, false);
+        rightWing05.setTextureOffset(0, 13);
+        rightWing05.cubeList.add(new ModelBoxPatched(rightWing05, 0, 13, -0.4F, -4.0F, -12.3F, 0.001F, 20, 13, 0, false));
 
         rFeathers02 = new ModelRenderer(this);
         rFeathers02.setRotationPoint(0.0F, -3.5F, -3.2F);

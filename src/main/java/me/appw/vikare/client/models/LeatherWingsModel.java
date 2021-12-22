@@ -68,8 +68,8 @@ public class LeatherWingsModel extends WingsModel {
         leftWing04Leather = new ModelRenderer(this);
         leftWing04Leather.setRotationPoint(0.0F, 0.0F, 0.0F);
         leftWing04.addChild(leftWing04Leather);
-//        leftWing04Leather.setTextureOffset(0, 28).addBox(0.0F, 0.0F, 0.0F, 0.001F, 5.0F, 14.0F, 0.0F, false);
-        leftWing04Leather.setTextureOffset(0, 28).addBox(0.0F, 0.0F, 0.0F, 0, 5, 14,false);
+        leftWing04Leather.setTextureOffset(0, 28);
+        leftWing04Leather.cubeList.add(new ModelBoxPatched(leftWing04Leather, 0, 28, 0.0F, 0.0F, 0.0F, 0.001F, 5, 14, 0, false));
 
         leftWingStrut01 = new ModelRenderer(this);
         leftWingStrut01.setRotationPoint(0.0F, 1.0F, 7.0F);
@@ -80,8 +80,8 @@ public class LeatherWingsModel extends WingsModel {
         leftWingStrut01Leather = new ModelRenderer(this);
         leftWingStrut01Leather.setRotationPoint(0.0F, 0.0F, 0.0F);
         leftWingStrut01.addChild(leftWingStrut01Leather);
-//        leftWingStrut01Leather.setTextureOffset(0, 22).addBox(-0.05F, 0.0F, 0.0F, 0.001F, 5.0F, 14.0F, 0.0F, false);
-        leftWingStrut01Leather.setTextureOffset(0, 22).addBox(-0.05F, 0.0F, 0.0F, 0, 5, 14,false);
+        leftWingStrut01Leather.setTextureOffset(0, 22);
+        leftWingStrut01Leather.cubeList.add(new ModelBoxPatched(leftWingStrut01Leather, 0, 22, -0.05F, 0.0F, 0.0F, 0.001F, 5, 14, 0, false));
 
         leftWingStrut02 = new ModelRenderer(this);
         leftWingStrut02.setRotationPoint(0.0F, 1.0F, 6.0F);
@@ -92,8 +92,8 @@ public class LeatherWingsModel extends WingsModel {
         leftWingStrut02Leather = new ModelRenderer(this);
         leftWingStrut02Leather.setRotationPoint(0.0F, 0.0F, 0.0F);
         leftWingStrut02.addChild(leftWingStrut02Leather);
-//        leftWingStrut02Leather.setTextureOffset(0, 4).addBox(-0.1F, 0.0F, -1.0F, 0.001F, 6.0F, 16.0F, 0.0F, false);
-        leftWingStrut02Leather.setTextureOffset(0, 4).addBox(-0.1F, 0.0F, -1.0F, 0, 6, 16,false);
+        leftWingStrut02Leather.setTextureOffset(0, 4);
+        leftWingStrut02Leather.cubeList.add(new ModelBoxPatched(leftWingStrut02Leather, 0, 4, -0.1F, 0.0F, -1.0F, 0.001F, 6, 16, 0, false));
 
         leftWingStrut03 = new ModelRenderer(this);
         leftWingStrut03.setRotationPoint(0.0F, 1.0F, 5.0F);
@@ -104,8 +104,8 @@ public class LeatherWingsModel extends WingsModel {
         leftWingStrut03Leather = new ModelRenderer(this);
         leftWingStrut03Leather.setRotationPoint(0.0F, 0.0F, 0.0F);
         leftWingStrut03.addChild(leftWingStrut03Leather);
-//        leftWingStrut03Leather.setTextureOffset(0, 12).addBox(-0.15F, 0.0F, 0.0F, 0.001F, 6.0F, 15.0F, 0.0F, false);
-        leftWingStrut03Leather.setTextureOffset(0, 12).addBox(-0.15F, 0.0F, 0.0F, 0, 6, 15,false);
+        leftWingStrut03Leather.setTextureOffset(0, 12);
+        leftWingStrut03Leather.cubeList.add(new ModelBoxPatched(leftWingStrut03Leather, 0, 12, -0.15F, 0.0F, 0.0F, 0.001F, 6, 15, 0, false));
 
         leftStrutLowest = new ModelRenderer(this);
         leftStrutLowest.setRotationPoint(0.5F, 1.0F, 2.0F);
@@ -116,15 +116,15 @@ public class LeatherWingsModel extends WingsModel {
         leftStrutLowestLeather01 = new ModelRenderer(this);
         leftStrutLowestLeather01.setRotationPoint(-0.5F, 0.0F, 0.0F);
         leftStrutLowest.addChild(leftStrutLowestLeather01);
-//        leftStrutLowestLeather01.setTextureOffset(0, 0).addBox(0.0F, -1.0F, 0.0F, 0.001F, 12.0F, 6.0F, 0.0F, false);
-        leftStrutLowestLeather01.setTextureOffset(0, 0).addBox(0.0F, -1.0F, 0.0F, 0, 12, 6,false);
+        leftStrutLowestLeather01.setTextureOffset(0, 0);
+        leftStrutLowestLeather01.cubeList.add(new ModelBoxPatched(leftStrutLowestLeather01, 0, 0, 0.0F, -1.0F, 0.0F, 0.001F, 12, 6, 0, false));
 
         leftStrutLowestLeather02 = new ModelRenderer(this);
         leftStrutLowestLeather02.setRotationPoint(-0.5F, 0.0F, 0.0F);
         leftStrutLowest.addChild(leftStrutLowestLeather02);
         setRotationAngle(leftStrutLowestLeather02, 0.0F, -0.2618F, 0.0F);
-//        leftStrutLowestLeather02.setTextureOffset(28, 28).addBox(0.0F, -1.0F, -9.0F, 0.001F, 12.0F, 9.0F, 0.0F, false);
-        leftStrutLowestLeather02.setTextureOffset(28, 28).addBox(0.0F, -1.0F, -9.0F, 0, 12, 9,false);
+        leftStrutLowestLeather02.setTextureOffset(28, 28);
+        leftStrutLowestLeather02.cubeList.add(new ModelBoxPatched(leftStrutLowestLeather02, 28, 28, 0.0F, -1.0F, -9.0F, 0.001F, 12, 9, 0, false));
 
         rightWing01 = new ModelRenderer(this);
         rightWing01.setRotationPoint(6.0F, 0.0F, 0.0F);
@@ -153,8 +153,8 @@ public class LeatherWingsModel extends WingsModel {
         rightWing04Leather = new ModelRenderer(this);
         rightWing04Leather.setRotationPoint(0.0F, 0.0F, 0.0F);
         rightWing04.addChild(rightWing04Leather);
-//        rightWing04Leather.setTextureOffset(0, 28).addBox(0.0F, 0.0F, 0.0F, 0.001F, 5.0F, 14.0F, 0.0F, true);
-        rightWing04Leather.setTextureOffset(0, 28).addBox(0.0F, 0.0F, 0.0F, 0, 5, 14,true);
+        rightWing04Leather.setTextureOffset(0, 28);
+        rightWing04Leather.cubeList.add(new ModelBoxPatched(rightWing04Leather, 0, 28, 0.0F, 0.0F, 0.0F, 0.001F, 5, 14, 0, true));
 
         rightWingStrut01 = new ModelRenderer(this);
         rightWingStrut01.setRotationPoint(0.0F, 1.0F, 7.0F);
@@ -165,8 +165,8 @@ public class LeatherWingsModel extends WingsModel {
         rightWingStrut01Leather = new ModelRenderer(this);
         rightWingStrut01Leather.setRotationPoint(0.0F, 0.0F, 0.0F);
         rightWingStrut01.addChild(rightWingStrut01Leather);
-//        rightWingStrut01Leather.setTextureOffset(0, 22).addBox(0.05F, 0.0F, 0.0F, 0.001F, 5.0F, 14.0F, 0.0F, true);
-        rightWingStrut01Leather.setTextureOffset(0, 22).addBox(0.05F, 0.0F, 0.0F, 0, 5, 14,true);
+        rightWingStrut01Leather.setTextureOffset(0, 22);
+        rightWingStrut01Leather.cubeList.add(new ModelBoxPatched(rightWingStrut01Leather, 0, 22, 0.05F, 0.0F, 0.0F, 0.001F, 5, 14, 0, true));
 
         rightWingStrut02 = new ModelRenderer(this);
         rightWingStrut02.setRotationPoint(0.0F, 1.0F, 6.0F);
@@ -177,8 +177,8 @@ public class LeatherWingsModel extends WingsModel {
         rightWingStrut02Leather = new ModelRenderer(this);
         rightWingStrut02Leather.setRotationPoint(0.0F, 0.0F, 0.0F);
         rightWingStrut02.addChild(rightWingStrut02Leather);
-//        rightWingStrut02Leather.setTextureOffset(0, 4).addBox(0.1F, 0.0F, -1.0F, 0.001F, 6.0F, 16.0F, 0.0F, true);
-        rightWingStrut02Leather.setTextureOffset(0, 4).addBox(0.1F, 0.0F, -1.0F, 0, 6, 16,true);
+        rightWingStrut02Leather.setTextureOffset(0, 4);
+        rightWingStrut02Leather.cubeList.add(new ModelBoxPatched(rightWingStrut02Leather, 0, 4, 0.1F, 0.0F, -1.0F, 0.001F, 6, 16, 0, true));
 
         rightWingStrut03 = new ModelRenderer(this);
         rightWingStrut03.setRotationPoint(0.0F, 1.0F, 5.0F);
@@ -189,8 +189,8 @@ public class LeatherWingsModel extends WingsModel {
         rightWingStrut03Leather = new ModelRenderer(this);
         rightWingStrut03Leather.setRotationPoint(0.0F, 0.0F, 0.0F);
         rightWingStrut03.addChild(rightWingStrut03Leather);
-//        rightWingStrut03Leather.setTextureOffset(0, 12).addBox(0.15F, 0.0F, 0.0F, 0.001F, 6.0F, 15.0F, 0.0F, true);
-        rightWingStrut03Leather.setTextureOffset(0, 12).addBox(0.15F, 0.0F, 0.0F, 0, 6, 15,true);
+        rightWingStrut03Leather.setTextureOffset(0, 12);
+        rightWingStrut03Leather.cubeList.add(new ModelBoxPatched(rightWingStrut03Leather, 0, 12, 0.15F, 0.0F, 0.0F, 0.001F, 6, 15, 0, true));
 
         rightStrutLowest = new ModelRenderer(this);
         rightStrutLowest.setRotationPoint(-0.5F, 1.0F, 2.0F);
@@ -201,15 +201,15 @@ public class LeatherWingsModel extends WingsModel {
         rightStrutLowestLeather01 = new ModelRenderer(this);
         rightStrutLowestLeather01.setRotationPoint(0.5F, 0.0F, 0.0F);
         rightStrutLowest.addChild(rightStrutLowestLeather01);
-//        rightStrutLowestLeather01.setTextureOffset(0, 0).addBox(0.0F, -1.0F, 0.0F, 0.001F, 12.0F, 6.0F, 0.0F, true);
-        rightStrutLowestLeather01.setTextureOffset(0, 0).addBox(0.0F, -1.0F, 0.0F, 0, 12, 6,true);
+        rightStrutLowestLeather01.setTextureOffset(0, 0);
+        rightStrutLowestLeather01.cubeList.add(new ModelBoxPatched(rightStrutLowestLeather01, 0, 0, 0.0F, -1.0F, 0.0F, 0.001F, 12, 6, 0, true));
 
         rightStrutLowestLeather02 = new ModelRenderer(this);
         rightStrutLowestLeather02.setRotationPoint(0.5F, 0.0F, 0.0F);
         rightStrutLowest.addChild(rightStrutLowestLeather02);
         setRotationAngle(rightStrutLowestLeather02, 0.0F, 0.2618F, 0.0F);
-//        rightStrutLowestLeather02.setTextureOffset(28, 28).addBox(0.0F, -1.0F, -9.0F, 0.001F, 12.0F, 9.0F, 0.0F, true);
-        rightStrutLowestLeather02.setTextureOffset(28, 28).addBox(0.0F, -1.0F, -9.0F, 0, 12, 9,true);
+        rightStrutLowestLeather02.setTextureOffset(28, 28);
+        rightStrutLowestLeather02.cubeList.add(new ModelBoxPatched(rightStrutLowestLeather02, 28, 28, 0.0F, -1.0F, -9.0F, 0.001F, 12, 9, 0, true));
     }
 
     @Override

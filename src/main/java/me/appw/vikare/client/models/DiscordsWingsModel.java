@@ -61,14 +61,14 @@ public class DiscordsWingsModel extends WingsModel {
         leftWing05 = new ModelRenderer(this);
         leftWing05.setRotationPoint(-0.5F, 4.8F, -0.2F);
         leftWing04.addChild(leftWing05);
-//        leftWing05.setTextureOffset(32, 31).addBox(0.4F, -4.0F, -12.3F, 0.001F, 20.0F, 13.0F, 0.0F, true);
-        leftWing05.setTextureOffset(32, 31).addBox(0.4F, -4.0F, -12.3F, 0, 20, 13, true);
+        leftWing05.setTextureOffset(32, 31);
+        leftWing05.cubeList.add(new ModelBoxPatched(leftWing05, 32, 31, 0.4F, -4.0F, -12.3F, 0.001F, 20, 13, 0, true));
 
         lFeathers02 = new ModelRenderer(this);
         lFeathers02.setRotationPoint(0.0F, -3.5F, -3.2F);
         leftWing04.addChild(lFeathers02);
         setRotationAngle(lFeathers02, 0.0F, 0.0F, 0.0873F);
-//
+
         Box_r1 = new ModelRenderer(this);
         Box_r1.setRotationPoint(0.0F, 0.0F, 0.0F);
         lFeathers02.addChild(Box_r1);
@@ -113,9 +113,8 @@ public class DiscordsWingsModel extends WingsModel {
         rightWing04Leather = new ModelRenderer(this);
         rightWing04Leather.setRotationPoint(0.0F, 0.0F, 0.0F);
         rightWing04.addChild(rightWing04Leather);
-
-//        rightWing04Leather.setTextureOffset(95, 40).addBox(0.0F, 0.0F, 0.0F, 0.001F, 5.0F, 14.0F, 0.0F, true);
-        rightWing04Leather.setTextureOffset(95, 40).addBox(0.0F, 0.0F, 0.0F, 0, 5, 14, true);
+        rightWing04Leather.setTextureOffset(95, 40);
+        rightWing04Leather.cubeList.add(new ModelBoxPatched(rightWing04Leather, 95, 40, 0.0F, 0.0F, 0.0F, 0.001F, 5, 14, 0, true));
 
         rightWingStrut01 = new ModelRenderer(this);
         rightWingStrut01.setRotationPoint(0.0F, 1.0F, 7.0F);
@@ -126,8 +125,8 @@ public class DiscordsWingsModel extends WingsModel {
         rightWingStrut01Leather = new ModelRenderer(this);
         rightWingStrut01Leather.setRotationPoint(0.0F, 0.0F, 0.0F);
         rightWingStrut01.addChild(rightWingStrut01Leather);
-//        rightWingStrut01Leather.setTextureOffset(95, 34).addBox(0.05F, 0.0F, 0.0F, 0.001F, 5.0F, 14.0F, 0.0F, true);
-        rightWingStrut01Leather.setTextureOffset(95, 34).addBox(0.05F, 0.0F, 0.0F, 0, 5, 14, true);
+        rightWingStrut01Leather.setTextureOffset(95, 34);
+        rightWingStrut01Leather.cubeList.add(new ModelBoxPatched(rightWingStrut01Leather, 95, 34, 0.05F, 0.0F, 0.0F, 0.001F, 5, 14, 0, true));
 
         rightWingStrut02 = new ModelRenderer(this);
         rightWingStrut02.setRotationPoint(0.0F, 1.0F, 6.0F);
@@ -138,8 +137,8 @@ public class DiscordsWingsModel extends WingsModel {
         rightWingStrut02Leather = new ModelRenderer(this);
         rightWingStrut02Leather.setRotationPoint(0.0F, 0.0F, 0.0F);
         rightWingStrut02.addChild(rightWingStrut02Leather);
-//        rightWingStrut02Leather.setTextureOffset(93, 25).addBox(0.1F, 0.0F, -1.0F, 0.001F, 6.0F, 16.0F, 0.0F, true);
-        rightWingStrut02Leather.setTextureOffset(93, 25).addBox(0.1F, 0.0F, -1.0F, 0, 6, 16, true);
+        rightWingStrut02Leather.setTextureOffset(93, 25);
+        rightWingStrut02Leather.cubeList.add(new ModelBoxPatched(rightWingStrut02Leather, 93, 25, 0.1F, 0.0F, -1.0F, 0.001F, 6, 16, 0, true));
 
         rightWingStrut03 = new ModelRenderer(this);
         rightWingStrut03.setRotationPoint(0.0F, 1.0F, 5.0F);
@@ -150,8 +149,8 @@ public class DiscordsWingsModel extends WingsModel {
         rightWingStrut03Leather = new ModelRenderer(this);
         rightWingStrut03Leather.setRotationPoint(0.0F, 0.0F, 0.0F);
         rightWingStrut03.addChild(rightWingStrut03Leather);
-//        rightWingStrut03Leather.setTextureOffset(93, 19).addBox(0.15F, 0.0F, 0.0F, 0.001F, 6.0F, 15.0F, 0.0F, true);
-        rightWingStrut03Leather.setTextureOffset(93, 19).addBox(0.15F, 0.0F, 0.0F, 0, 6, 15, true);
+        rightWingStrut03Leather.setTextureOffset(93, 19);
+        rightWingStrut03Leather.cubeList.add(new ModelBoxPatched(rightWingStrut03Leather, 93, 19, 0.15F, 0.0F, 0.0F, 0.001F, 6, 15, 0, true));
 
         rightStrutLowest = new ModelRenderer(this);
         rightStrutLowest.setRotationPoint(-0.5F, 1.0F, 2.0F);
@@ -162,15 +161,15 @@ public class DiscordsWingsModel extends WingsModel {
         rightStrutLowestLeather01 = new ModelRenderer(this);
         rightStrutLowestLeather01.setRotationPoint(0.5F, 0.0F, 0.0F);
         rightStrutLowest.addChild(rightStrutLowestLeather01);
-//        rightStrutLowestLeather01.setTextureOffset(79, 28).addBox(0.0F, -1.0F, 0.0F, 0.001F, 12.0F, 6.0F, 0.0F, true);
-        rightStrutLowestLeather01.setTextureOffset(79, 28).addBox(0.0F, -1.0F, 0.0F, 0, 12, 6, true);
+        rightStrutLowestLeather01.setTextureOffset(79, 28);
+        rightStrutLowestLeather01.cubeList.add(new ModelBoxPatched(rightStrutLowestLeather01, 79, 28, 0.0F, -1.0F, 0.0F, 0.001F, 12, 6, 0, true));
 
         rightStrutLowestLeather02 = new ModelRenderer(this);
         rightStrutLowestLeather02.setRotationPoint(0.5F, 0.0F, 0.0F);
         rightStrutLowest.addChild(rightStrutLowestLeather02);
         setRotationAngle(rightStrutLowestLeather02, 0.0F, 0.2618F, 0.0F);
-//        rightStrutLowestLeather02.setTextureOffset(60, 25).addBox(0.0F, -1.0F, -9.0F, 0.001F, 12.0F, 9.0F, 0.0F, true);
-        rightStrutLowestLeather02.setTextureOffset(60, 25).addBox(0.0F, -1.0F, -9.0F, 0, 12, 9, true);
+        rightStrutLowestLeather02.setTextureOffset(60, 25);
+        rightStrutLowestLeather02.cubeList.add(new ModelBoxPatched(rightStrutLowestLeather02, 60, 25, 0.0F, -1.0F, -9.0F, 0.001F, 12, 9, 0, true));
     }
 
     @Override

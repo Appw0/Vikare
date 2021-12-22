@@ -178,7 +178,8 @@ public class FlandresWingsModel extends WingsModel {
         point_r1.setRotationPoint(-0.5F, 10.0F, 0.5F);
         lGem7.addChild(point_r1);
         setRotationAngle(point_r1, -0.7854F, 0.0F, 0.0F);
-//        point_r1.setTextureOffset(40, 43).addBox(-1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, false);
+        point_r1.setTextureOffset(40, 43);
+        point_r1.cubeList.add(new ModelBoxPatched(point_r1, 40, 43, -1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, false));
 
         top_r1 = new ModelRenderer(this);
         top_r1.setRotationPoint(-0.5F, 2.0F, 1.0F);
@@ -214,7 +215,8 @@ public class FlandresWingsModel extends WingsModel {
         point_r2.setRotationPoint(-0.5F, 10.0F, 0.5F);
         lGem8.addChild(point_r2);
         setRotationAngle(point_r2, -0.7854F, 0.0F, 0.0F);
-//        point_r2.setTextureOffset(4, 24).addBox(-1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, false);
+        point_r2.setTextureOffset(4, 24);
+        point_r2.cubeList.add(new ModelBoxPatched(point_r2, 4, 24, -1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, false));
 
         top_r2 = new ModelRenderer(this);
         top_r2.setRotationPoint(-0.5F, 2.0F, 1.0F);
@@ -250,7 +252,8 @@ public class FlandresWingsModel extends WingsModel {
         point_r3.setRotationPoint(-0.5F, 10.0F, 0.5F);
         lGem5.addChild(point_r3);
         setRotationAngle(point_r3, -0.7854F, 0.0F, 0.0F);
-//        point_r3.setTextureOffset(8, 43).addBox(-1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, false);
+        point_r3.setTextureOffset(8, 43);
+        point_r3.cubeList.add(new ModelBoxPatched(point_r3, 8, 43, -1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, false));
 
         top_r3 = new ModelRenderer(this);
         top_r3.setRotationPoint(-0.5F, 2.0F, 1.0F);
@@ -286,7 +289,8 @@ public class FlandresWingsModel extends WingsModel {
         point_r4.setRotationPoint(-0.5F, 10.0F, 0.5F);
         lGem6.addChild(point_r4);
         setRotationAngle(point_r4, -0.7854F, 0.0F, 0.0F);
-//        point_r4.setTextureOffset(24, 43).addBox(-1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, false);
+        point_r4.setTextureOffset(24, 43);
+        point_r4.cubeList.add(new ModelBoxPatched(point_r4, 24, 43, -1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, false));
 
         top_r4 = new ModelRenderer(this);
         top_r4.setRotationPoint(-0.5F, 2.0F, 1.0F);
@@ -322,7 +326,8 @@ public class FlandresWingsModel extends WingsModel {
         point_r5.setRotationPoint(-0.5F, 10.0F, 0.5F);
         lGem4.addChild(point_r5);
         setRotationAngle(point_r5, -0.7854F, 0.0F, 0.0F);
-//        point_r5.setTextureOffset(49, 24).addBox(-1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, false);
+        point_r5.setTextureOffset(49, 24);
+        point_r5.cubeList.add(new ModelBoxPatched(point_r5, 49, 24, -1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, false));
 
         top_r5 = new ModelRenderer(this);
         top_r5.setRotationPoint(-0.5F, 2.0F, 1.0F);
@@ -357,7 +362,8 @@ public class FlandresWingsModel extends WingsModel {
         point_r6.setRotationPoint(-0.5F, 10.0F, 0.5F);
         lGem01.addChild(point_r6);
         setRotationAngle(point_r6, -0.7854F, 0.0F, 0.0F);
-//        point_r6.setTextureOffset(4, 24).addBox(-1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, false);
+        point_r6.setTextureOffset(4, 24);
+        point_r6.cubeList.add(new ModelBoxPatched(point_r6, 4, 24, -1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, false));
 
         top_r6 = new ModelRenderer(this);
         top_r6.setRotationPoint(-0.5F, 2.0F, 1.0F);
@@ -393,7 +399,8 @@ public class FlandresWingsModel extends WingsModel {
         point_r7.setRotationPoint(-0.5F, 10.0F, 0.5F);
         lGem2.addChild(point_r7);
         setRotationAngle(point_r7, -0.7854F, 0.0F, 0.0F);
-//        point_r7.setTextureOffset(19, 24).addBox(-1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, false);
+        point_r7.setTextureOffset(19, 24);
+        point_r7.cubeList.add(new ModelBoxPatched(point_r7, 19, 24, -1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, false));
 
         top_r7 = new ModelRenderer(this);
         top_r7.setRotationPoint(-0.5F, 2.0F, 1.0F);
@@ -429,7 +436,8 @@ public class FlandresWingsModel extends WingsModel {
         point_r8.setRotationPoint(-0.5F, 10.0F, 0.5F);
         lGem3.addChild(point_r8);
         setRotationAngle(point_r8, -0.7854F, 0.0F, 0.0F);
-//        point_r8.setTextureOffset(34, 24).addBox(-1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, false);
+        point_r8.setTextureOffset(34, 24);
+        point_r8.cubeList.add(new ModelBoxPatched(point_r8, 34, 24, -1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, false));
 
         top_r8 = new ModelRenderer(this);
         top_r8.setRotationPoint(-0.5F, 2.0F, 1.0F);
@@ -495,7 +503,8 @@ public class FlandresWingsModel extends WingsModel {
         point_r9.setRotationPoint(0.5F, 10.0F, 0.5F);
         rGem07.addChild(point_r9);
         setRotationAngle(point_r9, -0.7854F, 0.0F, 0.0F);
-//        point_r9.setTextureOffset(40, 43).addBox(-1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, true);
+        point_r9.setTextureOffset(40, 43);
+        point_r9.cubeList.add(new ModelBoxPatched(point_r9, 40, 43, -1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, true));
 
         top_r9 = new ModelRenderer(this);
         top_r9.setRotationPoint(0.5F, 2.0F, 1.0F);
@@ -531,7 +540,8 @@ public class FlandresWingsModel extends WingsModel {
         point_r10.setRotationPoint(0.5F, 10.0F, 0.5F);
         rGem08.addChild(point_r10);
         setRotationAngle(point_r10, -0.7854F, 0.0F, 0.0F);
-//        point_r10.setTextureOffset(4, 24).addBox(-1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, true);
+        point_r10.setTextureOffset(4, 24);
+        point_r10.cubeList.add(new ModelBoxPatched(point_r10, 4, 24, -1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, true));
 
         top_r10 = new ModelRenderer(this);
         top_r10.setRotationPoint(0.5F, 2.0F, 1.0F);
@@ -567,7 +577,8 @@ public class FlandresWingsModel extends WingsModel {
         point_r11.setRotationPoint(0.5F, 10.0F, 0.5F);
         rGem05.addChild(point_r11);
         setRotationAngle(point_r11, -0.7854F, 0.0F, 0.0F);
-//        point_r11.setTextureOffset(8, 43).addBox(-1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, true);
+        point_r11.setTextureOffset(8, 43);
+        point_r11.cubeList.add(new ModelBoxPatched(point_r11, 8, 43, -1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, true));
 
         top_r11 = new ModelRenderer(this);
         top_r11.setRotationPoint(0.5F, 2.0F, 1.0F);
@@ -603,7 +614,8 @@ public class FlandresWingsModel extends WingsModel {
         point_r12.setRotationPoint(0.5F, 10.0F, 0.5F);
         rGem06.addChild(point_r12);
         setRotationAngle(point_r12, -0.7854F, 0.0F, 0.0F);
-//        point_r12.setTextureOffset(24, 43).addBox(-1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, true);
+        point_r12.setTextureOffset(24, 43);
+        point_r12.cubeList.add(new ModelBoxPatched(point_r12, 24, 43, -1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, true));
 
         top_r12 = new ModelRenderer(this);
         top_r12.setRotationPoint(0.5F, 2.0F, 1.0F);
@@ -639,7 +651,8 @@ public class FlandresWingsModel extends WingsModel {
         point_r13.setRotationPoint(0.5F, 10.0F, 0.5F);
         rGem04.addChild(point_r13);
         setRotationAngle(point_r13, -0.7854F, 0.0F, 0.0F);
-//        point_r13.setTextureOffset(49, 24).addBox(-1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, true);
+        point_r13.setTextureOffset(49, 24);
+        point_r13.cubeList.add(new ModelBoxPatched(point_r13, 49, 24, -1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, true));
 
         top_r13 = new ModelRenderer(this);
         top_r13.setRotationPoint(0.5F, 2.0F, 1.0F);
@@ -674,7 +687,8 @@ public class FlandresWingsModel extends WingsModel {
         point_r14.setRotationPoint(0.5F, 10.0F, 0.5F);
         rGem01.addChild(point_r14);
         setRotationAngle(point_r14, -0.7854F, 0.0F, 0.0F);
-//        point_r14.setTextureOffset(4, 24).addBox(-1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, true);
+        point_r14.setTextureOffset(4, 24);
+        point_r14.cubeList.add(new ModelBoxPatched(point_r14, 4, 24, -1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, true));
 
         top_r14 = new ModelRenderer(this);
         top_r14.setRotationPoint(0.5F, 2.0F, 1.0F);
@@ -710,7 +724,8 @@ public class FlandresWingsModel extends WingsModel {
         point_r15.setRotationPoint(0.5F, 10.0F, 0.5F);
         rGem02.addChild(point_r15);
         setRotationAngle(point_r15, -0.7854F, 0.0F, 0.0F);
-//        point_r15.setTextureOffset(19, 24).addBox(-1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, true);
+        point_r15.setTextureOffset(19, 24);
+        point_r15.cubeList.add(new ModelBoxPatched(point_r15, 19, 24, -1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, true));
 
         top_r15 = new ModelRenderer(this);
         top_r15.setRotationPoint(0.5F, 2.0F, 1.0F);
@@ -746,7 +761,8 @@ public class FlandresWingsModel extends WingsModel {
         point_r16.setRotationPoint(0.5F, 10.0F, 0.5F);
         rGem03.addChild(point_r16);
         setRotationAngle(point_r16, -0.7854F, 0.0F, 0.0F);
-//        point_r16.setTextureOffset(34, 24).addBox(-1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, true);
+        point_r16.setTextureOffset(34, 24);
+        point_r16.cubeList.add(new ModelBoxPatched(point_r16, 34, 24, -1.0F, -0.7F, -0.5F, 2.0F, 2.0F, 2.0F, -0.1F, true));
 
         top_r16 = new ModelRenderer(this);
         top_r16.setRotationPoint(0.5F, 2.0F, 1.0F);
