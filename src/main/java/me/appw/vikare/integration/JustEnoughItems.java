@@ -7,19 +7,13 @@ import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.MethodsReturnNonnullByDefault;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.registration.IRecipeRegistration;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipe;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.Tags;
 
 import java.util.ArrayList;
@@ -39,7 +33,7 @@ public class JustEnoughItems implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         List<Object> anvilRecipes = new ArrayList<>();
         List<Object> shinyRecipes = new ArrayList<>();
-        Items.ITEMS.getEntries().forEach(rItem -> {
+        Items.WINGS.getEntries().forEach(rItem -> {
             WingItem item = (WingItem) rItem.get();
             ItemStack damaged1 = new ItemStack(item);
             damaged1.setDamage(damaged1.getMaxDamage());

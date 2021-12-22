@@ -2,7 +2,6 @@ package me.appw.vikare.core.registry;
 
 import me.appw.vikare.Vikare;
 import me.appw.vikare.common.items.WingItem;
-import me.appw.vikare.core.registry.WingTypes;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
@@ -11,7 +10,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class Items {
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Vikare.MODID);
+    public static final DeferredRegister<Item> WINGS = DeferredRegister.create(ForgeRegistries.ITEMS, Vikare.MODID);
 
     public static final RegistryObject<Item> WHITE_FEATHERED_WINGS = create("white_feathered_wings", new WingItem(DyeColor.WHITE, DyeColor.WHITE, WingTypes.FEATHERED));
     public static final RegistryObject<Item> ORANGE_FEATHERED_WINGS = create("orange_feathered_wings", new WingItem(DyeColor.ORANGE, DyeColor.ORANGE, WingTypes.FEATHERED));
@@ -103,10 +102,10 @@ public class Items {
     public static final RegistryObject<Item> ZANZAS_WINGS = create("zanzas_wings", new WingItem(DyeColor.WHITE, DyeColor.WHITE, WingTypes.ZANZAS));
 
     public static void register() {
-        ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        WINGS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     private static RegistryObject<Item> create(String name, WingItem item) {
-        return ITEMS.register(name, () -> item);
+        return WINGS.register(name, () -> item);
     }
 }
