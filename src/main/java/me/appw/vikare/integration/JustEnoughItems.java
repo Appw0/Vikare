@@ -2,23 +2,31 @@ package me.appw.vikare.integration;
 
 import me.appw.vikare.Vikare;
 import me.appw.vikare.common.items.WingItem;
-import me.appw.vikare.core.registry.Items;
+import me.appw.vikare.core.crafting.ShinyWingsRecipe;
+import me.appw.vikare.core.registry.RecipeSerializers;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.MethodsReturnNonnullByDefault;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
+import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocus;
+import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICustomCraftingCategoryExtension;
 import mezz.jei.api.registration.IRecipeRegistration;
-import net.minecraft.enchantment.Enchantments;
+import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapelessRecipe;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.util.Size2i;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static me.appw.vikare.core.registry.Items.WINGS;
 
 @JeiPlugin()
 @MethodsReturnNonnullByDefault
@@ -30,10 +38,14 @@ public class JustEnoughItems implements IModPlugin {
     }
 
     @Override
+    public void registerVanillaCategoryExtensions(IVanillaCategoryExtensionRegistration registration) {
+        registration.getCraftingCategory().addCategoryExtension(ShinyWingsRecipe.class, ShinyRecipeVanillaExtension::new);
+    }
+
+    @Override
     public void registerRecipes(IRecipeRegistration registration) {
         List<Object> anvilRecipes = new ArrayList<>();
-        List<Object> shinyRecipes = new ArrayList<>();
-        Items.WINGS.getEntries().forEach(rItem -> {
+        WINGS.getEntries().forEach(rItem -> {
             WingItem item = (WingItem) rItem.get();
             ItemStack damaged1 = new ItemStack(item);
             damaged1.setDamage(damaged1.getMaxDamage());
@@ -50,22 +62,55 @@ public class JustEnoughItems implements IModPlugin {
             }
             Object repairWithSame = registration.getVanillaRecipeFactory().createAnvilRecipe(damaged2, Collections.singletonList(damaged2), Collections.singletonList(damaged3));
             anvilRecipes.add(repairWithSame);
-
-            ItemStack shinyItem = new ItemStack(item);
-            shinyItem.addEnchantment(Enchantments.MENDING, 1);
-            ItemStack dullItem = new ItemStack(item);
-            dullItem.addEnchantment(Enchantments.MENDING, 1);
-            dullItem.getOrCreateTag().putBoolean("Dull", true);
-            NonNullList<Ingredient> inputsShine = NonNullList.from(Ingredient.EMPTY, Ingredient.fromStacks(dullItem), Ingredient.fromTag(Tags.Items.DUSTS_GLOWSTONE));
-            ResourceLocation idShine = new ResourceLocation(Vikare.MODID, "jei.wings.shine." + rItem.getId().getPath());
-            ShapelessRecipe recipeShine = new ShapelessRecipe(idShine, "jei.wings.shine", shinyItem, inputsShine);
-            shinyRecipes.add(recipeShine);
-            NonNullList<Ingredient> inputsDull = NonNullList.from(Ingredient.EMPTY, Ingredient.fromStacks(shinyItem), Ingredient.fromTag(Tags.Items.DUSTS_GLOWSTONE));
-            ResourceLocation idDull = new ResourceLocation(Vikare.MODID, "jei.wings.dull." + rItem.getId().getPath());
-            ShapelessRecipe recipeDull = new ShapelessRecipe(idDull, "jei.wings.dull", dullItem, inputsDull);
-            shinyRecipes.add(recipeDull);
         });
+
         registration.addRecipes(anvilRecipes, VanillaRecipeCategoryUid.ANVIL);
-        registration.addRecipes(shinyRecipes, VanillaRecipeCategoryUid.CRAFTING);
+    }
+
+    public static class ShinyRecipeVanillaExtension implements ICustomCraftingCategoryExtension {
+
+        public ShinyRecipeVanillaExtension(ShinyWingsRecipe recipe) {
+        }
+
+        @Override
+        public void setRecipe(IRecipeLayout recipeLayout, IIngredients ingredients) {
+            IFocus<ItemStack> focus = recipeLayout.getFocus(VanillaTypes.ITEM);
+            ItemStack stack = focus.getValue().copy();
+            if (!stack.isEnchanted()) return;
+            ItemStack outStack = stack.copy();
+
+            ItemStack invertDull = focus.getMode() == IFocus.Mode.OUTPUT ? stack : outStack;
+            invertDull.getOrCreateTag().putBoolean("Dull", !invertDull.getOrCreateTag().getBoolean("Dull"));
+
+            recipeLayout.getIngredientsGroup(VanillaTypes.ITEM).set(1, stack);
+            recipeLayout.getIngredientsGroup(VanillaTypes.ITEM).set(2, ShinyWingsRecipe.SHINE.getAllElements().stream().map(ItemStack::new).collect(Collectors.toList()));
+            recipeLayout.getIngredientsGroup(VanillaTypes.ITEM).set(0, outStack);
+        }
+
+        @Override
+        public void setIngredients(IIngredients ingredients) {
+            List<ItemStack> inputs = new ArrayList<>();
+            List<ItemStack> outputs = new ArrayList<>();
+
+            WINGS.getEntries().forEach(item -> {
+                inputs.add(new ItemStack(item.get()));
+                outputs.add(new ItemStack(item.get()));
+            });
+
+            ingredients.setOutputs(VanillaTypes.ITEM, outputs);
+            ingredients.setInputLists(VanillaTypes.ITEM, Arrays.asList(ShinyWingsRecipe.SHINE.getAllElements().stream().map(ItemStack::new).collect(Collectors.toList()), inputs));
+        }
+
+        @Nullable
+        @Override
+        public ResourceLocation getRegistryName() {
+            return RecipeSerializers.SHINY_WINGS.getId();
+        }
+
+        @Nullable
+        @Override
+        public Size2i getSize() {
+            return new Size2i(2, 1);
+        }
     }
 }
