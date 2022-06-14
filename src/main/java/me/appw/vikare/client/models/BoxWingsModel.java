@@ -16,8 +16,8 @@ public class BoxWingsModel<T extends LivingEntity> extends WingsModel<T> {
     public static LayerDefinition createLayer() {
         MeshDefinition meshDef = new MeshDefinition();
         PartDefinition rootDef = meshDef.getRoot();
-        rootDef.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(22, 0).mirror().addBox(-8.0F, -1.0F, -1.0F, 10.0F, 20.0F, 2.0F), PartPose.offset(0.0f, 5.0f, 0.0f));
-        rootDef.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(22, 22).addBox(-2.0F, -1.0F, -1.0F, 10.0F, 20.0F, 2.0F), PartPose.offset(0.0f, 5.0f, 0.0f));
+        rootDef.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(22, 0).mirror().addBox(-8.0F, -1.0F, -1.0F, 10.0F, 20.0F, 2.0F), PartPose.offset(0.0f, 5.0f, 0.0f));
+        rootDef.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(22, 22).addBox(-2.0F, -1.0F, -1.0F, 10.0F, 20.0F, 2.0F), PartPose.offset(0.0f, 5.0f, 0.0f));
         return LayerDefinition.create(meshDef, 64, 64);
     }
 }

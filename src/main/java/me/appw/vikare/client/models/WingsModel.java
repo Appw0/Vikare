@@ -117,28 +117,28 @@ public class WingsModel<T extends LivingEntity> extends EntityModel<T> {
         }
 
         wing_pitch += normalized_flap * flap_distance;
-        this.rightWing.x = 7.0F;
-        this.rightWing.y = yaw_pivot;
+        this.leftWing.x = 7.0F;
+        this.leftWing.y = yaw_pivot;
 
         if (entity instanceof LocalPlayer) {
             AbstractClientPlayer player = (AbstractClientPlayer) entity;
             player.elytraRotX = (player.elytraRotX + (wing_pitch - player.elytraRotX) * 0.1F);
             player.elytraRotY = (player.elytraRotY + (wing_yaw - player.elytraRotY) * 0.1F);
             player.elytraRotZ = (player.elytraRotZ + (wing_roll - player.elytraRotZ) * 0.1F);
-            this.rightWing.xRot = player.elytraRotX; // X -> pitch
-            this.rightWing.yRot = player.elytraRotY; // Y -> yaw
-            this.rightWing.zRot = player.elytraRotZ; // Z -> roll
+            this.leftWing.xRot = player.elytraRotX; // X -> pitch
+            this.leftWing.yRot = player.elytraRotY; // Y -> yaw
+            this.leftWing.zRot = player.elytraRotZ; // Z -> roll
         } else {
-            this.rightWing.xRot = (this.rightWing.xRot + (wing_pitch - this.rightWing.xRot) * 0.1F);
-            this.rightWing.yRot = (this.rightWing.yRot + (wing_yaw - this.rightWing.yRot) * 0.1F);
-            this.rightWing.zRot = (this.rightWing.zRot + (wing_roll - this.rightWing.zRot) * 0.1F);
+            this.leftWing.xRot = (this.leftWing.xRot + (wing_pitch - this.leftWing.xRot) * 0.1F);
+            this.leftWing.yRot = (this.leftWing.yRot + (wing_yaw - this.leftWing.yRot) * 0.1F);
+            this.leftWing.zRot = (this.leftWing.zRot + (wing_roll - this.leftWing.zRot) * 0.1F);
         }
 
-        this.leftWing.x = -this.rightWing.x;
-        this.leftWing.yRot = -this.rightWing.yRot;
-        this.leftWing.y = this.rightWing.y;
-        this.leftWing.xRot = this.rightWing.xRot;
-        this.leftWing.zRot = -this.rightWing.zRot;
+        this.rightWing.x = -this.leftWing.x;
+        this.rightWing.yRot = -this.leftWing.yRot;
+        this.rightWing.y = this.leftWing.y;
+        this.rightWing.xRot = this.leftWing.xRot;
+        this.rightWing.zRot = -this.leftWing.zRot;
     }
 
     @Override
