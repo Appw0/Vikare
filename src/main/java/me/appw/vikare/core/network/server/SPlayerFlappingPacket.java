@@ -2,19 +2,17 @@ package me.appw.vikare.core.network.server;
 
 import me.appw.vikare.common.items.WingItem;
 import me.appw.vikare.core.capability.WingItemCapability;
-import me.appw.vikare.core.config.VikareConfig;
 import me.appw.vikare.core.network.NetworkHandler;
 import me.appw.vikare.core.network.client.CPlayerFlappingPacket.FlappingState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.server.MinecraftServer;
-import net.minecraftforge.fml.network.NetworkEvent;
-import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.network.PacketDistributor;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.CuriosCapability;
@@ -31,27 +29,27 @@ public class SPlayerFlappingPacket {
         this.isFlapping = isFlapping;
     }
 
-    public static void encode(SPlayerFlappingPacket packet, PacketBuffer buffer) {
+    public static void encode(SPlayerFlappingPacket packet, FriendlyByteBuf buffer) {
         buffer.writeInt(packet.entityId);
         buffer.writeBoolean(packet.isFlapping);
     }
 
-    public static SPlayerFlappingPacket decode(PacketBuffer buffer) {
+    public static SPlayerFlappingPacket decode(FriendlyByteBuf buffer) {
         return new SPlayerFlappingPacket(buffer.readInt(), buffer.readBoolean());
     }
 
-    public static void send(ServerPlayerEntity player, FlappingState startedFlying) {
-        NetworkHandler.INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> player), new SPlayerFlappingPacket(player.getEntityId(), startedFlying == FlappingState.STARTED));
+    public static void send(ServerPlayer player, FlappingState startedFlying) {
+        NetworkHandler.INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> player), new SPlayerFlappingPacket(player.getId(), startedFlying == FlappingState.STARTED));
     }
 
     public static void handle(SPlayerFlappingPacket message, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            ClientWorld world = Minecraft.getInstance().world;
+            ClientLevel world = Minecraft.getInstance().level;
 
             if (world != null) {
-                Entity entity = world.getEntityByID(message.entityId);
-                if (entity instanceof PlayerEntity && entity != Minecraft.getInstance().player) {
-                    PlayerEntity player = (PlayerEntity) entity;
+                Entity entity = world.getEntity(message.entityId);
+                if (entity instanceof Player && entity != Minecraft.getInstance().player) {
+                    Player player = (Player) entity;
                     Optional<ImmutableTriple<String, Integer, ItemStack>> equippedCurio = CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof WingItem, player);
                     if (equippedCurio.isPresent()) {
                         WingItemCapability wingCap = (WingItemCapability) equippedCurio.get().right.getCapability(CuriosCapability.ITEM).resolve().get();

@@ -3,33 +3,33 @@ package me.appw.vikare.core.crafting;
 import me.appw.vikare.Vikare;
 import me.appw.vikare.common.items.WingItem;
 import me.appw.vikare.core.registry.RecipeSerializers;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.SpecialRecipe;
-import net.minecraft.tags.ITag;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.tags.Tag;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import net.minecraftforge.common.Tags;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
-public class ShinyWingsRecipe extends SpecialRecipe {
-    public static final ITag.INamedTag<Item> SHINE = ItemTags.makeWrapperTag(Vikare.MODID + ":shine");
+public class ShinyWingsRecipe extends CustomRecipe {
+    public static final TagKey<Item> SHINE = ItemTags.create(Vikare.resource("shine"));
 
     public ShinyWingsRecipe(ResourceLocation resourceLocation) { super(resourceLocation); }
 
     @Override
-    public boolean matches(CraftingInventory inv, World world) {
+    public boolean matches(CraftingContainer inv, Level world) {
         boolean hasWings = false;
         boolean hasShiny = false;
-        for (int i = 0; i < inv.getSizeInventory(); i++) {
-            ItemStack stack = inv.getStackInSlot(i);
+        for (int i = 0; i < inv.getContainerSize(); i++) {
+            ItemStack stack = inv.getItem(i);
             if (!stack.isEmpty()) {
                 if (stack.getItem() instanceof WingItem) {
                     if (hasWings) return false;
                     hasWings = true;
-                } else if (SHINE.contains(stack.getItem())) {
+                } else if (stack.is(SHINE)) {
                     if (hasShiny) return false;
                     hasShiny = true;
                 }
@@ -39,10 +39,10 @@ public class ShinyWingsRecipe extends SpecialRecipe {
     }
 
     @Override
-    public ItemStack getCraftingResult(CraftingInventory inv) {
+    public ItemStack assemble(CraftingContainer inv) {
         ItemStack wings = ItemStack.EMPTY;
-        for (int i = 0; i < inv.getSizeInventory(); i++) {
-            ItemStack stack = inv.getStackInSlot(i);
+        for (int i = 0; i < inv.getContainerSize(); i++) {
+            ItemStack stack = inv.getItem(i);
             if (!stack.isEmpty() && stack.getItem() instanceof WingItem) {
                 wings = stack.copy();
                 wings.getOrCreateTag().putBoolean("Dull", !wings.getOrCreateTag().getBoolean("Dull"));
@@ -52,8 +52,8 @@ public class ShinyWingsRecipe extends SpecialRecipe {
     }
 
     @Override
-    public boolean canFit(int width, int height) { return width * height >= 2; }
+    public boolean canCraftInDimensions(int width, int height) { return width * height >= 2; }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() { return RecipeSerializers.SHINY_WINGS.get(); }
+    public RecipeSerializer<?> getSerializer() { return RecipeSerializers.SHINY_WINGS.get(); }
 }

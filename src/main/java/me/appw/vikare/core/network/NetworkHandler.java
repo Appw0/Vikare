@@ -3,9 +3,9 @@ package me.appw.vikare.core.network;
 import me.appw.vikare.Vikare;
 import me.appw.vikare.core.network.client.CPlayerFlappingPacket;
 import me.appw.vikare.core.network.server.SPlayerFlappingPacket;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.network.NetworkRegistry;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
 
 public class NetworkHandler {
 

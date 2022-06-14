@@ -1,73 +1,85 @@
 package me.appw.vikare.client.models;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.sun.javafx.geom.Vec3d;
-import me.appw.vikare.Vikare;
-import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
-
-import javax.annotation.Nonnull;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import me.appw.vikare.core.capability.WingItemCapability.WingsState;
+import me.appw.vikare.core.capability.WingItemCapability.State;
+import me.appw.vikare.core.capability.WingItemCapability.FlapState;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
 
 public class WingsModel<T extends LivingEntity> extends EntityModel<T> {
 
-    public final ModelRenderer rightWing;
-    public final ModelRenderer leftWing;
-    public State state = State.IDLE;
-    public FlapState flapState = FlapState.IDLE;
+    public final ModelPart rightWing;
+    public final ModelPart leftWing;
+//    public State state = State.IDLE;
+//    public FlapState flapState = FlapState.IDLE;
+//
+//    private boolean slowfall = false;
+//    private boolean broken = false;
+//    private float last_movement = -1;
+//    private float movement_override = -10.0F;
 
-    private boolean slowfall = false;
-    private boolean broken = false;
-    private float last_movement = -1;
-    private float movement_override = -10.0F;
-
-    public WingsModel() {
-        textureHeight = 64;
-        textureWidth = 64;
-
-        rightWing = new ModelRenderer(this);
-        rightWing.setRotationPoint(0.0F, 5.0F, 0.0F);
-
-        leftWing = new ModelRenderer(this);
-        leftWing.setRotationPoint(0.0F, 5.0F, 0.0F);
+    public WingsModel(ModelPart root) {
+        rightWing = root.getChild("right_wing");
+        leftWing = root.getChild("left_wing");
     }
 
-
-    public void setRotationAngles(@Nonnull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float netHeadPitch, boolean forceFlapping) {
-        movement_override = forceFlapping ? 1.0F : 0.0F;
-        this.setRotationAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, netHeadPitch);
+    public static LayerDefinition createLayer() {
+        MeshDefinition meshDef = createPartialLayer();
+        return LayerDefinition.create(meshDef, 64, 64);
     }
 
-    public void setRotationAngles(@Nonnull T entity) {
-        movement_override = -10.0F;
-        this.setRotationAngles(entity, entity.limbSwing, entity.limbSwingAmount, entity.ticksExisted, entity.rotationYawHead, entity.rotationPitch);
+    public static MeshDefinition createPartialLayer() {
+        MeshDefinition meshDef = new MeshDefinition();
+        PartDefinition rootDef = meshDef.getRoot();
+        rootDef.addOrReplaceChild("right_wing", CubeListBuilder.create(), PartPose.offset(0.0f, 5.0f, 0.0f));
+        rootDef.addOrReplaceChild("left_wing", CubeListBuilder.create(), PartPose.offset(0.0f, 5.0f, 0.0f));
+        return meshDef;
     }
+
+//    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float netHeadPitch, boolean forceFlapping) {
+//        movement_override = forceFlapping ? 1.0F : 0.0F;
+//        this.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, netHeadPitch);
+//    }
+
+//    public void setupAnim(T entity) {
+//        movement_override = -10.0F;
+//        this.setupAnim(entity, entity.animationPosition, entity.animationSpeed, entity.tickCount, entity.getYHeadRot(), entity.getXRot());
+//    }
 
     @Override
-    public void setRotationAngles(@Nonnull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float netHeadPitch) {
-        state = State.IDLE;
+    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float netHeadPitch) {
+        setupAnim(entity, ageInTicks, new WingsState());
+    }
+
+    public void setupAnim(T entity, float ageInTicks, WingsState state) {
         float flap_speed = 0.125F;
         float flap_distance = 0.1F;
         float wing_pitch = 0.3F;
         float wing_roll = -0.7F;
         float yaw_pivot = -1.0F;
         float wing_yaw = 0.0F;
-        float movement = entity.moveForward;
+        float movement = entity.zza;
 
-        if (movement_override != -10.0F) { movement = movement_override; }
+        if (state.forcedFlap) movement = 1.0F;
 
-        if (entity.isElytraFlying()) {
-            state = State.FLYING;
+        if (state.status == State.FLYING) {
             float dive_tuck = 1.0F;
-            Vector3d motionVec = entity.getMotion();
+            Vec3 motionVec = entity.getDeltaMovement();
 
             if (motionVec.y < 0.0D) {
-                Vector3d motionVecNorm = motionVec.normalize();
+                Vec3 motionVecNorm = motionVec.normalize();
                 dive_tuck = 1.0F - (float) Math.pow(-motionVecNorm.y, 1.5D);
             }
 
@@ -78,88 +90,60 @@ public class WingsModel<T extends LivingEntity> extends EntityModel<T> {
                 flap_speed = 0.4F;
                 flap_distance = 1.0F;
             }
-            if (broken) {
-                state = State.BROKEN;
-                broken = false;
+            if (state.broken) {
                 flap_speed = 1.0F;
                 flap_distance = 3.0F;
             }
-            if (movement > this.last_movement && this.last_movement == 0.0) {
-                flapState = FlapState.FLAP;
+            if (movement > state.lastMovement && state.lastMovement == 0.0) {
+                state.flapStatus = FlapState.FLAP;
             }
-            this.last_movement = movement;
-        } else if (entity.isSneaking()) {
-            state = State.CROUCHING;
+//            this.last_movement = movement;
+        } else if (state.status == State.CROUCHING) {
             wing_pitch = 0.7F;
             yaw_pivot = 0.0F;
             wing_yaw = 0.09F;
-        } else if (slowfall) {
-            state = State.SLOWFALL;
-            slowfall = false;
+        } else if (state.status == State.SLOWFALL) {
             flap_speed = 1.0F;
             flap_distance = 2.0F;
         }
 
-        float normalized_flap = MathHelper.sin(ageInTicks * flap_speed);
-        if (state == State.SLOWFALL || state == State.BROKEN || (state == State.FLYING && movement > 0)) {
-            if (normalized_flap > 0 && flapState == FlapState.DONE) {
-                flapState = FlapState.IDLE;
-            } else if (normalized_flap < 0 && flapState == FlapState.IDLE) {
-                flapState = FlapState.FLAP;
+        float normalized_flap = Mth.sin(ageInTicks * flap_speed);
+        if (state.status == State.SLOWFALL || (state.status == State.FLYING && (movement > 0 || state.broken))) {
+            if (normalized_flap > 0 && state.flapStatus == FlapState.DONE) {
+                state.flapStatus = FlapState.IDLE;
+            } else if (normalized_flap < 0 && state.flapStatus == FlapState.IDLE) {
+                state.flapStatus = FlapState.FLAP;
             }
         }
 
         wing_pitch += normalized_flap * flap_distance;
-        this.rightWing.rotationPointX = 7.0F;
-        this.rightWing.rotationPointY = yaw_pivot;
+        this.rightWing.x = 7.0F;
+        this.rightWing.y = yaw_pivot;
 
-        if (entity instanceof ClientPlayerEntity) {
-            AbstractClientPlayerEntity player = (AbstractClientPlayerEntity) entity;
-            player.rotateElytraX = (player.rotateElytraX + (wing_pitch - player.rotateElytraX) * 0.1F);
-            player.rotateElytraY = (player.rotateElytraY + (wing_yaw - player.rotateElytraY) * 0.1F);
-            player.rotateElytraZ = (player.rotateElytraZ + (wing_roll - player.rotateElytraZ) * 0.1F);
-            this.rightWing.rotateAngleX = player.rotateElytraX; // X -> pitch
-            this.rightWing.rotateAngleY = player.rotateElytraY; // Y -> yaw
-            this.rightWing.rotateAngleZ = player.rotateElytraZ; // Z -> roll
+        if (entity instanceof LocalPlayer) {
+            AbstractClientPlayer player = (AbstractClientPlayer) entity;
+            player.elytraRotX = (player.elytraRotX + (wing_pitch - player.elytraRotX) * 0.1F);
+            player.elytraRotY = (player.elytraRotY + (wing_yaw - player.elytraRotY) * 0.1F);
+            player.elytraRotZ = (player.elytraRotZ + (wing_roll - player.elytraRotZ) * 0.1F);
+            this.rightWing.xRot = player.elytraRotX; // X -> pitch
+            this.rightWing.yRot = player.elytraRotY; // Y -> yaw
+            this.rightWing.zRot = player.elytraRotZ; // Z -> roll
         } else {
-            this.rightWing.rotateAngleX = (this.rightWing.rotateAngleX + (wing_pitch - this.rightWing.rotateAngleX) * 0.1F);
-            this.rightWing.rotateAngleY = (this.rightWing.rotateAngleY + (wing_yaw - this.rightWing.rotateAngleY) * 0.1F);
-            this.rightWing.rotateAngleZ = (this.rightWing.rotateAngleZ + (wing_roll - this.rightWing.rotateAngleZ) * 0.1F);
+            this.rightWing.xRot = (this.rightWing.xRot + (wing_pitch - this.rightWing.xRot) * 0.1F);
+            this.rightWing.yRot = (this.rightWing.yRot + (wing_yaw - this.rightWing.yRot) * 0.1F);
+            this.rightWing.zRot = (this.rightWing.zRot + (wing_roll - this.rightWing.zRot) * 0.1F);
         }
 
-        this.leftWing.rotationPointX = -this.rightWing.rotationPointX;
-        this.leftWing.rotateAngleY = -this.rightWing.rotateAngleY;
-        this.leftWing.rotationPointY = this.rightWing.rotationPointY;
-        this.leftWing.rotateAngleX = this.rightWing.rotateAngleX;
-        this.leftWing.rotateAngleZ = -this.rightWing.rotateAngleZ;
+        this.leftWing.x = -this.rightWing.x;
+        this.leftWing.yRot = -this.rightWing.yRot;
+        this.leftWing.y = this.rightWing.y;
+        this.leftWing.xRot = this.rightWing.xRot;
+        this.leftWing.zRot = -this.rightWing.zRot;
     }
 
     @Override
-    public void render(@Nonnull MatrixStack matrixStack, @Nonnull IVertexBuilder vertexBuilder, int light, int overlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(PoseStack matrixStack, VertexConsumer vertexBuilder, int light, int overlay, float red, float green, float blue, float alpha) {
         this.rightWing.render(matrixStack, vertexBuilder, light, overlay, red, green, blue, alpha);
         this.leftWing.render(matrixStack, vertexBuilder, light, overlay, red, green, blue, alpha);
-    }
-
-    public boolean didFlap() {
-        if (this.flapState == FlapState.FLAP) {
-            this.flapState = FlapState.DONE;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public void setSlowFall() {
-        slowfall = true;
-    }
-
-    public void setBroken() { broken = true; }
-
-    public enum State {
-        IDLE, CROUCHING, FLYING, SLOWFALL, BROKEN
-    }
-
-    public enum FlapState {
-        IDLE, FLAP, DONE
     }
 }

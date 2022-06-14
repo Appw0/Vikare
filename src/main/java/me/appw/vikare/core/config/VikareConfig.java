@@ -4,9 +4,6 @@ package me.appw.vikare.core.config;
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class VikareConfig {
     public static class Common {
         public final ForgeConfigSpec.ConfigValue<Boolean> armorSlows;

@@ -15,11 +15,11 @@ import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICustomCraftingCategoryExtension;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.util.Size2i;
+import net.minecraftforge.registries.ForgeRegistries;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -34,7 +34,7 @@ public class JustEnoughItems implements IModPlugin {
 
     @Override
     public ResourceLocation getPluginUid() {
-        return new ResourceLocation(Vikare.MODID, "jei_plugin");
+        return Vikare.resource("jei_plugin");
     }
 
     @Override
@@ -48,11 +48,11 @@ public class JustEnoughItems implements IModPlugin {
         WINGS.getEntries().forEach(rItem -> {
             WingItem item = (WingItem) rItem.get();
             ItemStack damaged1 = new ItemStack(item);
-            damaged1.setDamage(damaged1.getMaxDamage());
+            damaged1.setDamageValue(damaged1.getMaxDamage());
             ItemStack damaged2 = new ItemStack(item);
-            damaged2.setDamage(damaged2.getMaxDamage() * 3/4);
+            damaged2.setDamageValue(damaged2.getMaxDamage() * 3/4);
             ItemStack damaged3 = new ItemStack(item);
-            damaged3.setDamage(damaged3.getMaxDamage() * 2/4);
+            damaged3.setDamageValue(damaged3.getMaxDamage() * 2/4);
 
             List<ItemStack> repairMaterials = item.getRepairItemStacks();
 
@@ -83,7 +83,7 @@ public class JustEnoughItems implements IModPlugin {
             invertDull.getOrCreateTag().putBoolean("Dull", !invertDull.getOrCreateTag().getBoolean("Dull"));
 
             recipeLayout.getIngredientsGroup(VanillaTypes.ITEM).set(1, stack);
-            recipeLayout.getIngredientsGroup(VanillaTypes.ITEM).set(2, ShinyWingsRecipe.SHINE.getAllElements().stream().map(ItemStack::new).collect(Collectors.toList()));
+            recipeLayout.getIngredientsGroup(VanillaTypes.ITEM).set(2, ForgeRegistries.ITEMS.tags().getTag(ShinyWingsRecipe.SHINE).stream().map(ItemStack::new).collect(Collectors.toList()));
             recipeLayout.getIngredientsGroup(VanillaTypes.ITEM).set(0, outStack);
         }
 
@@ -98,16 +98,14 @@ public class JustEnoughItems implements IModPlugin {
             });
 
             ingredients.setOutputs(VanillaTypes.ITEM, outputs);
-            ingredients.setInputLists(VanillaTypes.ITEM, Arrays.asList(ShinyWingsRecipe.SHINE.getAllElements().stream().map(ItemStack::new).collect(Collectors.toList()), inputs));
+            ingredients.setInputLists(VanillaTypes.ITEM, Arrays.asList(ForgeRegistries.ITEMS.tags().getTag(ShinyWingsRecipe.SHINE).stream().map(ItemStack::new).collect(Collectors.toList()), inputs));
         }
 
-        @Nullable
         @Override
         public ResourceLocation getRegistryName() {
             return RecipeSerializers.SHINY_WINGS.getId();
         }
 
-        @Nullable
         @Override
         public Size2i getSize() {
             return new Size2i(2, 1);
