@@ -4,9 +4,13 @@ import me.appw.vikare.Vikare;
 import me.appw.vikare.core.capability.WingItemCapability;
 import me.appw.vikare.core.config.VikareConfig;
 import me.appw.vikare.core.registry.WingTypes.WingType;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
@@ -21,11 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import net.minecraft.core.Direction;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-
 public class WingItem extends Item { //, IDyeableArmorItem {
     private final DyeColor primaryColor; // TODO: maybe one day this could be NBT values?
     private final DyeColor secondaryColor;
@@ -34,20 +33,6 @@ public class WingItem extends Item { //, IDyeableArmorItem {
     public static final TagKey<Item> MELTS = ItemTags.create(Vikare.resource("melts"));
     public final double speed;
     public final double acceleration;
-
-//    public WingItem(double speed, double acceleration, DyeColor primaryColor, DyeColor secondaryColor, WingType wingType) {
-//        super(new Item.Properties()
-//                .maxStackSize(1)
-//                .maxDamage(VikareConfig.COMMON.wingsDurability.get())
-//                .group(Vikare.ITEM_GROUP)
-//                .rarity(wingType == WingType.UNIQUE ? Rarity.EPIC : Rarity.RARE)
-//        );
-//        this.speed = speed;
-//        this.acceleration = acceleration;
-//        this.primaryColor = primaryColor;
-//        this.secondaryColor = secondaryColor;
-//        this.wingType = wingType;
-//    }
 
     public WingItem(DyeColor primaryColor, DyeColor secondaryColor, WingType wingType) {
         super(new Item.Properties()

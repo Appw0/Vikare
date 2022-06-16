@@ -2,33 +2,25 @@ package me.appw.vikare.client.models;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import me.appw.vikare.core.capability.WingItemCapability.WingsState;
-import me.appw.vikare.core.capability.WingItemCapability.State;
 import me.appw.vikare.core.capability.WingItemCapability.FlapState;
+import me.appw.vikare.core.capability.WingItemCapability.State;
+import me.appw.vikare.core.capability.WingItemCapability.WingsState;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 
 public class WingsModel<T extends LivingEntity> extends EntityModel<T> {
 
     public final ModelPart rightWing;
     public final ModelPart leftWing;
-//    public State state = State.IDLE;
-//    public FlapState flapState = FlapState.IDLE;
-//
-//    private boolean slowfall = false;
-//    private boolean broken = false;
-//    private float last_movement = -1;
-//    private float movement_override = -10.0F;
 
     public WingsModel(ModelPart root) {
         rightWing = root.getChild("right_wing");
@@ -47,16 +39,6 @@ public class WingsModel<T extends LivingEntity> extends EntityModel<T> {
         rootDef.addOrReplaceChild("left_wing", CubeListBuilder.create(), PartPose.offset(0.0f, 5.0f, 0.0f));
         return meshDef;
     }
-
-//    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float netHeadPitch, boolean forceFlapping) {
-//        movement_override = forceFlapping ? 1.0F : 0.0F;
-//        this.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, netHeadPitch);
-//    }
-
-//    public void setupAnim(T entity) {
-//        movement_override = -10.0F;
-//        this.setupAnim(entity, entity.animationPosition, entity.animationSpeed, entity.tickCount, entity.getYHeadRot(), entity.getXRot());
-//    }
 
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float netHeadPitch) {
@@ -97,7 +79,7 @@ public class WingsModel<T extends LivingEntity> extends EntityModel<T> {
             if (movement > state.lastMovement && state.lastMovement == 0.0) {
                 state.flapStatus = FlapState.FLAP;
             }
-//            this.last_movement = movement;
+            state.lastMovement = movement;
         } else if (state.status == State.CROUCHING) {
             wing_pitch = 0.7F;
             yaw_pivot = 0.0F;
@@ -120,18 +102,13 @@ public class WingsModel<T extends LivingEntity> extends EntityModel<T> {
         this.leftWing.x = 7.0F;
         this.leftWing.y = yaw_pivot;
 
-        if (entity instanceof LocalPlayer) {
-            AbstractClientPlayer player = (AbstractClientPlayer) entity;
+        if (entity instanceof AbstractClientPlayer player) {  // TODO: backport the removal of the else statement
             player.elytraRotX = (player.elytraRotX + (wing_pitch - player.elytraRotX) * 0.1F);
             player.elytraRotY = (player.elytraRotY + (wing_yaw - player.elytraRotY) * 0.1F);
             player.elytraRotZ = (player.elytraRotZ + (wing_roll - player.elytraRotZ) * 0.1F);
             this.leftWing.xRot = player.elytraRotX; // X -> pitch
             this.leftWing.yRot = player.elytraRotY; // Y -> yaw
             this.leftWing.zRot = player.elytraRotZ; // Z -> roll
-        } else {
-            this.leftWing.xRot = (this.leftWing.xRot + (wing_pitch - this.leftWing.xRot) * 0.1F);
-            this.leftWing.yRot = (this.leftWing.yRot + (wing_yaw - this.leftWing.yRot) * 0.1F);
-            this.leftWing.zRot = (this.leftWing.zRot + (wing_roll - this.leftWing.zRot) * 0.1F);
         }
 
         this.rightWing.x = -this.leftWing.x;

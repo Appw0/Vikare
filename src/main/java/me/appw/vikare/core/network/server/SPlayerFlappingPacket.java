@@ -6,16 +6,14 @@ import me.appw.vikare.core.network.NetworkHandler;
 import me.appw.vikare.core.network.client.CPlayerFlappingPacket.FlappingState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.PacketDistributor;
-import org.apache.commons.lang3.tuple.ImmutableTriple;
 import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.CuriosCapability;
+import top.theillusivec4.curios.api.SlotResult;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -48,13 +46,11 @@ public class SPlayerFlappingPacket {
 
             if (world != null) {
                 Entity entity = world.getEntity(message.entityId);
-                if (entity instanceof Player && entity != Minecraft.getInstance().player) {
-                    Player player = (Player) entity;
-                    Optional<ImmutableTriple<String, Integer, ItemStack>> equippedCurio = CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof WingItem, player);
-                    if (equippedCurio.isPresent()) {
-                        WingItemCapability wingCap = (WingItemCapability) equippedCurio.get().right.getCapability(CuriosCapability.ITEM).resolve().get();
-                        wingCap.setForcedFlap(message.isFlapping);
-                    }
+                if (entity instanceof Player player && entity != Minecraft.getInstance().player) {
+                    Optional<SlotResult> slotOpt = CuriosApi.getCuriosHelper().findFirstCurio(player, stack -> stack.getItem() instanceof WingItem);
+                    slotOpt.flatMap(slotResult -> CuriosApi.getCuriosHelper().getCurio(slotResult.stack())
+                                    .filter(curio -> curio instanceof WingItemCapability))
+                            .ifPresent(curio -> ((WingItemCapability) curio).setForcedFlap(message.isFlapping));
                 }
             }
         });

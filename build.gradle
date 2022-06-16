@@ -42,6 +42,11 @@ minecraft {
         client {
             workingDirectory project.file('run/client')
 
+            args '--username', 'Dev#'
+
+            property 'devauth.enabled', 'false'
+
+            property 'mixin.env.disableRefMap', 'true'
             // Recommended logging data for a userdev environment
             // The markers can be added/removed as needed separated by commas.
             // "SCAN": For mods scan.
@@ -64,6 +69,7 @@ minecraft {
         server {
             workingDirectory project.file('run/server')
 
+            property 'mixin.env.disableRefMap', 'true'
             // Recommended logging data for a userdev environment
             // The markers can be added/removed as needed separated by commas.
             // "SCAN": For mods scan.

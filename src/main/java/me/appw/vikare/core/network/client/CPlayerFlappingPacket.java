@@ -4,13 +4,13 @@ import me.appw.vikare.common.items.WingItem;
 import me.appw.vikare.core.config.VikareConfig;
 import me.appw.vikare.core.network.NetworkHandler;
 import me.appw.vikare.core.network.server.SPlayerFlappingPacket;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.PacketDistributor;
-import org.apache.commons.lang3.tuple.ImmutableTriple;
 import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotResult;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -38,10 +38,9 @@ public class CPlayerFlappingPacket {
             ServerPlayer sender = ctx.get().getSender();
 
             if (sender != null) {
-                Optional<ImmutableTriple<String, Integer, ItemStack>> equippedCurio = CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof WingItem, sender);
-                if (equippedCurio.isPresent()) {
-                    ImmutableTriple<String, Integer, ItemStack> equippedWings = equippedCurio.get();
-                    ItemStack wings = equippedWings.right;
+                Optional<SlotResult> slotOpt = CuriosApi.getCuriosHelper().findFirstCurio(sender, stack -> stack.getItem() instanceof WingItem);
+                slotOpt.ifPresent(slotResult -> {
+                    ItemStack wings = slotResult.stack();
                     if (!sender.isCreative() && !wings.is(WingItem.FREE_FLIGHT)) {
                         sender.causeFoodExhaustion(VikareConfig.COMMON.exhaustionAmount.get());
                     }
@@ -50,10 +49,10 @@ public class CPlayerFlappingPacket {
                         SPlayerFlappingPacket.send(sender, message.state);
                     }
 
-                    if (wings.is(WingItem.MELTS) && VikareConfig.COMMON.wingsDurability.get() > 0 && sender.tickCount % 20 == 0 && WingItem.isUsable(equippedWings.right)) {
-                        equippedWings.right.hurtAndBreak(1, sender, p -> CuriosApi.getCuriosHelper().onBrokenCurio(equippedWings.left, equippedWings.middle, p));
+                    if (wings.is(WingItem.MELTS) && VikareConfig.COMMON.wingsDurability.get() > 0 && sender.tickCount % 20 == 0 && WingItem.isUsable(wings)) {
+                        wings.hurtAndBreak(1, sender, p -> CuriosApi.getCuriosHelper().onBrokenCurio(slotResult.slotContext()));
                     }
-                }
+                });
             }
         });
         ctx.get().setPacketHandled(true);

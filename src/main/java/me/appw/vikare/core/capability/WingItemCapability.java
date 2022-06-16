@@ -7,13 +7,13 @@ import me.appw.vikare.core.config.VikareConfig;
 import me.appw.vikare.core.network.client.CPlayerFlappingPacket;
 import me.appw.vikare.core.network.client.CPlayerFlappingPacket.FlappingState;
 import me.appw.vikare.core.registry.WingTypes.WingType;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import top.theillusivec4.caelus.api.CaelusApi;
 import top.theillusivec4.curios.api.CuriosApi;
@@ -28,22 +28,12 @@ public class WingItemCapability implements ICurio {
     private final WingItem wings;
     private final WingType wingType;
     private final WingsState wingsState = new WingsState();
-//    private WingsModel<LivingEntity> wingsModel;
-//    private boolean forcedFlap = false;
-//    private boolean shouldSlowFall;
     private float last_movement = 0.0F;
 
     public WingItemCapability(ItemStack stack) {
         this.stack = stack;
         wings = (WingItem) stack.getItem();
         wingType = wings.getWingType();
-
-//        try {  // this is Stupid dumb hack glad its gone
-//            wingsModel = VikareClient.MODELS.get(wingType).getDeclaredConstructor().newInstance();
-//        } catch (InstantiationException | IllegalAccessException e) {
-//            Vikare.LOGGER.error(String.valueOf(e));
-//        } catch (NullPointerException ignored) {
-//        }
     }
 
     @Override
@@ -55,19 +45,19 @@ public class WingItemCapability implements ICurio {
     public void curioTick(SlotContext context) {
         LivingEntity entity = context.entity();
         if (entity instanceof Player player) {
-            if (player.getFoodData().getFoodLevel() <= 6) { return; }
+            boolean tooHungry = player.getFoodData().getFoodLevel() <= 6;   // TODO: backport this because it solves bugs
 
             if (player.isFallFlying()) {
                 wingsState.status = State.FLYING;
-                if (player.zza > 0) {
+                if (player.zza > 0 && !tooHungry) {
                     if (WingItem.isUsable(stack)) applySpeed(player);
                     CPlayerFlappingPacket.send(last_movement == 0 ? FlappingState.STARTED : FlappingState.NONE);
                 } else if (last_movement > 0) {
-                    CPlayerFlappingPacket.send(FlappingState.ENDED);
+                    CPlayerFlappingPacket.send(FlappingState.ENDED);   // TODO: check if this is getting spammed
                 }
                 last_movement = player.zza;
 
-                if (player.isShiftKeyDown()) {
+                if (player.isShiftKeyDown() && !tooHungry) {   // TODO: implement more assured client->client replication of slowFall. may become unsynced in rare cases?
                     stopFlying(player);
                 }
                 if (player.getY() > player.level.getMaxBuildHeight() + 64 && player.tickCount % 20 == 0 && stack.is(WingItem.MELTS)) {
@@ -85,30 +75,25 @@ public class WingItemCapability implements ICurio {
                 }
             } else {
                 if (player.isOnGround() || player.isInWater()) {
-                    wingsState.status = State.IDLE;
-                }
-                if (wingsState.status == State.SLOWFALL) {
+                    wingsState.status = player.isCrouching() ? State.CROUCHING : State.IDLE;
+                } else if (wingsState.status == State.SLOWFALL) {
                     player.fallDistance = WingItem.isUsable(stack) ? 0F : Math.min(player.fallDistance, 10F);
                     player.setDeltaMovement(player.getDeltaMovement().x, WingItem.isUsable(stack) ? -0.4 : -1, player.getDeltaMovement().z);
                 }
             }
-//            if (player.level.isClientSide) {  // TODO: move this to client code!
-//                Minecraft minecraft = Minecraft.getInstance();
-//                if (minecraft.player == player && minecraft.options.getCameraType() == CameraType.FIRST_PERSON ) {
-//                    // these interesting shenanigans here are to continue to simulate wing-flapping while in first person
-//                    // even though the model is not rendered, to allow the wing-flap sound to still be played
-//                    wingsModel.setupAnim(player);
-//                }
-//                if (wingsModel.didFlap()) {
-//                    float vol = 10.0F;
-//                    if (Minecraft.getInstance().player == player) {
-//                        vol = 100.0F;
-//                    }
-//                    player.level.playLocalSound(player.getX(), player.getY(), player.getZ(), wingType.flapSound.get(), SoundSource.PLAYERS, vol, 0.9F + player.level.random.nextFloat() * 0.2F, false);
-//                }
-//            }
         }
     }
+
+//    @Override   // TODO: decide whether to keep/remove these two functions or to make them a config
+//    public List<Component> getSlotsTooltip(List<Component> tooltips) {
+//        return List.of();
+//    }
+//
+//    @Override
+//    public List<Component> getAttributesTooltip(List<Component> tooltips) {
+//        tooltips.set(1, tooltips.get(1).plainCopy().withStyle(ChatFormatting.GRAY));
+//        return tooltips;
+//    }
 
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid) {
@@ -126,40 +111,11 @@ public class WingItemCapability implements ICurio {
     @Override
     public boolean canEquipFromUse(SlotContext slotContext) { return true; }
 
-//    @OnlyIn(Dist.CLIENT)
-//    @Override
-//    public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext, PoseStack matrixStack,
-//                                                                          RenderLayerParent<T, M> renderLayerParent, MultiBufferSource renderTypeBuffer, int light,
-//                                                                          float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw,
-//                                                                          float headPitch) {
-//        LivingEntity livingEntity = slotContext.entity();
-//        float[] primaryColor = wings.getPrimaryColor().getTextureDiffuseColors();
-//        float[] secondaryColor = wings.getSecondaryColor().getTextureDiffuseColors();
-//
-//        String wingTypeString = wings.getWingTypeName();
-//
-//        // same with these TODO: put in registry
-//        ResourceLocation layer1 = new ResourceLocation(Vikare.MODID, "textures/entity/" + wingTypeString + "_wings.png");
-//        ResourceLocation layer2 = new ResourceLocation(Vikare.MODID, "textures/entity/" + wingTypeString + "_wings_2.png");
-//
-//        matrixStack.translate(0.0D, 0.0D, 0.125D);
-//
-//        if (Minecraft.getInstance().player == renderLayerParent) {
-//            wingsModel.setupAnim(livingEntity, limbSwing, limbSwingAmount, ageInTicks, headPitch, netHeadYaw);
-//        } else {
-//            wingsModel.setupAnim(livingEntity, limbSwing, limbSwingAmount, ageInTicks, headPitch, netHeadYaw, forcedFlap);
-//        }
-//
-//        VertexConsumer vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, wingsModel.renderType(layer2), false, stack.hasFoil());
-//        wingsModel.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, secondaryColor[0], secondaryColor[1], secondaryColor[2], 1.0F);
-//
-//        vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, wingsModel.renderType(layer1), false, stack.hasFoil());
-//        wingsModel.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, primaryColor[0], primaryColor[1], primaryColor[2], 1.0F);
-//    }
-
-    public boolean isShiny() {
+    public boolean isShiny() { // TODO: possibly replace this tag with an enchantment, or add tooltip
         return !stack.getOrCreateTag().getBoolean("Dull");
     }
+
+    public WingType getWingType() { return this.wingType; }
 
     public void stopFlying(Player player) {
         wingsState.status = State.SLOWFALL;
@@ -170,6 +126,7 @@ public class WingItemCapability implements ICurio {
         Vec3 rotation = player.getLookAngle();
         Vec3 velocity = player.getDeltaMovement();
         float modifier = VikareConfig.COMMON.armorSlows.get() ? Mth.clamp(player.getArmorValue() / 10F, 1F, VikareConfig.COMMON.maxSlowedMultiplier.get()) : 1F;
+        modifier = player.isInWater() ? 200F : modifier; // TODO: backport this
 
         velocity = velocity.add(rotation.x * (wings.speed / modifier) + (rotation.x * 1.5D - velocity.x) * wings.acceleration, rotation.y * (wings.speed / modifier) + (rotation.y * 1.5D - velocity.y) * wings.acceleration, rotation.z * (wings.speed / modifier) + (rotation.z * 1.5D - velocity.z) * wings.acceleration);
         player.setDeltaMovement(velocity.x, velocity.y, velocity.z);
@@ -181,6 +138,15 @@ public class WingItemCapability implements ICurio {
 
     public WingsState getWingState() {
         return this.wingsState;
+    }
+
+    public boolean didFlap() {
+        if (wingsState.flapStatus == FlapState.FLAP) {
+            wingsState.flapStatus = FlapState.DONE;
+            return true;
+        }  else {
+            return false;
+        }
     }
 
     public static class WingsState {

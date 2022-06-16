@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 public class Items {
     public static final DeferredRegister<Item> WINGS = DeferredRegister.create(ForgeRegistries.ITEMS, Vikare.MODID);
 
-    public static final RegistryObject<Item> BOX_WINGS = create("box_wings", () -> new WingItem(DyeColor.WHITE, DyeColor.WHITE, WingTypes.BOX));
+//    public static final RegistryObject<Item> BOX_WINGS = create("box_wings", () -> new WingItem(DyeColor.WHITE, DyeColor.WHITE, WingTypes.BOX));
 
     public static final RegistryObject<Item> WHITE_FEATHERED_WINGS = create("white_feathered_wings", () -> new WingItem(DyeColor.WHITE, DyeColor.WHITE, WingTypes.FEATHERED));
     public static final RegistryObject<Item> ORANGE_FEATHERED_WINGS = create("orange_feathered_wings", () -> new WingItem(DyeColor.ORANGE, DyeColor.ORANGE, WingTypes.FEATHERED));
