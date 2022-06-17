@@ -15,7 +15,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
@@ -108,7 +108,7 @@ public class VikareClient {
     }
 
     public static void setDebugMessage(String message) {
-        minecraft.gui.setOverlayMessage(new TextComponent(message), false);
+        minecraft.gui.setOverlayMessage(Component.literal(message), false);
     }
 
     @Mod.EventBusSubscriber(modid = Vikare.MODID, value = Dist.CLIENT, bus = Bus.FORGE)
@@ -124,7 +124,7 @@ public class VikareClient {
 
             if (player == minecraft.player && player.isFallFlying()) { // TODO: fix this and backport fix, as roll bugs out when accelerating
                 double strafingRollOffset = player.getLookAngle().yRot((float)Math.PI / 2F).dot(player.getDeltaMovement()) * 15.0D;
-                prevRollOffset = strafingRollOffset = Mth.lerp(event.getPartialTicks(), prevRollOffset, strafingRollOffset);
+                prevRollOffset = strafingRollOffset = Mth.lerp(event.getPartialTick(), prevRollOffset, strafingRollOffset);
                 event.setRoll((float) strafingRollOffset * VikareConfig.COMMON.rollAmount.get());
             }
         }
