@@ -111,7 +111,7 @@ public class WingsModel<T extends LivingEntity> extends EntityModel<T> {
             this.leftWing.zRot = player.elytraRotZ; // Z -> roll
         }
 
-        this.rightWing.x = -this.leftWing.x;
+        this.rightWing.x = -this.leftWing.x;  // TODO: fix model right/left issues in previous versions
         this.rightWing.yRot = -this.leftWing.yRot;
         this.rightWing.y = this.leftWing.y;
         this.rightWing.xRot = this.leftWing.xRot;
