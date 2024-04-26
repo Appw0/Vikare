@@ -5,15 +5,12 @@ import me.appw.vikare.client.VikareClient;
 import me.appw.vikare.core.config.VikareConfig;
 import me.appw.vikare.core.network.NetworkHandler;
 import me.appw.vikare.core.registry.Items;
-//import me.appw.vikare.core.registry.RecipeSerializers;
-//import me.appw.vikare.core.registry.Sounds;
+import me.appw.vikare.core.registry.RecipeSerializers;
 import me.appw.vikare.core.registry.Sounds;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CreativeModeTabEvent;
@@ -55,7 +52,7 @@ public class Vikare {
         MinecraftForge.EVENT_BUS.register(this);
         Sounds.register();
         Items.register();
-//        RecipeSerializers.register();
+        RecipeSerializers.register();
     }
 
     private void setup(final FMLCommonSetupEvent event) {

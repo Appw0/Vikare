@@ -20,10 +20,9 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RegisterColorHandlersEvent;
-import net.minecraftforge.client.event.RenderLevelLastEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -115,29 +114,32 @@ public class VikareClient {
 
         private static final HashSet<AbstractClientPlayer> renderedPlayers = new HashSet<>();
 
-//        @SubscribeEvent
-//        public static void entityViewRender(EntityViewRenderEvent.CameraSetup event) {
-//            LocalPlayer player = minecraft.player;
-//
-//            renderedPlayers.clear();
-//
-//            if (player == minecraft.player && player.isFallFlying()) { // TODO: fix this and backport fix, as roll bugs out when accelerating
-//                double strafingRollOffset = player.getLookAngle().yRot((float)Math.PI / 2F).dot(player.getDeltaMovement()) * 15.0D;
-//                prevRollOffset = strafingRollOffset = Mth.lerp(event.getPartialTick(), prevRollOffset, strafingRollOffset);
-//                event.setRoll((float) strafingRollOffset * VikareConfig.COMMON.rollAmount.get());
-//            }
-//        }
+        @SubscribeEvent
+        public static void entityViewRender(ViewportEvent.ComputeCameraAngles event) {
+            LocalPlayer player = minecraft.player;
+
+            renderedPlayers.clear();
+
+            if (player == minecraft.player && player.isFallFlying()) { // TODO: Backport roll fix and clamping. No clue what goofy ah math I was doing before
+                double strafingRollOffset = player.getForward().cross(player.getUpVector(1.0f)).normalize().dot(player.getDeltaMovement()) * -15;
+                strafingRollOffset = Mth.clamp(strafingRollOffset, -70, 70);
+                prevRollOffset = strafingRollOffset = Mth.lerp(event.getPartialTick(), prevRollOffset, strafingRollOffset);
+                event.setRoll((float)(strafingRollOffset * VikareConfig.COMMON.rollAmount.get()));
+            }
+        }
 
         @SubscribeEvent
-        public static void renderLast(RenderLevelLastEvent event) {
-            minecraft.level.players().stream().filter(player -> !renderedPlayers.contains(player)).forEach(player ->
-                    CuriosApi.getCuriosHelper().findFirstCurio(player, stack -> stack.getItem() instanceof WingItem)
-                    .flatMap(slotResult -> CuriosApi.getCuriosHelper().getCurio(slotResult.stack()).filter(curio -> curio instanceof WingItemCapability))
-                    .ifPresent(curio -> {
-                            WingItemCapability wingCap = (WingItemCapability) curio;
-                            WING_RENDERERS.get(wingCap.getWingType()).setupModel(player, player.tickCount, wingCap);
-                    })
-            );
+        public static void renderLast(RenderLevelStageEvent event) {
+            if (event.getStage().equals(RenderLevelStageEvent.Stage.AFTER_ENTITIES)) {
+                minecraft.level.players().stream().filter(player -> !renderedPlayers.contains(player)).forEach(player ->
+                        CuriosApi.getCuriosHelper().findFirstCurio(player, stack -> stack.getItem() instanceof WingItem)
+                                .flatMap(slotResult -> CuriosApi.getCuriosHelper().getCurio(slotResult.stack()).filter(curio -> curio instanceof WingItemCapability))
+                                .ifPresent(curio -> {
+                                    WingItemCapability wingCap = (WingItemCapability) curio;
+                                    WING_RENDERERS.get(wingCap.getWingType()).setupModel(player, player.tickCount, wingCap);
+                                })
+                );
+            }
         }
     }
 }
