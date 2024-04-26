@@ -42,7 +42,7 @@ public class CPlayerFlappingPacket {
                 slotOpt.ifPresent(slotResult -> {
                     ItemStack wings = slotResult.stack();
                     if (!sender.isCreative() && !wings.is(WingItem.FREE_FLIGHT)) {
-                        sender.causeFoodExhaustion(VikareConfig.COMMON.exhaustionAmount.get());
+                        sender.causeFoodExhaustion(VikareConfig.COMMON.exhaustionAmount.get().floatValue());
                     }
 
                     if (message.state != FlappingState.NONE) {

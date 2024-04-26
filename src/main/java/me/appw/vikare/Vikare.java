@@ -5,8 +5,10 @@ import me.appw.vikare.client.VikareClient;
 import me.appw.vikare.core.config.VikareConfig;
 import me.appw.vikare.core.network.NetworkHandler;
 import me.appw.vikare.core.registry.Items;
-import me.appw.vikare.core.registry.RecipeSerializers;
+//import me.appw.vikare.core.registry.RecipeSerializers;
+//import me.appw.vikare.core.registry.Sounds;
 import me.appw.vikare.core.registry.Sounds;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -14,6 +16,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -30,13 +33,7 @@ public class Vikare {
 
     public static final String MODID = "vikare";
 
-    public static final CreativeModeTab ITEM_GROUP = (new CreativeModeTab("vikare.general") {
-        @Override
-        @OnlyIn(Dist.CLIENT)
-        public ItemStack makeIcon() {
-            return new ItemStack(Items.ORANGE_FEATHERED_WINGS.get());
-        }
-    });
+    public static CreativeModeTab ITEM_TAB;
 
     // Directly reference a log4j logger.
     public static final Logger LOGGER = LogUtils.getLogger();
@@ -47,6 +44,7 @@ public class Vikare {
         // Register the enqueueIMC method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerLayers);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerTabs);
         // Register the processIMC method for modloading
 //        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
         // Register the doClientStuff method for modloading
@@ -57,11 +55,16 @@ public class Vikare {
         MinecraftForge.EVENT_BUS.register(this);
         Sounds.register();
         Items.register();
-        RecipeSerializers.register();
+//        RecipeSerializers.register();
     }
 
     private void setup(final FMLCommonSetupEvent event) {
         LOGGER.info("winga dinga");
+
+        // This is not good
+        // TODO: Find a better solution to this
+        Items.WINGS.getEntries().forEach(wings -> wings.get().maxDamage = VikareConfig.COMMON.wingsDurability.get());
+
         NetworkHandler.register();
     }
 
@@ -81,6 +84,14 @@ public class Vikare {
 
     private void registerLayers(final EntityRenderersEvent.RegisterLayerDefinitions event) {
         VikareClient.registerLayers(event);
+    }
+
+    private void registerTabs(CreativeModeTabEvent.Register event) {
+        ITEM_TAB = event.registerCreativeModeTab(resource("general"), builder -> builder
+                .icon(() -> new ItemStack(Items.ORANGE_FEATHERED_WINGS.get()))
+                .title(Component.translatable("tabs.vikare.general"))
+                .displayItems((featureFlags, output) -> Items.WINGS.getEntries().forEach(wings -> output.accept(wings.get())))
+        );
     }
 
     public static ResourceLocation resource(String location) {

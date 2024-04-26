@@ -34,6 +34,6 @@ public class Sounds {
     }
 
     private static RegistryObject<SoundEvent> register(String key) {
-        return SOUNDS.register(key, () -> new SoundEvent(new ResourceLocation(Vikare.MODID + ":" + key)));
+        return SOUNDS.register(key, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Vikare.MODID + ":" + key)));
     }
 }

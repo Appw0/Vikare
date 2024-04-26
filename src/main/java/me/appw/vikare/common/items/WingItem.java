@@ -31,18 +31,13 @@ public class WingItem extends Item { //, IDyeableArmorItem {
     private final WingType wingType;
     public static final TagKey<Item> FREE_FLIGHT = ItemTags.create(Vikare.resource("free_flight"));
     public static final TagKey<Item> MELTS = ItemTags.create(Vikare.resource("melts"));
-    public final double speed;
-    public final double acceleration;
 
     public WingItem(DyeColor primaryColor, DyeColor secondaryColor, WingType wingType) {
         super(new Item.Properties()
                 .stacksTo(1)
-                .durability(VikareConfig.COMMON.wingsDurability.get())
-                .tab(Vikare.ITEM_GROUP)
+                .defaultDurability(400)
                 .rarity(wingType.rarity)
         );
-        this.speed = VikareConfig.COMMON.wingsSpeed.get();
-        this.acceleration = VikareConfig.COMMON.wingsAcceleration.get();
         this.primaryColor = primaryColor;
         this.secondaryColor = secondaryColor;
         this.wingType = wingType;
@@ -83,6 +78,12 @@ public class WingItem extends Item { //, IDyeableArmorItem {
             return super.isFoil(stack);
         }
     }
+
+    // TODO: Backport this
+    public double getSpeed() { return VikareConfig.COMMON.wingsSpeed.get(); }
+
+    // TODO: Backport this
+    public double getAcceleration() { return VikareConfig.COMMON.wingsAcceleration.get(); }
 
     public static boolean isUsable(ItemStack stack) {
         return stack.getDamageValue() < stack.getMaxDamage() - 1;

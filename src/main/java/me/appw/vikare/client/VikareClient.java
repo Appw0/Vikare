@@ -21,9 +21,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.EntityViewRenderEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RenderLevelLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -86,7 +85,7 @@ public class VikareClient {
     }
 
     @SubscribeEvent
-    public static void registerItemColor(ColorHandlerEvent.Item event) {
+    public static void registerItemColor(RegisterColorHandlersEvent.Item event) {
         event.getItemColors().register((stack, color) -> color == 0 ? ColorHelper.dyeToDecimal(((WingItem) stack.getItem()).getPrimaryColor()): ColorHelper.dyeToDecimal(((WingItem) stack.getItem()).getSecondaryColor()),
                 WHITE_FEATHERED_WINGS.get(), ORANGE_FEATHERED_WINGS.get(), MAGENTA_FEATHERED_WINGS.get(), LIGHT_BLUE_FEATHERED_WINGS.get(), YELLOW_FEATHERED_WINGS.get(), LIME_FEATHERED_WINGS.get(), PINK_FEATHERED_WINGS.get(), GREY_FEATHERED_WINGS.get(), LIGHT_GREY_FEATHERED_WINGS.get(), CYAN_FEATHERED_WINGS.get(), PURPLE_FEATHERED_WINGS.get(), BLUE_FEATHERED_WINGS.get(), BROWN_FEATHERED_WINGS.get(), GREEN_FEATHERED_WINGS.get(), RED_FEATHERED_WINGS.get(), BLACK_FEATHERED_WINGS.get(),
                 WHITE_DRAGON_WINGS.get(), ORANGE_DRAGON_WINGS.get(), MAGENTA_DRAGON_WINGS.get(), LIGHT_BLUE_DRAGON_WINGS.get(), YELLOW_DRAGON_WINGS.get(), LIME_DRAGON_WINGS.get(), PINK_DRAGON_WINGS.get(), GREY_DRAGON_WINGS.get(), LIGHT_GREY_DRAGON_WINGS.get(), CYAN_DRAGON_WINGS.get(), PURPLE_DRAGON_WINGS.get(), BLUE_DRAGON_WINGS.get(), BROWN_DRAGON_WINGS.get(), GREEN_DRAGON_WINGS.get(), RED_DRAGON_WINGS.get(), BLACK_DRAGON_WINGS.get(),
@@ -116,18 +115,18 @@ public class VikareClient {
 
         private static final HashSet<AbstractClientPlayer> renderedPlayers = new HashSet<>();
 
-        @SubscribeEvent
-        public static void entityViewRender(EntityViewRenderEvent.CameraSetup event) {
-            LocalPlayer player = minecraft.player;
-
-            renderedPlayers.clear();
-
-            if (player == minecraft.player && player.isFallFlying()) { // TODO: fix this and backport fix, as roll bugs out when accelerating
-                double strafingRollOffset = player.getLookAngle().yRot((float)Math.PI / 2F).dot(player.getDeltaMovement()) * 15.0D;
-                prevRollOffset = strafingRollOffset = Mth.lerp(event.getPartialTick(), prevRollOffset, strafingRollOffset);
-                event.setRoll((float) strafingRollOffset * VikareConfig.COMMON.rollAmount.get());
-            }
-        }
+//        @SubscribeEvent
+//        public static void entityViewRender(EntityViewRenderEvent.CameraSetup event) {
+//            LocalPlayer player = minecraft.player;
+//
+//            renderedPlayers.clear();
+//
+//            if (player == minecraft.player && player.isFallFlying()) { // TODO: fix this and backport fix, as roll bugs out when accelerating
+//                double strafingRollOffset = player.getLookAngle().yRot((float)Math.PI / 2F).dot(player.getDeltaMovement()) * 15.0D;
+//                prevRollOffset = strafingRollOffset = Mth.lerp(event.getPartialTick(), prevRollOffset, strafingRollOffset);
+//                event.setRoll((float) strafingRollOffset * VikareConfig.COMMON.rollAmount.get());
+//            }
+//        }
 
         @SubscribeEvent
         public static void renderLast(RenderLevelLastEvent event) {
