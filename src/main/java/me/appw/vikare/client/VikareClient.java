@@ -101,7 +101,7 @@ public class VikareClient {
             if (Minecraft.getInstance().player == player) {
                 vol = 100.0F;   // extra volume for the player's own wings because sounds don't move, but the player is going fast!
             }
-            player.level.playLocalSound(player.getX(), player.getY(), player.getZ(), wingCap.getWingType().flapSound.get(), SoundSource.PLAYERS, vol, 0.9F + player.level.random.nextFloat() * 0.2F, false);
+            player.level().playLocalSound(player.getX(), player.getY(), player.getZ(), wingCap.getWingType().flapSound.get(), SoundSource.PLAYERS, vol, 0.9F + player.level().random.nextFloat() * 0.2F, false);
         }
     }
 

@@ -2,8 +2,9 @@ package me.appw.vikare.core.registry;
 
 import me.appw.vikare.Vikare;
 import me.appw.vikare.common.items.WingItem;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.Item;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.*;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -14,7 +15,7 @@ import java.util.function.Supplier;
 public class Items {
     public static final DeferredRegister<Item> WINGS = DeferredRegister.create(ForgeRegistries.ITEMS, Vikare.MODID);
 
-//    public static final RegistryObject<Item> BOX_WINGS = create("box_wings", () -> new WingItem(DyeColor.WHITE, DyeColor.WHITE, WingTypes.BOX));
+    public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Vikare.MODID);
 
     public static final RegistryObject<Item> WHITE_FEATHERED_WINGS = create("white_feathered_wings", () -> new WingItem(DyeColor.WHITE, DyeColor.WHITE, WingTypes.FEATHERED));
     public static final RegistryObject<Item> ORANGE_FEATHERED_WINGS = create("orange_feathered_wings", () -> new WingItem(DyeColor.ORANGE, DyeColor.ORANGE, WingTypes.FEATHERED));
@@ -105,8 +106,16 @@ public class Items {
     public static final RegistryObject<Item> DISCORDS_WINGS = create("discords_wings", () -> new WingItem(DyeColor.WHITE, DyeColor.WHITE, WingTypes.DISCORDS));
     public static final RegistryObject<Item> ZANZAS_WINGS = create("zanzas_wings", () -> new WingItem(DyeColor.WHITE, DyeColor.WHITE, WingTypes.ZANZAS));
 
+    public static final RegistryObject<CreativeModeTab> ITEM_TAB = TABS.register("general", () -> CreativeModeTab.builder()
+            .icon(() -> new ItemStack(ORANGE_FEATHERED_WINGS.get()))
+            .title(Component.translatable("tabs.vikare.general"))
+            .displayItems((params, output) -> WINGS.getEntries().forEach(wings -> output.accept(wings.get())))
+            .build()
+    );
+
     public static void register() {
         WINGS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        TABS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     private static RegistryObject<Item> create(String name, Supplier<WingItem> itemSupplier) {

@@ -60,7 +60,7 @@ public class WingItemCapability implements ICurio {
                 if (player.isShiftKeyDown() && !tooHungry) {   // TODO: implement more assured client->client replication of slowFall. may become unsynced in rare cases?
                     stopFlying(player);
                 }
-                if (player.getY() > player.level.getMaxBuildHeight() + 64 && player.tickCount % 20 == 0 && stack.is(WingItem.MELTS)) {
+                if (player.getY() > player.level().getMaxBuildHeight() + 64 && player.tickCount % 20 == 0 && stack.is(WingItem.MELTS)) {
                     stack.hurtAndBreak(1, player, p -> CuriosApi.getCuriosHelper().onBrokenCurio(context));
                 }
 
@@ -74,7 +74,7 @@ public class WingItemCapability implements ICurio {
                     wingsState.broken = false;
                 }
             } else {
-                if (player.isOnGround() || player.isInWater()) {
+                if (player.onGround() || player.isInWater()) {
                     wingsState.status = player.isCrouching() ? State.CROUCHING : State.IDLE;
                 } else if (wingsState.status == State.SLOWFALL) {
                     player.fallDistance = WingItem.isUsable(stack) ? 0F : Math.min(player.fallDistance, 10F);
