@@ -61,7 +61,7 @@ public class WingItemCapability implements ICurio {
                     stopFlying(player);
                 }
                 if (player.getY() > player.level().getMaxBuildHeight() + 64 && player.tickCount % 20 == 0 && stack.is(WingItem.MELTS)) {
-                    stack.hurtAndBreak(1, player, p -> CuriosApi.getCuriosHelper().onBrokenCurio(context));
+                    stack.hurtAndBreak(1, player, p -> CuriosApi.broadcastCurioBreakEvent(context));
                 }
 
                 if (!WingItem.isUsable(stack)) {

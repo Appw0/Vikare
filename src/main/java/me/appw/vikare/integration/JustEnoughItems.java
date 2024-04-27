@@ -2,8 +2,6 @@ package me.appw.vikare.integration;
 
 import me.appw.vikare.Vikare;
 import me.appw.vikare.common.items.WingItem;
-//import me.appw.vikare.core.crafting.ShinyWingsRecipe;
-//import me.appw.vikare.core.registry.RecipeSerializers;
 import me.appw.vikare.core.crafting.ShinyWingsRecipe;
 import me.appw.vikare.core.registry.RecipeSerializers;
 import mezz.jei.api.IModPlugin;
@@ -23,14 +21,14 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static me.appw.vikare.core.registry.Items.WINGS;

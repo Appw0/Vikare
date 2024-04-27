@@ -1,10 +1,7 @@
 package me.appw.vikare.core.config;
 
 
-import me.appw.vikare.Vikare;
-import me.appw.vikare.core.registry.Items;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
 import org.apache.commons.lang3.tuple.Pair;
 
 // TODO: Split this awful config into server/client sides for proper synchronization
