@@ -42,7 +42,7 @@ minecraft {
         client {
             workingDirectory project.file('run/client')
 
-            args '--username', 'Dev#'
+            args '--username', 'Dev####'
 
             property 'devauth.enabled', 'false'
 
