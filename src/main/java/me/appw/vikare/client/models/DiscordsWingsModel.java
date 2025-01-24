@@ -82,81 +82,81 @@ public class DiscordsWingsModel<T extends LivingEntity> extends WingsModel<T> {
                 PartPose.offsetAndRotation(0.0f, -1.0f, 8.5f, -0.5672f, 0.3054f, 0.0f));
 
         PartDefinition leftWing4Def = leftWing3Def.addOrReplaceChild("left_wing4", CubeListBuilder.create()
-                        .texOffs(55, 0).addBox(-0.7f, -0.2f, -0.5f, 1.0f, 14.0f, 1.0f).mirror(),
+                        .texOffs(55, 0).addBox(-0.7f, -0.2f, -0.5f, 1.0f, 14.0f, 1.0f, true),
                 PartPose.offsetAndRotation(0.0f, 0.5f, 7.2f, 1.0908f, 0.0f, 0.0f));
 
         leftWing4Def.addOrReplaceChild("left_wing5", CubeListBuilder.create()
-                        .texOffs(32, 31).addBox(0.4f, -4.0f, -12.3f, 0.001f, 20.0f, 13.0f).mirror(),
+                        .texOffs(32, 31).addBox(0.4f, -4.0f, -12.3f, 0.001f, 20.0f, 13.0f, true),
                 PartPose.offsetAndRotation(-0.5f, 4.8f, -0.2f, 0.0f, 0.0f, 0.0f));
 
         PartDefinition leftFeathers2Def = leftWing4Def.addOrReplaceChild("left_feathers2", CubeListBuilder.create(),
                 PartPose.offsetAndRotation(0.0f, -3.5f, -3.2f, 0.0f, 0.0f, 0.0873f));
 
         leftFeathers2Def.addOrReplaceChild("left_box1", CubeListBuilder.create()
-                        .texOffs(0, 36).addBox(0.0f, -6.6f, -13.8f, 1.0f, 14.0f, 14.0f).mirror(),
+                        .texOffs(0, 36).addBox(0.0f, -6.6f, -13.8f, 1.0f, 14.0f, 14.0f, true),
                 PartPose.offsetAndRotation(0.0f, 0.0f, 0.0f, 0.48f, 0.0f, 0.0f));
 
         PartDefinition leftFeathers1Def = leftWing2Def.addOrReplaceChild("left_feathers1", CubeListBuilder.create(),
                 PartPose.offsetAndRotation(0.6f, 1.3f, 1.5f, -0.1745f, -0.0873f, 0.0f));
 
         leftFeathers1Def.addOrReplaceChild("left_box2", CubeListBuilder.create()
-                        .texOffs(0, 10).addBox(-0.5f, -0.8f, -8.1f, 1.0f, 10.0f, 16.0f).mirror(),
+                        .texOffs(0, 10).addBox(-0.5f, -0.8f, -8.1f, 1.0f, 10.0f, 16.0f, true),
                 PartPose.offsetAndRotation(0.0f, 0.0f, 0.0f, 0.1745f, 0.0f, 0.0f));
 
         PartDefinition rightWing1Def = rightWingDef.addOrReplaceChild("right_wing1", CubeListBuilder.create()
-                        .texOffs(66, 0).addBox(-1.0f, -1.0f, -1.0f, 2.0f, 4.0f, 5.0f).mirror(),
+                        .texOffs(66, 0).addBox(-1.0f, -1.0f, -1.0f, 2.0f, 4.0f, 5.0f, true),
                 PartPose.offsetAndRotation(6.0f, 0.0f, 0.0f, 0.0f, -1.5708f, -0.436332f));
 
         PartDefinition rightWing2Def = rightWing1Def.addOrReplaceChild("right_wing2", CubeListBuilder.create()
-                        .texOffs(81, 0).addBox(-0.5f, 0.0f, -1.5f, 1.0f, 2.0f, 8.0f).mirror(),
+                        .texOffs(81, 0).addBox(-0.5f, 0.0f, -1.5f, 1.0f, 2.0f, 8.0f, true),
                 PartPose.offsetAndRotation(0.5f, 0.0f, 3.5f, 0.6109f, -0.48f, 0.0f));
 
         PartDefinition rightWing3Def = rightWing2Def.addOrReplaceChild("right_wing3", CubeListBuilder.create()
-                        .texOffs(101, 0).addBox(-0.5f, -1.1f, -0.5f, 1.0f, 2.0f, 8.0f).mirror(),
+                        .texOffs(101, 0).addBox(-0.5f, -1.1f, -0.5f, 1.0f, 2.0f, 8.0f, true),
                 PartPose.offsetAndRotation(0.0f, 1.0f, 6.5f, -0.5672f, -0.3054f, 0.0f));
 
         PartDefinition rightWing4Def = rightWing3Def.addOrReplaceChild("right_wing4", CubeListBuilder.create()
-                        .texOffs(60, 13).addBox(-0.4f, -0.8f, -4.0f, 1.0f, 1.0f, 19.0f).mirror(),
+                        .texOffs(60, 13).addBox(-0.4f, -0.8f, -4.0f, 1.0f, 1.0f, 19.0f, true),
                 PartPose.offsetAndRotation(0.0f, 0.0f, 7.5f, -0.7418f, 0.0f, 0.0f));
 
         rightWing4Def.addOrReplaceChild("right_wing4_leather", CubeListBuilder.create()
-                        .texOffs(95, 40).addBox(0.0f, 0.0f, 0.0f, 0.001f, 5.0f, 14.0f).mirror(),
+                        .texOffs(95, 40).addBox(0.0f, 0.0f, 0.0f, 0.001f, 5.0f, 14.0f, true),
                 PartPose.offsetAndRotation(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f));
 
         PartDefinition rightWingStrut1Def = rightWing3Def.addOrReplaceChild("right_wing_strut1", CubeListBuilder.create()
-                        .texOffs(83, 12).addBox(-0.4f, -0.5f, -0.5f, 1.0f, 1.0f, 16.0f).mirror(),
+                        .texOffs(83, 12).addBox(-0.4f, -0.5f, -0.5f, 1.0f, 1.0f, 16.0f, true),
                 PartPose.offsetAndRotation(0.0f, 1.0f, 7.0f, -1.0036f, 0.0f, 0.0f));
 
         rightWingStrut1Def.addOrReplaceChild("right_wing_strut1_leather", CubeListBuilder.create()
-                        .texOffs(95, 34).addBox(0.05f, 0.0f, 0.0f, 0.001f, 5.0f, 14.0f).mirror(),
+                        .texOffs(95, 34).addBox(0.05f, 0.0f, 0.0f, 0.001f, 5.0f, 14.0f, true),
                 PartPose.offsetAndRotation(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f));
 
         PartDefinition rightWingStrut2Def = rightWing3Def.addOrReplaceChild("right_wing_strut2", CubeListBuilder.create()
-                        .texOffs(83, 12).addBox(-0.4f, -0.5f, -0.5f, 1.0f, 1.0f, 16.0f).mirror(),
+                        .texOffs(83, 12).addBox(-0.4f, -0.5f, -0.5f, 1.0f, 1.0f, 16.0f, true),
                 PartPose.offsetAndRotation(0.0f, 1.0f, 6.0f, -1.309f, 0.0f, 0.0f));
 
         rightWingStrut2Def.addOrReplaceChild("right_wing_strut2_leather", CubeListBuilder.create()
-                        .texOffs(93, 25).addBox(0.1f, 0.0f, -1.0f, 0.001f, 6.0f, 16.0f).mirror(),
+                        .texOffs(93, 25).addBox(0.1f, 0.0f, -1.0f, 0.001f, 6.0f, 16.0f, true),
                 PartPose.offsetAndRotation(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f));
 
         PartDefinition rightWingStrut3Def = rightWing3Def.addOrReplaceChild("right_wing_strut3", CubeListBuilder.create()
-                        .texOffs(83, 12).addBox(-0.4f, -0.5f, -0.5f, 1.0f, 1.0f, 16.0f).mirror(),
+                        .texOffs(83, 12).addBox(-0.4f, -0.5f, -0.5f, 1.0f, 1.0f, 16.0f, true),
                 PartPose.offsetAndRotation(0.0f, 1.0f, 5.0f, -1.6581f, 0.0f, 0.0f));
 
         rightWingStrut3Def.addOrReplaceChild("right_wing_strut3_leather", CubeListBuilder.create()
-                        .texOffs(93, 19).addBox(0.15f, 0.0f, 0.0f, 0.001f, 6.0f, 15.0f).mirror(),
+                        .texOffs(93, 19).addBox(0.15f, 0.0f, 0.0f, 0.001f, 6.0f, 15.0f, true),
                 PartPose.offsetAndRotation(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f));
 
         PartDefinition rightStrutLowestDef = rightWing2Def.addOrReplaceChild("right_strut_lowest", CubeListBuilder.create()
-                        .texOffs(104, 12).addBox(0.1f, 0.0f, -0.5f, 1.0f, 12.0f, 1.0f).mirror(),
+                        .texOffs(104, 12).addBox(0.1f, 0.0f, -0.5f, 1.0f, 12.0f, 1.0f, true),
                 PartPose.offsetAndRotation(-0.5f, 1.0f, 2.0f, -0.3491f, 0.0f, 0.0f));
 
         rightStrutLowestDef.addOrReplaceChild("right_strut_lowest_leather1", CubeListBuilder.create()
-                        .texOffs(79, 28).addBox(0.0f, -1.0f, 0.0f, 0.001f, 12.0f, 6.0f).mirror(),
+                        .texOffs(79, 28).addBox(0.0f, -1.0f, 0.0f, 0.001f, 12.0f, 6.0f, true),
                 PartPose.offsetAndRotation(0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f));
 
         rightStrutLowestDef.addOrReplaceChild("right_strut_lowest_leather2", CubeListBuilder.create()
-                        .texOffs(60, 25).addBox(0.0f, -1.0f, -9.0f, 0.001f, 12.0f, 9.0f).mirror(),
+                        .texOffs(60, 25).addBox(0.0f, -1.0f, -9.0f, 0.001f, 12.0f, 9.0f, true),
                 PartPose.offsetAndRotation(0.5f, 0.0f, 0.0f, 0.0f, 0.2618f, 0.0f));
 
         return LayerDefinition.create(meshDef, 128, 64);

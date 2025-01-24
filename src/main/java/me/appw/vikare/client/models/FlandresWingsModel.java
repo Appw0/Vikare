@@ -437,38 +437,38 @@ public class FlandresWingsModel<T extends LivingEntity> extends WingsModel<T> {
                 PartPose.offsetAndRotation(-0.5f, 2.0f, 1.0f, -0.7854f, 0.0f, 0.0f));
 
         PartDefinition rightWing1Def = rightWingDef.addOrReplaceChild("right_wing1", CubeListBuilder.create()
-                        .texOffs(11, 0).addBox(-1.0f, -1.0f, -1.0f, 2.0f, 3.0f, 6.0f).mirror(),
+                        .texOffs(11, 0).addBox(-1.0f, -1.0f, -1.0f, 2.0f, 3.0f, 6.0f, true),
                 PartPose.offsetAndRotation(6.0f, 0.0f, 0.0f, 0.0f, -1.5708f, -0.436332f));
 
         PartDefinition rightWing2Def = rightWing1Def.addOrReplaceChild("right_wing2", CubeListBuilder.create()
-                        .texOffs(0, 0).addBox(0.0f, -1.0f, -1.0f, 1.0f, 2.0f, 9.0f).mirror(),
+                        .texOffs(0, 0).addBox(0.0f, -1.0f, -1.0f, 1.0f, 2.0f, 9.0f, true),
                 PartPose.offsetAndRotation(0.0f, 0.5f, 5.0f, 0.2618f, -0.3054f, 0.0f));
 
         PartDefinition rightWing3Def = rightWing2Def.addOrReplaceChild("right_wing3", CubeListBuilder.create()
-                        .texOffs(0, 0).addBox(-0.4f, -1.8f, 0.0f, 1.0f, 2.0f, 9.0f).mirror(),
+                        .texOffs(0, 0).addBox(-0.4f, -1.8f, 0.0f, 1.0f, 2.0f, 9.0f, true),
                 PartPose.offsetAndRotation(0.5f, 0.5f, 8.0f, 0.7854f, 0.0f, 0.0f));
 
         PartDefinition rightWing4Def = rightWing3Def.addOrReplaceChild("right_wing4", CubeListBuilder.create()
-                        .texOffs(0, 21).addBox(-0.3f, 0.0f, -0.6f, 1.0f, 11.0f, 1.0f).mirror(),
+                        .texOffs(0, 21).addBox(-0.3f, 0.0f, -0.6f, 1.0f, 11.0f, 1.0f, true),
                 PartPose.offsetAndRotation(0.0f, -1.0f, 9.0f, 0.6981f, 0.0f, 0.0f));
 
         PartDefinition rightWing5Def = rightWing4Def.addOrReplaceChild("right_wing5", CubeListBuilder.create()
-                        .texOffs(0, 21).addBox(-0.2f, -0.3f, -0.7f, 1.0f, 11.0f, 1.0f).mirror(),
+                        .texOffs(0, 21).addBox(-0.2f, -0.3f, -0.7f, 1.0f, 11.0f, 1.0f, true),
                 PartPose.offsetAndRotation(0.0f, 10.8f, 0.0f, -0.3054f, 0.0f, 0.0f));
 
         PartDefinition rightGem7Def = rightWing5Def.addOrReplaceChild("right_gem7", CubeListBuilder.create(),
                 PartPose.offsetAndRotation(-0.0308f, 2.2372f, 0.0333f, -0.9599f, 0.0f, 0.0f));
 
         rightGem7Def.addOrReplaceChild("gem_half_a9", CubeListBuilder.create()
-                        .texOffs(36, 30).addBox(-1.11f, -0.7f, -0.5f, 2.0f, 2.0f, 5.0f).mirror(),
+                        .texOffs(36, 30).addBox(-1.11f, -0.7f, -0.5f, 2.0f, 2.0f, 5.0f, true),
                 PartPose.offsetAndRotation(0.5f, 6.0f, 2.0f, -1.7453f, 0.0f, 0.0f));
 
         rightGem7Def.addOrReplaceChild("side_f_r9", CubeListBuilder.create()
-                        .texOffs(36, 30).addBox(-1.12f, -1.6f, -0.5f, 2.0f, 2.0f, 5.0f).mirror(),
+                        .texOffs(36, 30).addBox(-1.12f, -1.6f, -0.5f, 2.0f, 2.0f, 5.0f, true),
                 PartPose.offsetAndRotation(0.5f, 6.0f, -1.0f, -1.3963f, 0.0f, 0.0f));
 
         rightGem7Def.addOrReplaceChild("gem_center9", CubeListBuilder.create()
-                        .texOffs(40, 37).addBox(-1.1f, -0.5f, -0.3f, 2.0f, 3.0f, 3.0f).mirror(),
+                        .texOffs(40, 37).addBox(-1.1f, -0.5f, -0.3f, 2.0f, 3.0f, 3.0f, true),
                 PartPose.offsetAndRotation(0.5f, 4.0f, 0.5f, -0.7854f, 0.0f, 0.0f));
 
         rightGem7Def.addOrReplaceChild("gem_point9", CubeListBuilder.create()
@@ -476,22 +476,22 @@ public class FlandresWingsModel<T extends LivingEntity> extends WingsModel<T> {
                 PartPose.offsetAndRotation(0.5f, 10.0f, 0.5f, -0.7854f, 0.0f, 0.0f));
 
         rightGem7Def.addOrReplaceChild("gem_top9", CubeListBuilder.create()
-                        .texOffs(40, 43).addBox(-1.0f, -0.5f, -1.0f, 2.0f, 2.0f, 2.0f).mirror(),
+                        .texOffs(40, 43).addBox(-1.0f, -0.5f, -1.0f, 2.0f, 2.0f, 2.0f, true),
                 PartPose.offsetAndRotation(0.5f, 2.0f, 1.0f, -0.7854f, 0.0f, 0.0f));
 
         PartDefinition rightGem8Def = rightWing5Def.addOrReplaceChild("right_gem8", CubeListBuilder.create(),
                 PartPose.offsetAndRotation(-0.4383f, 8.6075f, 0.5953f, -0.9599f, 0.0f, 0.0f));
 
         rightGem8Def.addOrReplaceChild("gem_half_a10", CubeListBuilder.create()
-                        .texOffs(0, 11).addBox(-1.11f, -0.7f, -0.5f, 2.0f, 2.0f, 5.0f).mirror(),
+                        .texOffs(0, 11).addBox(-1.11f, -0.7f, -0.5f, 2.0f, 2.0f, 5.0f, true),
                 PartPose.offsetAndRotation(0.5f, 6.0f, 2.0f, -1.7453f, 0.0f, 0.0f));
 
         rightGem8Def.addOrReplaceChild("gem_half_b0", CubeListBuilder.create()
-                        .texOffs(0, 11).addBox(-1.12f, -1.6f, -0.5f, 2.0f, 2.0f, 5.0f).mirror(),
+                        .texOffs(0, 11).addBox(-1.12f, -1.6f, -0.5f, 2.0f, 2.0f, 5.0f, true),
                 PartPose.offsetAndRotation(0.5f, 6.0f, -1.0f, -1.3963f, 0.0f, 0.0f));
 
         rightGem8Def.addOrReplaceChild("gem_center10", CubeListBuilder.create()
-                        .texOffs(4, 18).addBox(-1.1f, -0.5f, -0.3f, 2.0f, 3.0f, 3.0f).mirror(),
+                        .texOffs(4, 18).addBox(-1.1f, -0.5f, -0.3f, 2.0f, 3.0f, 3.0f, true),
                 PartPose.offsetAndRotation(0.5f, 4.0f, 0.5f, -0.7854f, 0.0f, 0.0f));
 
         rightGem8Def.addOrReplaceChild("gem_point10", CubeListBuilder.create()
@@ -499,22 +499,22 @@ public class FlandresWingsModel<T extends LivingEntity> extends WingsModel<T> {
                 PartPose.offsetAndRotation(0.5f, 10.0f, 0.5f, -0.7854f, 0.0f, 0.0f));
 
         rightGem8Def.addOrReplaceChild("gem_top10", CubeListBuilder.create()
-                        .texOffs(4, 24).addBox(-1.0f, -0.5f, -1.0f, 2.0f, 2.0f, 2.0f).mirror(),
+                        .texOffs(4, 24).addBox(-1.0f, -0.5f, -1.0f, 2.0f, 2.0f, 2.0f, true),
                 PartPose.offsetAndRotation(0.5f, 2.0f, 1.0f, -0.7854f, 0.0f, 0.0f));
 
         PartDefinition rightGem5Def = rightWing4Def.addOrReplaceChild("right_gem5", CubeListBuilder.create(),
                 PartPose.offsetAndRotation(0.142f, 0.7935f, 0.1272f, -1.0472f, 0.0f, 0.0f));
 
         rightGem5Def.addOrReplaceChild("gem_half_a11", CubeListBuilder.create()
-                        .texOffs(4, 30).addBox(-1.11f, -0.7f, -0.5f, 2.0f, 2.0f, 5.0f).mirror(),
+                        .texOffs(4, 30).addBox(-1.11f, -0.7f, -0.5f, 2.0f, 2.0f, 5.0f, true),
                 PartPose.offsetAndRotation(0.5f, 6.0f, 2.0f, -1.7453f, 0.0f, 0.0f));
 
         rightGem5Def.addOrReplaceChild("gem_half_b1", CubeListBuilder.create()
-                        .texOffs(4, 30).addBox(-1.12f, -1.6f, -0.5f, 2.0f, 2.0f, 5.0f).mirror(),
+                        .texOffs(4, 30).addBox(-1.12f, -1.6f, -0.5f, 2.0f, 2.0f, 5.0f, true),
                 PartPose.offsetAndRotation(0.5f, 6.0f, -1.0f, -1.3963f, 0.0f, 0.0f));
 
         rightGem5Def.addOrReplaceChild("gem_center11", CubeListBuilder.create()
-                        .texOffs(8, 37).addBox(-1.1f, -0.5f, -0.3f, 2.0f, 3.0f, 3.0f).mirror(),
+                        .texOffs(8, 37).addBox(-1.1f, -0.5f, -0.3f, 2.0f, 3.0f, 3.0f, true),
                 PartPose.offsetAndRotation(0.5f, 4.0f, 0.5f, -0.7854f, 0.0f, 0.0f));
 
         rightGem5Def.addOrReplaceChild("gem_point11", CubeListBuilder.create()
@@ -522,22 +522,22 @@ public class FlandresWingsModel<T extends LivingEntity> extends WingsModel<T> {
                 PartPose.offsetAndRotation(0.5f, 10.0f, 0.5f, -0.7854f, 0.0f, 0.0f));
 
         rightGem5Def.addOrReplaceChild("gem_top11", CubeListBuilder.create()
-                        .texOffs(8, 43).addBox(-1.0f, -0.5f, -1.0f, 2.0f, 2.0f, 2.0f).mirror(),
+                        .texOffs(8, 43).addBox(-1.0f, -0.5f, -1.0f, 2.0f, 2.0f, 2.0f, true),
                 PartPose.offsetAndRotation(0.5f, 2.0f, 1.0f, -0.7854f, 0.0f, 0.0f));
 
         PartDefinition rightGem6Def = rightWing4Def.addOrReplaceChild("right_gem6", CubeListBuilder.create(),
                 PartPose.offsetAndRotation(-0.3039f, 5.7996f, 0.357f, -1.0472f, 0.0f, 0.0f));
 
         rightGem6Def.addOrReplaceChild("gem_half_a12", CubeListBuilder.create()
-                        .texOffs(20, 30).addBox(-1.11f, -0.7f, -0.5f, 2.0f, 2.0f, 5.0f).mirror(),
+                        .texOffs(20, 30).addBox(-1.11f, -0.7f, -0.5f, 2.0f, 2.0f, 5.0f, true),
                 PartPose.offsetAndRotation(0.5f, 6.0f, 2.0f, -1.7453f, 0.0f, 0.0f));
 
         rightGem6Def.addOrReplaceChild("gem_half_b2", CubeListBuilder.create()
-                        .texOffs(20, 30).addBox(-1.12f, -1.6f, -0.5f, 2.0f, 2.0f, 5.0f).mirror(),
+                        .texOffs(20, 30).addBox(-1.12f, -1.6f, -0.5f, 2.0f, 2.0f, 5.0f, true),
                 PartPose.offsetAndRotation(0.5f, 6.0f, -1.0f, -1.3963f, 0.0f, 0.0f));
 
         rightGem6Def.addOrReplaceChild("gem_center12", CubeListBuilder.create()
-                        .texOffs(24, 37).addBox(-1.1f, -0.5f, -0.3f, 2.0f, 3.0f, 3.0f).mirror(),
+                        .texOffs(24, 37).addBox(-1.1f, -0.5f, -0.3f, 2.0f, 3.0f, 3.0f, true),
                 PartPose.offsetAndRotation(0.5f, 4.0f, 0.5f, -0.7854f, 0.0f, 0.0f));
 
         rightGem6Def.addOrReplaceChild("gem_point12", CubeListBuilder.create()
@@ -545,22 +545,22 @@ public class FlandresWingsModel<T extends LivingEntity> extends WingsModel<T> {
                 PartPose.offsetAndRotation(0.5f, 10.0f, 0.5f, -0.7854f, 0.0f, 0.0f));
 
         rightGem6Def.addOrReplaceChild("gem_top12", CubeListBuilder.create()
-                        .texOffs(24, 43).addBox(-1.0f, -0.5f, -1.0f, 2.0f, 2.0f, 2.0f).mirror(),
+                        .texOffs(24, 43).addBox(-1.0f, -0.5f, -1.0f, 2.0f, 2.0f, 2.0f, true),
                 PartPose.offsetAndRotation(0.5f, 2.0f, 1.0f, -0.7854f, 0.0f, 0.0f));
 
         PartDefinition rightGem4Def = rightWing3Def.addOrReplaceChild("right_gem4", CubeListBuilder.create(),
                 PartPose.offsetAndRotation(0.4345f, -0.814f, 3.3462f, -0.1309f, 0.0f, 0.0f));
 
         rightGem4Def.addOrReplaceChild("gem_half_a13", CubeListBuilder.create()
-                        .texOffs(45, 11).addBox(-1.11f, -0.7f, -0.5f, 2.0f, 2.0f, 5.0f).mirror(),
+                        .texOffs(45, 11).addBox(-1.11f, -0.7f, -0.5f, 2.0f, 2.0f, 5.0f, true),
                 PartPose.offsetAndRotation(0.5f, 6.0f, 2.0f, -1.7453f, 0.0f, 0.0f));
 
         rightGem4Def.addOrReplaceChild("gem_half_b3", CubeListBuilder.create()
-                        .texOffs(45, 11).addBox(-1.12f, -1.6f, -0.5f, 2.0f, 2.0f, 5.0f).mirror(),
+                        .texOffs(45, 11).addBox(-1.12f, -1.6f, -0.5f, 2.0f, 2.0f, 5.0f, true),
                 PartPose.offsetAndRotation(0.5f, 6.0f, -1.0f, -1.3963f, 0.0f, 0.0f));
 
         rightGem4Def.addOrReplaceChild("gem_center13", CubeListBuilder.create()
-                        .texOffs(49, 18).addBox(-1.1f, -0.5f, -0.3f, 2.0f, 3.0f, 3.0f).mirror(),
+                        .texOffs(49, 18).addBox(-1.1f, -0.5f, -0.3f, 2.0f, 3.0f, 3.0f, true),
                 PartPose.offsetAndRotation(0.5f, 4.0f, 0.5f, -0.7854f, 0.0f, 0.0f));
 
         rightGem4Def.addOrReplaceChild("gem_point13", CubeListBuilder.create()
@@ -568,22 +568,22 @@ public class FlandresWingsModel<T extends LivingEntity> extends WingsModel<T> {
                 PartPose.offsetAndRotation(0.5f, 10.0f, 0.5f, -0.7854f, 0.0f, 0.0f));
 
         rightGem4Def.addOrReplaceChild("gem_top13", CubeListBuilder.create()
-                        .texOffs(49, 24).addBox(-1.0f, -0.5f, -1.0f, 2.0f, 2.0f, 2.0f).mirror(),
+                        .texOffs(49, 24).addBox(-1.0f, -0.5f, -1.0f, 2.0f, 2.0f, 2.0f, true),
                 PartPose.offsetAndRotation(0.5f, 2.0f, 1.0f, -0.7854f, 0.0f, 0.0f));
 
         PartDefinition rightGem1Def = rightWing2Def.addOrReplaceChild("right_gem1", CubeListBuilder.create(),
                 PartPose.offsetAndRotation(-0.6635f, 0.2041f, -1.1535f, 0.0f, 0.0f, 0.0f));
 
         rightGem1Def.addOrReplaceChild("gem_half_a14", CubeListBuilder.create()
-                        .texOffs(0, 11).addBox(-1.11f, -0.7f, -0.5f, 2.0f, 2.0f, 5.0f).mirror(),
+                        .texOffs(0, 11).addBox(-1.11f, -0.7f, -0.5f, 2.0f, 2.0f, 5.0f, true),
                 PartPose.offsetAndRotation(0.5f, 6.0f, 2.0f, -1.7453f, 0.0f, 0.0f));
 
         rightGem1Def.addOrReplaceChild("gem_half_b4", CubeListBuilder.create()
-                        .texOffs(0, 11).addBox(-1.12f, -1.6f, -0.5f, 2.0f, 2.0f, 5.0f).mirror(),
+                        .texOffs(0, 11).addBox(-1.12f, -1.6f, -0.5f, 2.0f, 2.0f, 5.0f, true),
                 PartPose.offsetAndRotation(0.5f, 6.0f, -1.0f, -1.3963f, 0.0f, 0.0f));
 
         rightGem1Def.addOrReplaceChild("gem_center14", CubeListBuilder.create()
-                        .texOffs(4, 18).addBox(-1.1f, -0.5f, -0.3f, 2.0f, 3.0f, 3.0f).mirror(),
+                        .texOffs(4, 18).addBox(-1.1f, -0.5f, -0.3f, 2.0f, 3.0f, 3.0f, true),
                 PartPose.offsetAndRotation(0.5f, 4.0f, 0.5f, -0.7854f, 0.0f, 0.0f));
 
         rightGem1Def.addOrReplaceChild("gem_point14", CubeListBuilder.create()
@@ -591,22 +591,22 @@ public class FlandresWingsModel<T extends LivingEntity> extends WingsModel<T> {
                 PartPose.offsetAndRotation(0.5f, 10.0f, 0.5f, -0.7854f, 0.0f, 0.0f));
 
         rightGem1Def.addOrReplaceChild("gem_top14", CubeListBuilder.create()
-                        .texOffs(4, 24).addBox(-1.0f, -0.5f, -1.0f, 2.0f, 2.0f, 2.0f).mirror(),
+                        .texOffs(4, 24).addBox(-1.0f, -0.5f, -1.0f, 2.0f, 2.0f, 2.0f, true),
                 PartPose.offsetAndRotation(0.5f, 2.0f, 1.0f, -0.7854f, 0.0f, 0.0f));
 
         PartDefinition rightGem2Def = rightWing2Def.addOrReplaceChild("right_gem2", CubeListBuilder.create(),
                 PartPose.offsetAndRotation(-0.267f, -0.1566f, 4.027f, 0.0873f, 0.0f, 0.0f));
 
         rightGem2Def.addOrReplaceChild("gem_half_a15", CubeListBuilder.create()
-                        .texOffs(15, 11).addBox(-1.11f, -0.7f, -0.5f, 2.0f, 2.0f, 5.0f).mirror(),
+                        .texOffs(15, 11).addBox(-1.11f, -0.7f, -0.5f, 2.0f, 2.0f, 5.0f, true),
                 PartPose.offsetAndRotation(0.5f, 6.0f, 2.0f, -1.7453f, 0.0f, 0.0f));
 
         rightGem2Def.addOrReplaceChild("gem_half_b5", CubeListBuilder.create()
-                        .texOffs(15, 11).addBox(-1.12f, -1.6f, -0.5f, 2.0f, 2.0f, 5.0f).mirror(),
+                        .texOffs(15, 11).addBox(-1.12f, -1.6f, -0.5f, 2.0f, 2.0f, 5.0f, true),
                 PartPose.offsetAndRotation(0.5f, 6.0f, -1.0f, -1.3963f, 0.0f, 0.0f));
 
         rightGem2Def.addOrReplaceChild("gem_center15", CubeListBuilder.create()
-                        .texOffs(19, 18).addBox(-1.1f, -0.5f, -0.3f, 2.0f, 3.0f, 3.0f).mirror(),
+                        .texOffs(19, 18).addBox(-1.1f, -0.5f, -0.3f, 2.0f, 3.0f, 3.0f, true),
                 PartPose.offsetAndRotation(0.5f, 4.0f, 0.5f, -0.7854f, 0.0f, 0.0f));
 
         rightGem2Def.addOrReplaceChild("gem_point15", CubeListBuilder.create()
@@ -614,22 +614,22 @@ public class FlandresWingsModel<T extends LivingEntity> extends WingsModel<T> {
                 PartPose.offsetAndRotation(0.5f, 10.0f, 0.5f, -0.7854f, 0.0f, 0.0f));
 
         rightGem2Def.addOrReplaceChild("gem_top15", CubeListBuilder.create()
-                        .texOffs(19, 24).addBox(-1.0f, -0.5f, -1.0f, 2.0f, 2.0f, 2.0f).mirror(),
+                        .texOffs(19, 24).addBox(-1.0f, -0.5f, -1.0f, 2.0f, 2.0f, 2.0f, true),
                 PartPose.offsetAndRotation(0.5f, 2.0f, 1.0f, -0.7854f, 0.0f, 0.0f));
 
         PartDefinition rightGem3Def = rightWing2Def.addOrReplaceChild("right_gem3", CubeListBuilder.create(),
                 PartPose.offsetAndRotation(-0.1582f, -0.1549f, 7.1073f, 0.48f, 0.0f, 0.0f));
 
         rightGem3Def.addOrReplaceChild("gem_half_a16", CubeListBuilder.create()
-                        .texOffs(30, 11).addBox(-1.11f, -0.7f, -0.5f, 2.0f, 2.0f, 5.0f).mirror(),
+                        .texOffs(30, 11).addBox(-1.11f, -0.7f, -0.5f, 2.0f, 2.0f, 5.0f, true),
                 PartPose.offsetAndRotation(0.5f, 6.0f, 2.0f, -1.7453f, 0.0f, 0.0f));
 
         rightGem3Def.addOrReplaceChild("gem_half_b6", CubeListBuilder.create()
-                        .texOffs(30, 11).addBox(-1.12f, -1.6f, -0.5f, 2.0f, 2.0f, 5.0f).mirror(),
+                        .texOffs(30, 11).addBox(-1.12f, -1.6f, -0.5f, 2.0f, 2.0f, 5.0f, true),
                 PartPose.offsetAndRotation(0.5f, 6.0f, -1.0f, -1.3963f, 0.0f, 0.0f));
 
         rightGem3Def.addOrReplaceChild("gem_center16", CubeListBuilder.create()
-                        .texOffs(34, 18).addBox(-1.1f, -0.5f, -0.3f, 2.0f, 3.0f, 3.0f).mirror(),
+                        .texOffs(34, 18).addBox(-1.1f, -0.5f, -0.3f, 2.0f, 3.0f, 3.0f, true),
                 PartPose.offsetAndRotation(0.5f, 4.0f, 0.5f, -0.7854f, 0.0f, 0.0f));
 
         rightGem3Def.addOrReplaceChild("gem_point16", CubeListBuilder.create()
@@ -637,7 +637,7 @@ public class FlandresWingsModel<T extends LivingEntity> extends WingsModel<T> {
                 PartPose.offsetAndRotation(0.5f, 10.0f, 0.5f, -0.7854f, 0.0f, 0.0f));
 
         rightGem3Def.addOrReplaceChild("gem_top16", CubeListBuilder.create()
-                        .texOffs(34, 24).addBox(-1.0f, -0.5f, -1.0f, 2.0f, 2.0f, 2.0f).mirror(),
+                        .texOffs(34, 24).addBox(-1.0f, -0.5f, -1.0f, 2.0f, 2.0f, 2.0f, true),
                 PartPose.offsetAndRotation(0.5f, 2.0f, 1.0f, -0.7854f, 0.0f, 0.0f));
 
         return LayerDefinition.create(meshDef, 64, 64);

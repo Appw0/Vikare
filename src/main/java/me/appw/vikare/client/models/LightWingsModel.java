@@ -49,23 +49,23 @@ public class LightWingsModel<T extends LivingEntity> extends WingsModel<T> {
                 PartPose.offsetAndRotation(8.0f, 0.0f, 0.0f, 0.0f, 0.0f, -0.836332f));
 
         rightWingMainDef.addOrReplaceChild("right_wing1", CubeListBuilder.create()
-                        .texOffs(26, 18).addBox(-1.0f, -4.0f, 0.0f, 2.0f, 13.0f, 0.001f).mirror(),
+                        .texOffs(26, 18).addBox(-1.0f, -4.0f, 0.0f, 2.0f, 13.0f, 0.001f, true),
                 PartPose.offsetAndRotation(-3.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.3054f));
 
         rightWingMainDef.addOrReplaceChild("right_wing2", CubeListBuilder.create()
-                        .texOffs(25, 12).addBox(-1.5f, -4.0f, 0.0f, 3.0f, 19.0f, 0.001f).mirror(),
+                        .texOffs(25, 12).addBox(-1.5f, -4.0f, 0.0f, 3.0f, 19.0f, 0.001f, true),
                 PartPose.offsetAndRotation(-6.0f, -3.0f, 1.0f, 0.0f, 0.0f, 0.48f));
 
         rightWingMainDef.addOrReplaceChild("right_wing3", CubeListBuilder.create()
-                        .texOffs(25, 8).addBox(-1.5f, -4.0f, 0.0f, 3.0f, 23.0f, 0.001f).mirror(),
+                        .texOffs(25, 8).addBox(-1.5f, -4.0f, 0.0f, 3.0f, 23.0f, 0.001f, true),
                 PartPose.offsetAndRotation(-9.5f, -5.0f, 1.0f, 0.0f, 0.0f, 0.6981f));
 
         rightWingMainDef.addOrReplaceChild("right_wing4", CubeListBuilder.create()
-                        .texOffs(19, 16).addBox(-1.0f, -4.0f, 0.0f, 2.0f, 15.0f, 0.001f).mirror(),
+                        .texOffs(19, 16).addBox(-1.0f, -4.0f, 0.0f, 2.0f, 15.0f, 0.001f, true),
                 PartPose.offsetAndRotation(-12.0f, -7.75f, 1.0f, 0.0f, 0.0f, 0.9599f));
 
         rightWingMainDef.addOrReplaceChild("right_wing5", CubeListBuilder.create()
-                        .texOffs(12, 21).addBox(-0.5f, -2.0f, 0.0f, 2.0f, 10.0f, 0.001f).mirror(),
+                        .texOffs(12, 21).addBox(-0.5f, -2.0f, 0.0f, 2.0f, 10.0f, 0.001f, true),
                 PartPose.offsetAndRotation(-12.25f, -11.75f, 1.0f, 0.0f, 0.0f, 1.0908f));
 
         PartDefinition leftWingMainDef = leftWingDef.addOrReplaceChild("left_wing_main", CubeListBuilder.create(),
