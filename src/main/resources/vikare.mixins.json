@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "me.appw.vikare.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "vikare.refmap.json",
+  "mixins": [
+    "EntityMixin"
+  ],
+  "client": [
+    "MouseHandlerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

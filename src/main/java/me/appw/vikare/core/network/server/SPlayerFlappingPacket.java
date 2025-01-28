@@ -47,10 +47,11 @@ public class SPlayerFlappingPacket {
             if (world != null) {
                 Entity entity = world.getEntity(message.entityId);
                 if (entity instanceof Player player && entity != Minecraft.getInstance().player) {
-                    Optional<SlotResult> slotOpt = CuriosApi.getCuriosHelper().findFirstCurio(player, stack -> stack.getItem() instanceof WingItem);
-                    slotOpt.flatMap(slotResult -> CuriosApi.getCuriosHelper().getCurio(slotResult.stack())
-                                    .filter(curio -> curio instanceof WingItemCapability))
-                            .ifPresent(curio -> ((WingItemCapability) curio).setForcedFlap(message.isFlapping));
+                    CuriosApi.getCuriosInventory(player).ifPresent(inventory -> inventory.findFirstCurio(stack -> stack.getItem() instanceof WingItem)
+                            .flatMap(slotResult -> CuriosApi.getCurio(slotResult.stack()).filter(curio -> curio instanceof WingItemCapability))
+                            .ifPresent(
+                                curio -> ((WingItemCapability) curio).setForcedFlap(message.isFlapping)
+                            ));
                 }
             }
         });

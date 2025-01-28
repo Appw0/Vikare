@@ -126,7 +126,7 @@ public class VikareClient {
                 double strafingRollOffset = player.getForward().cross(player.getUpVector(1.0f)).normalize().dot(player.getDeltaMovement()) * -15;
                 strafingRollOffset = Mth.clamp(strafingRollOffset, -70, 70);
                 prevRollOffset = strafingRollOffset = Mth.lerp(event.getPartialTick(), prevRollOffset, strafingRollOffset);
-                event.setRoll((float)(strafingRollOffset * VikareConfig.COMMON.rollAmount.get()));
+                event.setRoll((float)(strafingRollOffset * VikareConfig.CLIENT.rollAmount.get()));
             }
         }
 

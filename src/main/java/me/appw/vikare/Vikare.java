@@ -10,9 +10,11 @@ import me.appw.vikare.core.registry.Sounds;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
@@ -35,8 +37,10 @@ public class Vikare {
 //        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
         // Register the doClientStuff method for modloading
 //        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(VikareConfig::onConfigUpdate);
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, VikareConfig.COMMON_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, VikareConfig.SERVER_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, VikareConfig.CLIENT_SPEC);
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
         Sounds.register();
@@ -46,11 +50,6 @@ public class Vikare {
 
     private void setup(final FMLCommonSetupEvent event) {
         LOGGER.info("winga dinga");
-
-        // This is not good
-        // TODO: Find a better solution to this
-        Items.WINGS.getEntries().forEach(wings -> wings.get().maxDamage = VikareConfig.COMMON.wingsDurability.get());
-
         NetworkHandler.register();
     }
 

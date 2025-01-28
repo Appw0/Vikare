@@ -125,7 +125,7 @@ public class WingItemCapability implements ICurio {
     public void applySpeed(Player player) {
         Vec3 rotation = player.getLookAngle();
         Vec3 velocity = player.getDeltaMovement();
-        double modifier = VikareConfig.COMMON.armorSlows.get() ? Mth.clamp(player.getArmorValue() / 10F, 1F, VikareConfig.COMMON.maxSlowedMultiplier.get()) : 1F;
+        double modifier = VikareConfig.SERVER.armorSlows.get() ? Mth.clamp(player.getArmorValue() / 10F, 1F, VikareConfig.SERVER.maxSlowedMultiplier.get()) : 1F;
         modifier = player.isInWater() ? 200F : modifier; // TODO: backport this
 
         velocity = velocity.add(

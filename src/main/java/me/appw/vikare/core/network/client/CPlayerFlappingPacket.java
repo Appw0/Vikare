@@ -38,19 +38,20 @@ public class CPlayerFlappingPacket {
             ServerPlayer sender = ctx.get().getSender();
 
             if (sender != null) {
-                Optional<SlotResult> slotOpt = CuriosApi.getCuriosHelper().findFirstCurio(sender, stack -> stack.getItem() instanceof WingItem);
+                Optional<SlotResult> slotOpt = CuriosApi.getCuriosInventory(sender).resolve().flatMap(inventory -> inventory.findFirstCurio(stack -> stack.getItem() instanceof WingItem));
+
                 slotOpt.ifPresent(slotResult -> {
                     ItemStack wings = slotResult.stack();
                     if (!sender.isCreative() && !wings.is(WingItem.FREE_FLIGHT)) {
-                        sender.causeFoodExhaustion(VikareConfig.COMMON.exhaustionAmount.get().floatValue());
+                        sender.causeFoodExhaustion(VikareConfig.SERVER.exhaustionAmount.get().floatValue());
                     }
 
                     if (message.state != FlappingState.NONE) {
                         SPlayerFlappingPacket.send(sender, message.state);
                     }
 
-                    if (wings.is(WingItem.MELTS) && VikareConfig.COMMON.wingsDurability.get() > 0 && sender.tickCount % 20 == 0 && WingItem.isUsable(wings)) {
-                        wings.hurtAndBreak(1, sender, p -> CuriosApi.getCuriosHelper().onBrokenCurio(slotResult.slotContext()));
+                    if (wings.is(WingItem.MELTS) && VikareConfig.SERVER.wingsDurability.get() > 0 && sender.tickCount % 20 == 0 && WingItem.isUsable(wings)) {
+                        wings.hurtAndBreak(1, sender, p -> CuriosApi.broadcastCurioBreakEvent(slotResult.slotContext()));
                     }
                 });
             }

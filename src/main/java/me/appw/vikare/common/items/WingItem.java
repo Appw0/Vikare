@@ -80,10 +80,10 @@ public class WingItem extends Item { //, IDyeableArmorItem {
     }
 
     // TODO: Backport this
-    public double getSpeed() { return VikareConfig.COMMON.wingsSpeed.get(); }
+    public double getSpeed() { return VikareConfig.SERVER.wingsSpeed.get(); }
 
     // TODO: Backport this
-    public double getAcceleration() { return VikareConfig.COMMON.wingsAcceleration.get(); }
+    public double getAcceleration() { return VikareConfig.SERVER.wingsAcceleration.get(); }
 
     public static boolean isUsable(ItemStack stack) {
         return stack.getDamageValue() < stack.getMaxDamage() - 1;
