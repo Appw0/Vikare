@@ -71,7 +71,6 @@ public class FeatheredWingsModel<T extends LivingEntity> extends WingsModel<T> {
                 PartPose.offsetAndRotation(0.0f, -1.0f, 8.5f, -0.5672f, 0.3054f, 0.0f));
 
         // TODO: Backport this mirror() VS (, true) bug
-
         PartDefinition leftWing4Def = leftWing3Def.addOrReplaceChild("left_wing4", CubeListBuilder.create()
                         .texOffs(33, 25).addBox(-0.7f, -0.2f, -0.5f, 1.0f, 14.0f, 1.0f, true),
                 PartPose.offsetAndRotation(0.0f, 0.5f, 7.2f, 1.0908f, 0.0f, 0.0f));
@@ -79,6 +78,11 @@ public class FeatheredWingsModel<T extends LivingEntity> extends WingsModel<T> {
         leftWing4Def.addOrReplaceChild("left_wing5", CubeListBuilder.create()
                         .texOffs(0, 13).addBox(0.4f, -4.0f, -12.3f, 0.001f, 20.0f, 13.0f, true),
                 PartPose.offsetAndRotation(-0.5f, 4.8f, -0.2f, 0.0f, 0.0f, 0.0f));
+
+        // TODO: Backport this extra model to fix visual thingy
+        leftWing4Def.addOrReplaceChild("left_wing6", CubeListBuilder.create()
+                        .texOffs(0, 13).addBox(0.4f, -4.0f, -12.3f, 0.001f, 20.0f, 13.0f, false),
+                PartPose.offsetAndRotation(-0.6f, 4.8f, -0.2f, 0.0f, 0.0f, 0.0f));
 
         PartDefinition leftFeathers2Def = leftWing4Def.addOrReplaceChild("left_feathers2", CubeListBuilder.create(),
                 PartPose.offsetAndRotation(0.0f, -3.5f, -3.2f, 0.0f, 0.0f, 0.0873f));
@@ -114,6 +118,11 @@ public class FeatheredWingsModel<T extends LivingEntity> extends WingsModel<T> {
                         .texOffs(0, 13).addBox(-0.4f, -4.0f, -12.3f, 0.001f, 20.0f, 13.0f),
                 PartPose.offsetAndRotation(0.5f, 4.8f, -0.2f, 0.0f, 0.0f, 0.0f));
 
+        // TODO: Backport this extra model to fix visual thingy
+        rightWing4Def.addOrReplaceChild("right_wing6", CubeListBuilder.create()
+                        .texOffs(0, 13).addBox(-0.4f, -4.0f, -12.3f, 0.001f, 20.0f, 13.0f, true),
+                PartPose.offsetAndRotation(0.6f, 4.8f, -0.2f, 0.0f, 0.0f, 0.0f));
+
         PartDefinition rightFeathers2Def = rightWing4Def.addOrReplaceChild("right_feathers2", CubeListBuilder.create(),
                 PartPose.offsetAndRotation(0.0f, -3.5f, -3.2f, 0.0f, 0.0f, -0.0873f));
 
@@ -137,8 +146,7 @@ public class FeatheredWingsModel<T extends LivingEntity> extends WingsModel<T> {
 
         if (state.status == State.IDLE || state.status == State.CROUCHING) {
             leftWing3.xRot = (float) Math.toRadians(-60);
-        }
-        if (state.status == State.FLYING) {
+        } else if (state.status == State.FLYING) {
             leftWing3.xRot = (float) Math.toRadians(-32.5);
         }
         rightWing3.xRot = leftWing3.xRot;
